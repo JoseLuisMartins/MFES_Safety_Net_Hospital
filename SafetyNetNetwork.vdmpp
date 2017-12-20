@@ -11,16 +11,66 @@ operations
 		(
 			dcl safetyNet: SafetyNetNetwork := SafetyNetNetwork`getInstance();
 				
-			dcl hos1: Hospital := new Hospital("name","location",4);
-			dcl hos2: Hospital := new Hospital("name2","location",4);
+			dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+			dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);
+			
+			dcl doc1: Doctor := new Doctor("jose",<ORTOPEDIA>);
+			dcl doc2: Doctor := new Doctor("marcelo",<CARDIOLOGIA>);
 			
 			safetyNet.addHospital(hos1);
 			safetyNet.addHospital(hos2);
 			
+			safetyNet.addDoctor(doc1);
+			safetyNet.addDoctor(doc2);
+			
+			safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+			safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
+			safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
+			
+		
+			IO`println("Network");
 			IO`println(safetyNet);
+			
+			IO`println("All Hospitals");
+			IO`println(safetyNet.getAllHospitals());
+		
+			IO`println("Hospitals by name");
+			IO`println(safetyNet.getHospitalsByName("sao joao"));
+		
+			IO`println("Hospitals by location");
+			IO`println(safetyNet.getHospitalsByLocation("lisboa"));
+			
+			IO`println("Hospitals specialties->1");
+			IO`println(safetyNet.getHospitalSpecialties(hos1.getId()));
+		
+			IO`println("Hospitals specialties->2");
+			IO`println(safetyNet.getHospitalSpecialties(hos2.getId()));
+			
+				
+			IO`println("Hospitals number appointmens");
+			IO`println(safetyNet.getHospitalNumberOfAppointments(hos1.getId()));
+		
+			IO`println("Hospitals where a doctor works");
+			IO`println(safetyNet.getDoctorHospitals(doc1.getId()));
+			
+			
+			
+			IO`println("Removed doc1");
+			safetyNet.removeDoctor(doc1);
+			
+				
+			IO`println("Hospitals specialties->1");
+			IO`println(safetyNet.getHospitalSpecialties(hos1.getId()));
+		
+			IO`println("Hospitals specialties->2");
+			IO`println(safetyNet.getHospitalSpecialties(hos2.getId()));
+				
+			IO`println("Hospitals where a doctor works");
+			IO`println(safetyNet.getDoctorHospitals(doc1.getId()));
+			
+			
 		
 		);
-
 
 
 		--constructor
@@ -32,15 +82,6 @@ operations
 		public pure static getInstance: () ==> SafetyNetNetwork
 		getInstance() == return networkInstance;
 
-
-	  -- returns the hospital with a specified name
-		public pure getHospitalbyName: Utils`String ==> [Hospital]
-		getHospitalbyName(name) == (
-			for all i in set dom hospitals do
-				if (hospitals(i).getName() = name) then
-					return hospitals(i);
-			return nil;
-		);
 		
 		--add hospital
 		public addHospital: Hospital ==> ()
@@ -52,7 +93,7 @@ operations
 		
 		--remove an hospital
 		public removeHospital: Hospital ==> ()
-		removeHospital(hospital) == (
+		removeHospital(hospital) == (			
 			hospitals := {hospital.getId()} <-: hospitals;
 		)
 	  pre {hospital.getId()} <: hospitals = { hospital.getId() |-> hospital } 
@@ -66,13 +107,18 @@ operations
 		pre {doctor.getId() } <: doctors = { |-> }  
 		post {doctor.getId() } <: doctors = { doctor.getId() |-> doctor };
 		
-		--remove an doctor
+		--remove doctor from the network and from all the hospitals where he works
 		public removeDoctor: Doctor ==> ()
 		removeDoctor(doctor) == (
+			--remove doctor from network
 			doctors := {doctor.getId()} <-: doctors;
+			--remove doctor from hospital
+			for all h in set rng hospitals do 
+				if(doctor.getId() in set h.getDoctorsIds()) then
+					h.removeDoctor(doctor.getId())
 		)
 	  pre {doctor.getId()} <: doctors = { doctor.getId() |-> doctor } 
-		post {doctor.getId()} <: doctors = { |-> };
+		post {doctor.getId()} <: doctors = { |-> }; -- imcompleta- falta ver a parte dos hospitais
 		
 		--associate doctor to hospital
 		public associateDoctorToHospital : nat * nat ==> ()
@@ -89,7 +135,81 @@ operations
 		pre hospitalId in set dom hospitals and doctorId in set dom doctors;
 				
 		
-		--search hospitals
+		--Hospital
+		-------search hospitals------------------------------------
+		----------get all hospitals
+		public getAllHospitals: () ==> set of Hospital
+			getAllHospitals() == (
+				dcl res : set of Hospital := {};
+				for all h in set rng hospitals do
+						res := res union {h};
+				return res
+			);
+			
+		----------get hospitals by location
+		public getHospitalsByLocation: Utils`String ==> set of Hospital
+			getHospitalsByLocation(location) == (
+				dcl res : set of Hospital := {};
+				for all h in set rng hospitals do
+						if(h.getLocation() = location) then
+							res := res union {h};
+				return res
+			);
+		
+		----------get hospitals by name
+		public getHospitalsByName: Utils`String ==> set of Hospital
+			getHospitalsByName(name) == (
+				dcl res : set of Hospital := {};
+				for all h in set rng hospitals do
+						if(h.getName() = name) then
+							res := res union {h};
+				return res
+			);
+			
+		-------------------End hospital search--------------------------------
+				
+		-- get hospitals by name
+		public getHospitalSpecialties: nat ==> set of Utils`Specialty
+			getHospitalSpecialties(hospitalId) == (
+				dcl res : set of Utils`Specialty := {};
+					for all doctorId in set hospitals(hospitalId).getDoctorsIds() do
+							res := res union {doctors(doctorId).getSpecialty()};
+				return res
+			);
+			
+
+		-- total number of appointments in a hospital
+		public getHospitalNumberOfAppointments: nat ==> nat
+			getHospitalNumberOfAppointments(hospitalId) == (
+				dcl res : nat := 0;
+					for all doctorId in set hospitals(hospitalId).getDoctorsIds() do
+						res := res + card doctors(doctorId).getAppointments();
+				return res
+			);
+		
+		-----------------------end hospital ---------------------------
+		
+		---------------------------------------------------------
+		-----------------------Doctors --------------------------
+		---------------------------------------------------------
+		
+		
+		--search doctors--------------------------------
+		---get hospitals where a doctor works
+		
+		
+		
+		public getDoctorHospitals: nat ==> set of Hospital
+			getDoctorHospitals(doctorId) == (
+				dcl res : set of Hospital := {};
+				for all h in set rng hospitals do
+					if(doctorId in set h.getDoctorsIds()) then
+						res := res union {h};
+				return res
+			);
+			
+			
+		
 		--search doctors
 		--add apointment (id hospital, id doctor, appointment)
 		

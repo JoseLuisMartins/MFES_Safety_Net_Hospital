@@ -28,6 +28,18 @@ operations
 			return id
 		);
 		
+		--get doctor appointments
+		public pure getAppointments: () ==> set of Appointment
+		getAppointments() == (
+			return appointments
+		);
+		
+			--get doctor specialties
+		public pure getSpecialty: () ==> Utils`Specialty
+		getSpecialty() == (
+			return specialty
+		);
+		
 
 functions
 -- TODO Define functiones here

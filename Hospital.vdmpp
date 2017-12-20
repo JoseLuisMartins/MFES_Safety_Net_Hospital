@@ -31,6 +31,20 @@ operations
 		return id
 	);
 	
+	--get hospital doctors
+	public pure getDoctorsIds: () ==> set of nat
+	getDoctorsIds() == (
+		return doctorsIds
+	);
+	
+	--get hospital location
+	public pure getLocation: () ==> Utils`String
+	getLocation() == (
+		return location
+	);
+	
+		
+	
 	--add doctor
 	public addDoctor: nat ==> ()
 	addDoctor(doctorId) == (
