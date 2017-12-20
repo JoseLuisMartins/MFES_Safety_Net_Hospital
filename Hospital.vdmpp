@@ -1,14 +1,31 @@
 class Hospital
-types
--- TODO Define types here
-values
--- TODO Define values here
 instance variables
--- TODO Define instance variables here
+	private name: Utils`String := [];
+	private location: Utils`String := [];
+	private max_doctors: nat1 := 1;
+	-- probably should be a map of id->doctor
+	private doctors: set of Doctor := {};
+	private static currId : int := 0;
+	private id : int := currId;
 operations
--- TODO Define operations here
+
+	--constructor
+	public Hospital: Utils`String * Utils`String * nat1 ==> Hospital
+	Hospital(n,l,m_d) == (
+		name := n;
+		location := l;
+		max_doctors := m_d;
+		currId := currId + 1; 
+		return self 
+	);
+
+	--add appointment	
+	public pure getName: () ==> Utils`String
+	getName() == (
+		return name
+	);
+	
 functions
 -- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
+
 end Hospital

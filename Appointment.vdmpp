@@ -1,4 +1,4 @@
-class Appointement
+class Appointment
 types
 -- TODO Define types here
 values
@@ -11,4 +11,4 @@ functions
 -- TODO Define functiones here
 traces
 -- TODO Define Combinatorial Test Traces here
-end Appointement
+end Appointment

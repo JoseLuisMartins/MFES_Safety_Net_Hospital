@@ -1,14 +1,44 @@
 class SafetyNetNetwork
-types
--- TODO Define types here
-values
--- TODO Define values here
 instance variables
--- TODO Define instance variables here
+		private hospitals: set of Hospital := {};
+		private static networkInstance: SafetyNetNetwork := new SafetyNetNetwork();
 operations
--- TODO Define operations here
+		--constructor
+		private SafetyNetNetwork: () ==> SafetyNetNetwork
+		SafetyNetNetwork() == return self
+		post hospitals = {};
+
+		--get network instance
+		public pure static getInstance: () ==> SafetyNetNetwork
+		getInstance() == return networkInstance;
+
+
+	  -- returns the hospital with a specified name
+		public pure getHospitalbyName: Utils`String ==> [Hospital]
+		getHospitalbyName(name) == (
+			for all h in set hospitals do
+				if (h.getName() = name) then
+					return h;
+			return nil;
+		);
+		
+		--add hospital
+		public addHospital: Hospital ==> ()
+		addHospital(hospital) == (
+			hospitals := hospitals union {hospital};
+		)
+		pre hospital not in set hospitals
+		post hospital in set hospitals;
+		
+		--remove an hospital
+		public removeHospital: Hospital ==> ()
+		removeHospital(hospital) == (
+			hospitals := hospitals \ {hospital};
+		)
+		pre hospital in set hospitals
+		post hospitals = hospitals~ \ {hospital};
+		
+	
 functions
 -- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
 end SafetyNetNetwork
