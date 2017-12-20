@@ -1,4 +1,4 @@
-class SafetyNetNetwork
+class SafetyNetNetwork 
 instance variables
 		private hospitals: map nat to Hospital := { |-> };
 		private doctors: map nat to Doctor := { |-> };
@@ -82,7 +82,11 @@ operations
 		public pure static getInstance: () ==> SafetyNetNetwork
 		getInstance() == return networkInstance;
 
-		
+		--clear network instance
+		public static clearInstance: () ==> ()
+		clearInstance() == (
+			networkInstance := new SafetyNetNetwork(); 
+		);
 		--add hospital
 		public addHospital: Hospital ==> ()
 		addHospital(hospital) == (
@@ -140,10 +144,7 @@ operations
 		----------get all hospitals
 		public getAllHospitals: () ==> set of Hospital
 			getAllHospitals() == (
-				dcl res : set of Hospital := {};
-				for all h in set rng hospitals do
-						res := res union {h};
-				return res
+				return rng hospitals;
 			);
 			
 		----------get hospitals by location
@@ -168,7 +169,7 @@ operations
 			
 		-------------------End hospital search--------------------------------
 				
-		-- get hospitals by name
+		-- get hospitals by specialtie
 		public getHospitalSpecialties: nat ==> set of Utils`Specialty
 			getHospitalSpecialties(hospitalId) == (
 				dcl res : set of Utils`Specialty := {};
@@ -193,7 +194,13 @@ operations
 		-----------------------Doctors --------------------------
 		---------------------------------------------------------
 		
+		---getAllDoctors
 		
+		public getAllDoctors: () ==> set of Doctor
+			getAllDoctors() == (
+				return rng doctors;
+			);
+			
 		--search doctors--------------------------------
 		---get hospitals where a doctor works
 		
