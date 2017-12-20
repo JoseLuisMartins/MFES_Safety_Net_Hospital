@@ -4,25 +4,6 @@ instance variables
 		private doctors: map nat to Doctor := { |-> };
 		private static networkInstance: SafetyNetNetwork := new SafetyNetNetwork();
 operations
-
-		--main 
-		public static main: () ==> ()
-		main() ==
-		(
-			dcl safetyNet: SafetyNetNetwork := SafetyNetNetwork`getInstance();
-				
-			dcl hos1: Hospital := new Hospital("name","location",4);
-			dcl hos2: Hospital := new Hospital("name2","location",4);
-			
-			safetyNet.addHospital(hos1);
-			safetyNet.addHospital(hos2);
-			
-			IO`println(safetyNet);
-		
-		);
-
-
-
 		--constructor
 		private SafetyNetNetwork: () ==> SafetyNetNetwork
 		SafetyNetNetwork() == return self

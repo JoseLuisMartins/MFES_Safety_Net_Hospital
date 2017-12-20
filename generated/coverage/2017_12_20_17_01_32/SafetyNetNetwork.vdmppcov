@@ -16,8 +16,6 @@ operations
 			
 			safetyNet.addHospital(hos1);
 			safetyNet.addHospital(hos2);
-			
-			IO`println(safetyNet);
 		
 		);
 

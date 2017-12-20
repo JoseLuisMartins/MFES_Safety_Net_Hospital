@@ -4,7 +4,7 @@ instance variables
 	private date : Utils`Date;
 operations
 	--constructor
-	public Appointment: Utils`String * Utils`Date ==> Appointment
+	Appointment: Utils`String * Utils`Date ==> Appointment
 	Appointment(n,d) == (
 		patientName := n;
 		date := d;
