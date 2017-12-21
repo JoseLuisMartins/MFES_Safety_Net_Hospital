@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Vjpi8OY9Eeeij78KPf-jrg" name="SafetyNetHospital">
+  <packagedElement xmi:type="uml:Package" xmi:id="_Vjpi8eY9Eeeij78KPf-jrg" name="Basic VDM Types">
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi8uY9Eeeij78KPf-jrg" name="&lt;append>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi8-Y9Eeeij78KPf-jrg" name="&lt;start>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi9OY9Eeeij78KPf-jrg" name="char"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi9eY9Eeeij78KPf-jrg" name="nat1"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi9uY9Eeeij78KPf-jrg" name="&lt;ADSE>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi9-Y9Eeeij78KPf-jrg" name="&lt;MEDICARE>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi-OY9Eeeij78KPf-jrg" name="&lt;CARDIOLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi-eY9Eeeij78KPf-jrg" name="&lt;DERMATOLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi-uY9Eeeij78KPf-jrg" name="&lt;OFTALMOLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi--Y9Eeeij78KPf-jrg" name="&lt;ORTOPEDIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi_OY9Eeeij78KPf-jrg" name="bool"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi_eY9Eeeij78KPf-jrg" name="Any"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi_uY9Eeeij78KPf-jrg" name="Void"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Vjpi_-Y9Eeeij78KPf-jrg" name="nat"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjpjAOY9Eeeij78KPf-jrg" name="IO" visibility="public">
+    <ownedOperation xmi:id="_VjpjAeY9Eeeij78KPf-jrg" name="writeval" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_VjpjAuY9Eeeij78KPf-jrg" type="_Vjpi_OY9Eeeij78KPf-jrg" direction="return"/>
+      <ownedParameter xmi:id="_VjpjA-Y9Eeeij78KPf-jrg" name="val" type="_VjpjLuY9Eeeij78KPf-jrg"/>
+      <ownedTemplateSignature xmi:id="_VjpjBOY9Eeeij78KPf-jrg" parameter="_VjpjBeY9Eeeij78KPf-jrg">
+        <ownedParameter xmi:id="_VjpjBeY9Eeeij78KPf-jrg" default="_VjpjBuY9Eeeij78KPf-jrg">
+          <ownedDefault xmi:type="uml:LiteralString" xmi:id="_VjpjBuY9Eeeij78KPf-jrg" name="p"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjB-Y9Eeeij78KPf-jrg" name="fwriteval" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_VjpjCOY9Eeeij78KPf-jrg" type="_Vjpi_OY9Eeeij78KPf-jrg" direction="return"/>
+      <ownedParameter xmi:id="_VjpjCeY9Eeeij78KPf-jrg" name="filename" type="_VjqK0uY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjCuY9Eeeij78KPf-jrg" name="val" type="_VjpjLuY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjC-Y9Eeeij78KPf-jrg" name="fdir" type="_VjpjKeY9Eeeij78KPf-jrg"/>
+      <ownedTemplateSignature xmi:id="_VjpjDOY9Eeeij78KPf-jrg" parameter="_VjpjDeY9Eeeij78KPf-jrg">
+        <ownedParameter xmi:id="_VjpjDeY9Eeeij78KPf-jrg" default="_VjpjDuY9Eeeij78KPf-jrg">
+          <ownedDefault xmi:type="uml:LiteralString" xmi:id="_VjpjDuY9Eeeij78KPf-jrg" name="p"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjD-Y9Eeeij78KPf-jrg" name="freadval" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_VjpjEOY9Eeeij78KPf-jrg" type="_VjqK1eY9Eeeij78KPf-jrg" direction="return"/>
+      <ownedParameter xmi:id="_VjpjEeY9Eeeij78KPf-jrg" name="filename" type="_VjqK0uY9Eeeij78KPf-jrg"/>
+      <ownedTemplateSignature xmi:id="_VjpjEuY9Eeeij78KPf-jrg" parameter="_VjpjE-Y9Eeeij78KPf-jrg">
+        <ownedParameter xmi:id="_VjpjE-Y9Eeeij78KPf-jrg" default="_VjpjFOY9Eeeij78KPf-jrg">
+          <ownedDefault xmi:type="uml:LiteralString" xmi:id="_VjpjFOY9Eeeij78KPf-jrg" name="p"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjFeY9Eeeij78KPf-jrg" name="echo" visibility="public">
+      <ownedParameter xmi:id="_VjpjFuY9Eeeij78KPf-jrg" name="text" type="_VjqK0uY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjF-Y9Eeeij78KPf-jrg" type="_Vjpi_OY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjGOY9Eeeij78KPf-jrg" name="fecho" visibility="public">
+      <ownedParameter xmi:id="_VjpjGeY9Eeeij78KPf-jrg" name="filename" type="_VjqK0uY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjGuY9Eeeij78KPf-jrg" name="text" type="_VjqK0uY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjG-Y9Eeeij78KPf-jrg" name="fdir" type="_VjqK3OY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjHOY9Eeeij78KPf-jrg" type="_Vjpi_OY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjHeY9Eeeij78KPf-jrg" name="ferror" visibility="public">
+      <ownedParameter xmi:id="_VjpjHuY9Eeeij78KPf-jrg" type="_VjqK0uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjH-Y9Eeeij78KPf-jrg" name="print" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_VjpjIOY9Eeeij78KPf-jrg" name="arg" type="_Vjpi_eY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjIeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjIuY9Eeeij78KPf-jrg" name="println" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_VjpjI-Y9Eeeij78KPf-jrg" name="arg" type="_Vjpi_eY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjJOY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjJeY9Eeeij78KPf-jrg" name="printf" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_VjpjJuY9Eeeij78KPf-jrg" name="format" type="_VjqK0uY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjJ-Y9Eeeij78KPf-jrg" name="args" type="_VjqK3-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjKOY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_VjpjKeY9Eeeij78KPf-jrg" name="filedirective">
+      <generalization xmi:id="_VjpjKuY9Eeeij78KPf-jrg" general="_VjpjK-Y9Eeeij78KPf-jrg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_VjpjK-Y9Eeeij78KPf-jrg" name="filedirective_appendstart__1004785595">
+      <ownedLiteral xmi:id="_VjpjLOY9Eeeij78KPf-jrg" name="&lt;append>"/>
+      <ownedLiteral xmi:id="_VjpjLeY9Eeeij78KPf-jrg" name="&lt;start>"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_VjpjLuY9Eeeij78KPf-jrg" name="p"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjpjL-Y9Eeeij78KPf-jrg" name="Appointment" visibility="public">
+    <ownedAttribute xmi:id="_VjpjMOY9Eeeij78KPf-jrg" name="patientName" visibility="private" type="_VjqKaeY9Eeeij78KPf-jrg" association="_VjqK-eY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjpjMeY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjpjMuY9Eeeij78KPf-jrg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjM-Y9Eeeij78KPf-jrg" value="[]"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjNOY9Eeeij78KPf-jrg" name="date" visibility="private" type="_VjqKa-Y9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjNeY9Eeeij78KPf-jrg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjNuY9Eeeij78KPf-jrg" name="hospitalId" visibility="private" type="_Vjpi_-Y9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjN-Y9Eeeij78KPf-jrg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjOOY9Eeeij78KPf-jrg" name="doctorId" visibility="private" type="_Vjpi_-Y9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjOeY9Eeeij78KPf-jrg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_VjpjOuY9Eeeij78KPf-jrg" name="Appointment" visibility="public">
+      <ownedParameter xmi:id="_VjpjO-Y9Eeeij78KPf-jrg" name="n" type="_VjqKaeY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjPOY9Eeeij78KPf-jrg" name="d" type="_VjqKa-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjPeY9Eeeij78KPf-jrg" name="hos" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjPuY9Eeeij78KPf-jrg" name="doc" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjP-Y9Eeeij78KPf-jrg" type="_VjpjL-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjQOY9Eeeij78KPf-jrg" name="getDate" visibility="public">
+      <ownedParameter xmi:id="_VjpjQeY9Eeeij78KPf-jrg" type="_VjqKa-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjQuY9Eeeij78KPf-jrg" name="getDoctorId" visibility="public">
+      <ownedParameter xmi:id="_VjpjQ-Y9Eeeij78KPf-jrg" type="_Vjpi_-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjROY9Eeeij78KPf-jrg" name="getHospitalId" visibility="public">
+      <ownedParameter xmi:id="_VjpjReY9Eeeij78KPf-jrg" type="_Vjpi_-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjpjRuY9Eeeij78KPf-jrg" name="Doctor" visibility="public">
+    <ownedAttribute xmi:id="_VjpjR-Y9Eeeij78KPf-jrg" name="name" visibility="private" type="_VjqKaeY9Eeeij78KPf-jrg" association="_VjqK_eY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjpjSOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjpjSeY9Eeeij78KPf-jrg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjSuY9Eeeij78KPf-jrg" value="[]"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjS-Y9Eeeij78KPf-jrg" name="specialty" visibility="private" type="_VjqKduY9Eeeij78KPf-jrg" association="_VjqLAeY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjpjTOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjpjTeY9Eeeij78KPf-jrg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjTuY9Eeeij78KPf-jrg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjT-Y9Eeeij78KPf-jrg" name="currId" visibility="private" isStatic="true" type="_Vjpi_-Y9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjUOY9Eeeij78KPf-jrg" value="0"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjUeY9Eeeij78KPf-jrg" name="id" visibility="private" type="_Vjpi_-Y9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjUuY9Eeeij78KPf-jrg" value="currId"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_VjpjU-Y9Eeeij78KPf-jrg" name="Doctor" visibility="public">
+      <ownedParameter xmi:id="_VjpjVOY9Eeeij78KPf-jrg" name="n" type="_VjqKaeY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjVeY9Eeeij78KPf-jrg" name="s" type="_VjqKduY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjpjVuY9Eeeij78KPf-jrg" type="_VjpjRuY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjV-Y9Eeeij78KPf-jrg" name="getId" visibility="public">
+      <ownedParameter xmi:id="_VjpjWOY9Eeeij78KPf-jrg" type="_Vjpi_-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjpjWeY9Eeeij78KPf-jrg" name="getSpecialty" visibility="public">
+      <ownedParameter xmi:id="_VjpjWuY9Eeeij78KPf-jrg" type="_VjqKduY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjpjW-Y9Eeeij78KPf-jrg" name="Hospital" visibility="public">
+    <ownedAttribute xmi:id="_VjpjXOY9Eeeij78KPf-jrg" name="name" visibility="private" type="_VjqKaeY9Eeeij78KPf-jrg" association="_VjqxEuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjpjXeY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjpjXuY9Eeeij78KPf-jrg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjX-Y9Eeeij78KPf-jrg" value="[]"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjYOY9Eeeij78KPf-jrg" name="location" visibility="private" type="_VjqKaeY9Eeeij78KPf-jrg" association="_VjqxFuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjpjYeY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjpjYuY9Eeeij78KPf-jrg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjY-Y9Eeeij78KPf-jrg" value="[]"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjZOY9Eeeij78KPf-jrg" name="max_doctors" visibility="private" type="_Vjpi9eY9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjZeY9Eeeij78KPf-jrg" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjZuY9Eeeij78KPf-jrg" name="doctorsIds" visibility="private" type="_VjqK4uY9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjZ-Y9Eeeij78KPf-jrg" value="{}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjaOY9Eeeij78KPf-jrg" name="currId" visibility="private" isStatic="true" type="_Vjpi_-Y9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjpjaeY9Eeeij78KPf-jrg" value="0"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjpjauY9Eeeij78KPf-jrg" name="id" visibility="private" type="_Vjpi_-Y9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_Vjpja-Y9Eeeij78KPf-jrg" value="currId"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_VjpjbOY9Eeeij78KPf-jrg" name="Hospital" visibility="public">
+      <ownedParameter xmi:id="_VjpjbeY9Eeeij78KPf-jrg" name="n" type="_VjqKaeY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKAOY9Eeeij78KPf-jrg" name="l" type="_VjqKaeY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKAeY9Eeeij78KPf-jrg" name="m_d" type="_Vjpi9eY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKAuY9Eeeij78KPf-jrg" type="_VjpjW-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKA-Y9Eeeij78KPf-jrg" name="getName" visibility="public">
+      <ownedParameter xmi:id="_VjqKBOY9Eeeij78KPf-jrg" type="_VjqKaeY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKBeY9Eeeij78KPf-jrg" name="getId" visibility="public">
+      <ownedParameter xmi:id="_VjqKBuY9Eeeij78KPf-jrg" type="_Vjpi_-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKB-Y9Eeeij78KPf-jrg" name="getDoctorsIds" visibility="public">
+      <ownedParameter xmi:id="_VjqKCOY9Eeeij78KPf-jrg" type="_VjqK4uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKCeY9Eeeij78KPf-jrg" name="getLocation" visibility="public">
+      <ownedParameter xmi:id="_VjqKCuY9Eeeij78KPf-jrg" type="_VjqKaeY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKC-Y9Eeeij78KPf-jrg" name="addDoctor" visibility="public">
+      <ownedParameter xmi:id="_VjqKDOY9Eeeij78KPf-jrg" name="doctorId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKDeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKDuY9Eeeij78KPf-jrg" name="removeDoctor" visibility="public">
+      <ownedParameter xmi:id="_VjqKD-Y9Eeeij78KPf-jrg" name="doctorId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKEOY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjqKEeY9Eeeij78KPf-jrg" name="SafetyNetNetwork" visibility="public">
+    <ownedAttribute xmi:id="_VjqKEuY9Eeeij78KPf-jrg" name="hospitals" visibility="private" type="_VjpjW-Y9Eeeij78KPf-jrg" isUnique="false" association="_VjqxGuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqKE-Y9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqKFOY9Eeeij78KPf-jrg" value="1"/>
+      <qualifier xmi:id="_VjqKFeY9Eeeij78KPf-jrg" type="_Vjpi_-Y9Eeeij78KPf-jrg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqKFuY9Eeeij78KPf-jrg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqKF-Y9Eeeij78KPf-jrg" value="1"/>
+      </qualifier>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjqKGOY9Eeeij78KPf-jrg" value="{|->}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjqKGeY9Eeeij78KPf-jrg" name="doctors" visibility="private" type="_VjpjRuY9Eeeij78KPf-jrg" isUnique="false" association="_VjqxHuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqKGuY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqKG-Y9Eeeij78KPf-jrg" value="1"/>
+      <qualifier xmi:id="_VjqKHOY9Eeeij78KPf-jrg" type="_Vjpi_-Y9Eeeij78KPf-jrg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqKHeY9Eeeij78KPf-jrg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqKHuY9Eeeij78KPf-jrg" value="1"/>
+      </qualifier>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjqKH-Y9Eeeij78KPf-jrg" value="{|->}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjqKIOY9Eeeij78KPf-jrg" name="appointments" visibility="private" type="_VjqK7eY9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjqKIeY9Eeeij78KPf-jrg" value="{}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjqKIuY9Eeeij78KPf-jrg" name="networkInstance" visibility="private" isStatic="true" type="_VjqKEeY9Eeeij78KPf-jrg" association="_VjqxIuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqKI-Y9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqKJOY9Eeeij78KPf-jrg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjqKJeY9Eeeij78KPf-jrg" value="new SafetyNetNetwork()"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_VjqKJuY9Eeeij78KPf-jrg" name="main" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_VjqKJ-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKKOY9Eeeij78KPf-jrg" name="SafetyNetNetwork" visibility="private">
+      <ownedParameter xmi:id="_VjqKKeY9Eeeij78KPf-jrg" type="_VjqKEeY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKKuY9Eeeij78KPf-jrg" name="getInstance" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_VjqKK-Y9Eeeij78KPf-jrg" type="_VjqKEeY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKLOY9Eeeij78KPf-jrg" name="clearInstance" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_VjqKLeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKLuY9Eeeij78KPf-jrg" name="addHospital" visibility="public">
+      <ownedParameter xmi:id="_VjqKL-Y9Eeeij78KPf-jrg" name="hospital" type="_VjpjW-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKMOY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKMeY9Eeeij78KPf-jrg" name="removeHospital" visibility="public">
+      <ownedParameter xmi:id="_VjqKMuY9Eeeij78KPf-jrg" name="hospital" type="_VjpjW-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKM-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKNOY9Eeeij78KPf-jrg" name="addDoctor" visibility="public">
+      <ownedParameter xmi:id="_VjqKNeY9Eeeij78KPf-jrg" name="doctor" type="_VjpjRuY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKNuY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKN-Y9Eeeij78KPf-jrg" name="removeDoctor" visibility="public">
+      <ownedParameter xmi:id="_VjqKOOY9Eeeij78KPf-jrg" name="doctor" type="_VjpjRuY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKOeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKOuY9Eeeij78KPf-jrg" name="associateDoctorToHospital" visibility="public">
+      <ownedParameter xmi:id="_VjqKO-Y9Eeeij78KPf-jrg" name="hospitalId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKPOY9Eeeij78KPf-jrg" name="doctorId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKPeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKPuY9Eeeij78KPf-jrg" name="disassociateDoctorFromHospital" visibility="public">
+      <ownedParameter xmi:id="_VjqKP-Y9Eeeij78KPf-jrg" name="hospitalId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKQOY9Eeeij78KPf-jrg" name="doctorId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKQeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKQuY9Eeeij78KPf-jrg" name="getAllHospitals" visibility="public">
+      <ownedParameter xmi:id="_VjqKQ-Y9Eeeij78KPf-jrg" type="_VjqK8OY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKROY9Eeeij78KPf-jrg" name="getHospitalsById" visibility="public">
+      <ownedParameter xmi:id="_VjqKReY9Eeeij78KPf-jrg" name="hospitalId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKRuY9Eeeij78KPf-jrg" type="_VjpjW-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKR-Y9Eeeij78KPf-jrg" name="getHospitalsByLocation" visibility="public">
+      <ownedParameter xmi:id="_VjqKSOY9Eeeij78KPf-jrg" name="location" type="_VjqKaeY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKSeY9Eeeij78KPf-jrg" type="_VjqK8OY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKSuY9Eeeij78KPf-jrg" name="getHospitalsByName" visibility="public">
+      <ownedParameter xmi:id="_VjqKS-Y9Eeeij78KPf-jrg" name="name" type="_VjqKaeY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKTOY9Eeeij78KPf-jrg" type="_VjqK8OY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKTeY9Eeeij78KPf-jrg" name="getHospitalSpecialties" visibility="public">
+      <ownedParameter xmi:id="_VjqKTuY9Eeeij78KPf-jrg" name="hospitalId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKT-Y9Eeeij78KPf-jrg" type="_VjqK8-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKUOY9Eeeij78KPf-jrg" name="getHospitalAppointments" visibility="public">
+      <ownedParameter xmi:id="_VjqKUeY9Eeeij78KPf-jrg" name="hospitalId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKUuY9Eeeij78KPf-jrg" type="_VjqK7eY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKU-Y9Eeeij78KPf-jrg" name="getHospitalNumberOfAppointments" visibility="public">
+      <ownedParameter xmi:id="_VjqKVOY9Eeeij78KPf-jrg" name="hospitalId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKVeY9Eeeij78KPf-jrg" type="_Vjpi_-Y9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKVuY9Eeeij78KPf-jrg" name="getAllDoctors" visibility="public">
+      <ownedParameter xmi:id="_VjqKV-Y9Eeeij78KPf-jrg" type="_VjqK9uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKWOY9Eeeij78KPf-jrg" name="getDoctorById" visibility="public">
+      <ownedParameter xmi:id="_VjqKWeY9Eeeij78KPf-jrg" name="doctorId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKWuY9Eeeij78KPf-jrg" type="_VjpjRuY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKW-Y9Eeeij78KPf-jrg" name="getDoctorHospitals" visibility="public">
+      <ownedParameter xmi:id="_VjqKXOY9Eeeij78KPf-jrg" name="doctorId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKXeY9Eeeij78KPf-jrg" type="_VjqK8OY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKXuY9Eeeij78KPf-jrg" name="getDoctorAppointments" visibility="public">
+      <ownedParameter xmi:id="_VjqKX-Y9Eeeij78KPf-jrg" name="doctorId" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKYOY9Eeeij78KPf-jrg" type="_VjqK7eY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKYeY9Eeeij78KPf-jrg" name="addAppointment" visibility="public">
+      <ownedParameter xmi:id="_VjqKYuY9Eeeij78KPf-jrg" name="a" type="_VjpjL-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKY-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjqKZOY9Eeeij78KPf-jrg" name="Utils" visibility="public">
+    <ownedOperation xmi:id="_VjqKZeY9Eeeij78KPf-jrg" name="isDateDiferent" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_VjqKZuY9Eeeij78KPf-jrg" type="_Vjpi_OY9Eeeij78KPf-jrg" direction="return"/>
+      <ownedParameter xmi:id="_VjqKZ-Y9Eeeij78KPf-jrg" name="d1" type="_VjqKa-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKaOY9Eeeij78KPf-jrg" name="d2" type="_VjqKa-Y9Eeeij78KPf-jrg"/>
+    </ownedOperation>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_VjqKaeY9Eeeij78KPf-jrg" name="String">
+      <generalization xmi:id="_VjqKauY9Eeeij78KPf-jrg" general="_VjqK0uY9Eeeij78KPf-jrg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_VjqKa-Y9Eeeij78KPf-jrg" name="Date">
+      <ownedAttribute xmi:id="_VjqKbOY9Eeeij78KPf-jrg" name="year" type="_Vjpi9eY9Eeeij78KPf-jrg"/>
+      <ownedAttribute xmi:id="_VjqKbeY9Eeeij78KPf-jrg" name="month" type="_Vjpi9eY9Eeeij78KPf-jrg"/>
+      <ownedAttribute xmi:id="_VjqKbuY9Eeeij78KPf-jrg" name="day" type="_Vjpi9eY9Eeeij78KPf-jrg"/>
+      <ownedAttribute xmi:id="_VjqKb-Y9Eeeij78KPf-jrg" name="hour" type="_Vjpi9eY9Eeeij78KPf-jrg"/>
+      <nestedClassifier xmi:type="uml:Stereotype" xmi:id="_VjqKcOY9Eeeij78KPf-jrg" name="record"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_VjqKceY9Eeeij78KPf-jrg" name="Agreement">
+      <generalization xmi:id="_VjqKcuY9Eeeij78KPf-jrg" general="_VjqKc-Y9Eeeij78KPf-jrg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_VjqKc-Y9Eeeij78KPf-jrg" name="Agreement_ADSEMEDICARE__1704155098">
+      <ownedLiteral xmi:id="_VjqKdOY9Eeeij78KPf-jrg" name="&lt;ADSE>"/>
+      <ownedLiteral xmi:id="_VjqKdeY9Eeeij78KPf-jrg" name="&lt;MEDICARE>"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_VjqKduY9Eeeij78KPf-jrg" name="Specialty">
+      <generalization xmi:id="_VjqKd-Y9Eeeij78KPf-jrg" general="_VjqKeOY9Eeeij78KPf-jrg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_VjqKeOY9Eeeij78KPf-jrg" name="Specialty_CARDIOLOGIADERMATOLOGIAOFTALMOLOGIAORTOPEDIA__1051618778">
+      <ownedLiteral xmi:id="_VjqKeeY9Eeeij78KPf-jrg" name="&lt;CARDIOLOGIA>"/>
+      <ownedLiteral xmi:id="_VjqKeuY9Eeeij78KPf-jrg" name="&lt;DERMATOLOGIA>"/>
+      <ownedLiteral xmi:id="_VjqKe-Y9Eeeij78KPf-jrg" name="&lt;OFTALMOLOGIA>"/>
+      <ownedLiteral xmi:id="_VjqKfOY9Eeeij78KPf-jrg" name="&lt;ORTOPEDIA>"/>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjqKfeY9Eeeij78KPf-jrg" name="MyTestCase" visibility="public">
+    <ownedOperation xmi:id="_VjqKfuY9Eeeij78KPf-jrg" name="assertTrue" visibility="protected">
+      <ownedParameter xmi:id="_VjqKf-Y9Eeeij78KPf-jrg" name="arg" type="_Vjpi_OY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKgOY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKgeY9Eeeij78KPf-jrg" name="assertFalse" visibility="protected">
+      <ownedParameter xmi:id="_VjqKguY9Eeeij78KPf-jrg" name="arg" type="_Vjpi_OY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKg-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKhOY9Eeeij78KPf-jrg" name="assertEqual" visibility="protected">
+      <ownedParameter xmi:id="_VjqKheY9Eeeij78KPf-jrg" name="expected" type="_Vjpi_eY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKhuY9Eeeij78KPf-jrg" name="actual" type="_Vjpi_eY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKh-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKiOY9Eeeij78KPf-jrg" name="assertNotEqual" visibility="protected">
+      <ownedParameter xmi:id="_VjqKieY9Eeeij78KPf-jrg" name="expected" type="_Vjpi_eY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKiuY9Eeeij78KPf-jrg" name="actual" type="_Vjpi_eY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKi-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjqKjOY9Eeeij78KPf-jrg" name="SystemTest" visibility="public">
+    <generalization xmi:id="_VjqKjeY9Eeeij78KPf-jrg" general="_VjqKfeY9Eeeij78KPf-jrg"/>
+    <ownedAttribute xmi:id="_VjqKjuY9Eeeij78KPf-jrg" name="safetyNet" visibility="private" type="_VjqKEeY9Eeeij78KPf-jrg" association="_VjqxJuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqKj-Y9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqKkOY9Eeeij78KPf-jrg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjqKkeY9Eeeij78KPf-jrg" value="SafetyNetNetwork`getInstance()"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_VjqKkuY9Eeeij78KPf-jrg" name="main" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_VjqKk-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKlOY9Eeeij78KPf-jrg" name="testAddDoctor" visibility="private">
+      <ownedParameter xmi:id="_VjqKleY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKluY9Eeeij78KPf-jrg" name="testGetAllDoctors" visibility="private">
+      <ownedParameter xmi:id="_VjqKl-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKmOY9Eeeij78KPf-jrg" name="testRemoveDoctor" visibility="private">
+      <ownedParameter xmi:id="_VjqKmeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKmuY9Eeeij78KPf-jrg" name="testAddHospital" visibility="private">
+      <ownedParameter xmi:id="_VjqKm-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKnOY9Eeeij78KPf-jrg" name="testRemoveHospital" visibility="private">
+      <ownedParameter xmi:id="_VjqKneY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKnuY9Eeeij78KPf-jrg" name="testAssociateDoctorToAnHospital" visibility="private">
+      <ownedParameter xmi:id="_VjqKn-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKoOY9Eeeij78KPf-jrg" name="testDisassociateDoctorToAnHospital" visibility="private">
+      <ownedParameter xmi:id="_VjqKoeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKouY9Eeeij78KPf-jrg" name="testGetHospitalsByLocation" visibility="private">
+      <ownedParameter xmi:id="_VjqKo-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKpOY9Eeeij78KPf-jrg" name="testGetAllHospitals" visibility="private">
+      <ownedParameter xmi:id="_VjqKpeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKpuY9Eeeij78KPf-jrg" name="testGetHospitalsByName" visibility="private">
+      <ownedParameter xmi:id="_VjqKp-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKqOY9Eeeij78KPf-jrg" name="testGetDoctorHospitals" visibility="private">
+      <ownedParameter xmi:id="_VjqKqeY9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VjqKquY9Eeeij78KPf-jrg" name="testGetHospitalSpecialties" visibility="private">
+      <ownedParameter xmi:id="_VjqKq-Y9Eeeij78KPf-jrg" type="_Vjpi_uY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjqKrOY9Eeeij78KPf-jrg" name="Patient" visibility="public"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_VjqKreY9Eeeij78KPf-jrg" name="Person" visibility="public">
+    <ownedAttribute xmi:id="_VjqKruY9Eeeij78KPf-jrg" name="name" visibility="private" type="_VjqKaeY9Eeeij78KPf-jrg" association="_VjqxKuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqKr-Y9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqKsOY9Eeeij78KPf-jrg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjqKseY9Eeeij78KPf-jrg" value="[]"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_VjqKsuY9Eeeij78KPf-jrg" name="age" visibility="private" type="_Vjpi_-Y9Eeeij78KPf-jrg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_VjqKs-Y9Eeeij78KPf-jrg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_VjqKtOY9Eeeij78KPf-jrg" name="Person" visibility="private">
+      <ownedParameter xmi:id="_VjqKteY9Eeeij78KPf-jrg" name="n" type="_VjqKaeY9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKtuY9Eeeij78KPf-jrg" name="a" type="_Vjpi_-Y9Eeeij78KPf-jrg"/>
+      <ownedParameter xmi:id="_VjqKt-Y9Eeeij78KPf-jrg" type="_VjqKreY9Eeeij78KPf-jrg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_VjqKuOY9Eeeij78KPf-jrg" name="Composite VDM Types">
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqKueY9Eeeij78KPf-jrg" name="Seq&lt;T>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_VjqKuuY9Eeeij78KPf-jrg" name="T" parameter="_VjqKu-Y9Eeeij78KPf-jrg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_VjqKu-Y9Eeeij78KPf-jrg" parameteredElement="_VjqKvOY9Eeeij78KPf-jrg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_VjqKvOY9Eeeij78KPf-jrg" name="T" templateParameter="_VjqKu-Y9Eeeij78KPf-jrg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqKveY9Eeeij78KPf-jrg" name="Product&lt;A,B>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_VjqKvuY9Eeeij78KPf-jrg" name="A,B" parameter="_VjqKv-Y9Eeeij78KPf-jrg _VjqKweY9Eeeij78KPf-jrg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_VjqKv-Y9Eeeij78KPf-jrg" parameteredElement="_VjqKwOY9Eeeij78KPf-jrg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_VjqKwOY9Eeeij78KPf-jrg" name="A" templateParameter="_VjqKv-Y9Eeeij78KPf-jrg"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_VjqKweY9Eeeij78KPf-jrg" parameteredElement="_VjqKwuY9Eeeij78KPf-jrg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_VjqKwuY9Eeeij78KPf-jrg" name="B" templateParameter="_VjqKweY9Eeeij78KPf-jrg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqKw-Y9Eeeij78KPf-jrg" name="Optional&lt;T>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_VjqKxOY9Eeeij78KPf-jrg" name="T" parameter="_VjqKxeY9Eeeij78KPf-jrg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_VjqKxeY9Eeeij78KPf-jrg" parameteredElement="_VjqKxuY9Eeeij78KPf-jrg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_VjqKxuY9Eeeij78KPf-jrg" name="T" templateParameter="_VjqKxeY9Eeeij78KPf-jrg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqKx-Y9Eeeij78KPf-jrg" name="Set&lt;T>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_VjqKyOY9Eeeij78KPf-jrg" name="T" parameter="_VjqKyeY9Eeeij78KPf-jrg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_VjqKyeY9Eeeij78KPf-jrg" parameteredElement="_VjqKyuY9Eeeij78KPf-jrg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_VjqKyuY9Eeeij78KPf-jrg" name="T" templateParameter="_VjqKyeY9Eeeij78KPf-jrg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqKy-Y9Eeeij78KPf-jrg" name="Map&lt;D,R>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_VjqKzOY9Eeeij78KPf-jrg" name="D,R" parameter="_VjqKzeY9Eeeij78KPf-jrg _VjqKz-Y9Eeeij78KPf-jrg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_VjqKzeY9Eeeij78KPf-jrg" parameteredElement="_VjqKzuY9Eeeij78KPf-jrg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_VjqKzuY9Eeeij78KPf-jrg" name="D" templateParameter="_VjqKzeY9Eeeij78KPf-jrg"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_VjqKz-Y9Eeeij78KPf-jrg" parameteredElement="_VjqK0OY9Eeeij78KPf-jrg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_VjqK0OY9Eeeij78KPf-jrg" name="R" templateParameter="_VjqKz-Y9Eeeij78KPf-jrg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_VjqK0eY9Eeeij78KPf-jrg" name="Binding classes">
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK0uY9Eeeij78KPf-jrg" name="Seq&lt;char>">
+      <templateBinding xmi:id="_VjqK0-Y9Eeeij78KPf-jrg" signature="_VjqKuuY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK1OY9Eeeij78KPf-jrg" actual="_Vjpi9OY9Eeeij78KPf-jrg" formal="_VjqKu-Y9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK1eY9Eeeij78KPf-jrg" name="Product&lt;bool,Optional&lt;p>>">
+      <templateBinding xmi:id="_VjqK1uY9Eeeij78KPf-jrg" signature="_VjqKvuY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK1-Y9Eeeij78KPf-jrg" actual="_Vjpi_OY9Eeeij78KPf-jrg" formal="_VjqKv-Y9Eeeij78KPf-jrg"/>
+        <parameterSubstitution xmi:id="_VjqK2OY9Eeeij78KPf-jrg" actual="_VjqK2eY9Eeeij78KPf-jrg" formal="_VjqKweY9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK2eY9Eeeij78KPf-jrg" name="Optional&lt;p>">
+      <templateBinding xmi:id="_VjqK2uY9Eeeij78KPf-jrg" signature="_VjqKxOY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK2-Y9Eeeij78KPf-jrg" actual="_VjpjLuY9Eeeij78KPf-jrg" formal="_VjqKxeY9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK3OY9Eeeij78KPf-jrg" name="Optional&lt;IO::filedirective>">
+      <templateBinding xmi:id="_VjqK3eY9Eeeij78KPf-jrg" signature="_VjqKxOY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK3uY9Eeeij78KPf-jrg" actual="_VjpjKeY9Eeeij78KPf-jrg" formal="_VjqKxeY9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK3-Y9Eeeij78KPf-jrg" name="Seq&lt;Any>">
+      <templateBinding xmi:id="_VjqK4OY9Eeeij78KPf-jrg" signature="_VjqKuuY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK4eY9Eeeij78KPf-jrg" actual="_Vjpi_eY9Eeeij78KPf-jrg" formal="_VjqKu-Y9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK4uY9Eeeij78KPf-jrg" name="Set&lt;nat>">
+      <templateBinding xmi:id="_VjqK4-Y9Eeeij78KPf-jrg" signature="_VjqKyOY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK5OY9Eeeij78KPf-jrg" actual="_Vjpi_-Y9Eeeij78KPf-jrg" formal="_VjqKyeY9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK5eY9Eeeij78KPf-jrg" name="Map&lt;nat,Hospital>">
+      <templateBinding xmi:id="_VjqK5uY9Eeeij78KPf-jrg" signature="_VjqKzOY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK5-Y9Eeeij78KPf-jrg" actual="_Vjpi_-Y9Eeeij78KPf-jrg" formal="_VjqKzeY9Eeeij78KPf-jrg"/>
+        <parameterSubstitution xmi:id="_VjqK6OY9Eeeij78KPf-jrg" actual="_VjpjW-Y9Eeeij78KPf-jrg" formal="_VjqKz-Y9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK6eY9Eeeij78KPf-jrg" name="Map&lt;nat,Doctor>">
+      <templateBinding xmi:id="_VjqK6uY9Eeeij78KPf-jrg" signature="_VjqKzOY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK6-Y9Eeeij78KPf-jrg" actual="_Vjpi_-Y9Eeeij78KPf-jrg" formal="_VjqKzeY9Eeeij78KPf-jrg"/>
+        <parameterSubstitution xmi:id="_VjqK7OY9Eeeij78KPf-jrg" actual="_VjpjRuY9Eeeij78KPf-jrg" formal="_VjqKz-Y9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK7eY9Eeeij78KPf-jrg" name="Set&lt;Appointment>">
+      <templateBinding xmi:id="_VjqK7uY9Eeeij78KPf-jrg" signature="_VjqKyOY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK7-Y9Eeeij78KPf-jrg" actual="_VjpjL-Y9Eeeij78KPf-jrg" formal="_VjqKyeY9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK8OY9Eeeij78KPf-jrg" name="Set&lt;Hospital>">
+      <templateBinding xmi:id="_VjqK8eY9Eeeij78KPf-jrg" signature="_VjqKyOY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK8uY9Eeeij78KPf-jrg" actual="_VjpjW-Y9Eeeij78KPf-jrg" formal="_VjqKyeY9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK8-Y9Eeeij78KPf-jrg" name="Set&lt;Utils::Specialty>">
+      <templateBinding xmi:id="_VjqK9OY9Eeeij78KPf-jrg" signature="_VjqKyOY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK9eY9Eeeij78KPf-jrg" actual="_VjqKduY9Eeeij78KPf-jrg" formal="_VjqKyeY9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VjqK9uY9Eeeij78KPf-jrg" name="Set&lt;Doctor>">
+      <templateBinding xmi:id="_VjqK9-Y9Eeeij78KPf-jrg" signature="_VjqKyOY9Eeeij78KPf-jrg">
+        <parameterSubstitution xmi:id="_VjqK-OY9Eeeij78KPf-jrg" actual="_VjpjRuY9Eeeij78KPf-jrg" formal="_VjqKyeY9Eeeij78KPf-jrg"/>
+      </templateBinding>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqK-eY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjpjMOY9Eeeij78KPf-jrg _VjqK-uY9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqK-uY9Eeeij78KPf-jrg" name="" type="_VjpjL-Y9Eeeij78KPf-jrg" association="_VjqK-eY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqK--Y9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqK_OY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqK_eY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjpjR-Y9Eeeij78KPf-jrg _VjqK_uY9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqK_uY9Eeeij78KPf-jrg" name="" type="_VjpjRuY9Eeeij78KPf-jrg" association="_VjqK_eY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqK_-Y9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqLAOY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqLAeY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjpjS-Y9Eeeij78KPf-jrg _VjqLAuY9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqLAuY9Eeeij78KPf-jrg" name="" type="_VjpjRuY9Eeeij78KPf-jrg" association="_VjqLAeY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqxEOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqxEeY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqxEuY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjpjXOY9Eeeij78KPf-jrg _VjqxE-Y9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqxE-Y9Eeeij78KPf-jrg" name="" type="_VjpjW-Y9Eeeij78KPf-jrg" association="_VjqxEuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqxFOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqxFeY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqxFuY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjpjYOY9Eeeij78KPf-jrg _VjqxF-Y9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqxF-Y9Eeeij78KPf-jrg" name="" type="_VjpjW-Y9Eeeij78KPf-jrg" association="_VjqxFuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqxGOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqxGeY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqxGuY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjqKEuY9Eeeij78KPf-jrg _VjqxG-Y9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqxG-Y9Eeeij78KPf-jrg" name="" type="_VjqKEeY9Eeeij78KPf-jrg" association="_VjqxGuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqxHOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqxHeY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqxHuY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjqKGeY9Eeeij78KPf-jrg _VjqxH-Y9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqxH-Y9Eeeij78KPf-jrg" name="" type="_VjqKEeY9Eeeij78KPf-jrg" association="_VjqxHuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqxIOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqxIeY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqxIuY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjqKIuY9Eeeij78KPf-jrg _VjqxI-Y9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqxI-Y9Eeeij78KPf-jrg" name="" type="_VjqKEeY9Eeeij78KPf-jrg" association="_VjqxIuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqxJOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqxJeY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqxJuY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjqKjuY9Eeeij78KPf-jrg _VjqxJ-Y9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqxJ-Y9Eeeij78KPf-jrg" name="" type="_VjqKjOY9Eeeij78KPf-jrg" association="_VjqxJuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqxKOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqxKeY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_VjqxKuY9Eeeij78KPf-jrg" visibility="private" memberEnd="_VjqKruY9Eeeij78KPf-jrg _VjqxK-Y9Eeeij78KPf-jrg">
+    <ownedEnd xmi:id="_VjqxK-Y9Eeeij78KPf-jrg" name="" type="_VjqKreY9Eeeij78KPf-jrg" association="_VjqxKuY9Eeeij78KPf-jrg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VjqxLOY9Eeeij78KPf-jrg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VjqxLeY9Eeeij78KPf-jrg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>

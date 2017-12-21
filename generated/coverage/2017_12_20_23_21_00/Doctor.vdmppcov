@@ -2,6 +2,7 @@ class Doctor
 instance variables
 	private name: Utils`String := [];
 	private specialty: Utils`Specialty;
+	private appointments: set of Appointment := {};
 	private static currId : nat := 0;
 	private id : nat := currId;
 
@@ -15,14 +16,25 @@ operations
 			return self;
 		);
 		
+		-- add an appointment
+		public addAppointment : Appointment ==> ()
+		addAppointment(a) == (
+			appointments := appointments union {a};
+		);
+
 		--get doctor id
 		public pure getId: () ==> nat
 		getId() == (
 			return id
 		);
 		
+		--get doctor appointments
+		public pure getAppointments: () ==> set of Appointment
+		getAppointments() == (
+			return appointments
+		);
 		
-		--get doctor specialties
+			--get doctor specialties
 		public pure getSpecialty: () ==> Utils`Specialty
 		getSpecialty() == (
 			return specialty

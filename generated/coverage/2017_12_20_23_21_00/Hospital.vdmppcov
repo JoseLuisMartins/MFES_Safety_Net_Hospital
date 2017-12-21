@@ -3,6 +3,7 @@ instance variables
 	private name: Utils`String := [];
 	private location: Utils`String := [];
 	private max_doctors: nat1 := 1;
+	-- probably should be a map of id->doctor
 	private doctorsIds: set of nat := {};
 	private static currId : nat := 0;
 	private id : nat := currId;
@@ -42,6 +43,8 @@ operations
 		return location
 	);
 	
+		
+	
 	--add doctor
 	public addDoctor: nat ==> ()
 	addDoctor(doctorId) == (
@@ -59,6 +62,7 @@ operations
 	pre doctorId in set doctorsIds
 	post doctorId not in set doctorsIds; 
 
+	
 	
 	
 	

@@ -182,7 +182,7 @@ operations
 			
 		-------------------End hospital search--------------------------------
 				
-		-- get hospitals specialties
+		-- get hospitals by specialtie
 		public getHospitalSpecialties: nat ==> set of Utils`Specialty
 			getHospitalSpecialties(hospitalId) == (
 				dcl res : set of Utils`Specialty := {};
@@ -191,7 +191,7 @@ operations
 				return res
 			);
 			
-			--get hospital appointments
+			--get doctor appointments
 		public pure getHospitalAppointments: nat ==> set of Appointment
 		getHospitalAppointments(hospitalId) == (
 			dcl res: set of Appointment := {};
@@ -219,7 +219,7 @@ operations
 		---------------------------------------------------------
 		
 		---getAllDoctors
-			--search doctors--------------------------------
+		
 		public getAllDoctors: () ==> set of Doctor
 			getAllDoctors() == (
 				return rng doctors;
@@ -233,8 +233,9 @@ operations
 			
 		
 			
-	
+		--search doctors--------------------------------
 		---get hospitals where a doctor works
+		
 		public getDoctorHospitals: nat ==> set of Hospital
 			getDoctorHospitals(doctorId) == (
 				dcl res : set of Hospital := {};
@@ -271,14 +272,6 @@ operations
 		)
 		pre forall ap in set getDoctorAppointments(a.getDoctorId()) & Utils`isDateDiferent(ap.getDate(), a.getDate())
 		post a in set appointments;
-		
-		--get closest doctor available date
-		--public getDoctorCloseDate: nat ==> Utils`Date
-		--getDoctorCloseDate(doctorId) == (
-		--	dcl doctorAppointments: set of Appointment := getDoctorAppointments();
-			
-	--	)
-		--post forall ap in set getDoctorAppointments(a.getDoctorId()) & Utils`isDateDiferent(ap.getDate(), RESULT);
 		
 	
 		
