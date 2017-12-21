@@ -1,11 +1,14 @@
 class Hospital
 instance variables
 	private name: Utils`String := [];
+	-- fazer type para location?
 	private location: Utils`String := [];
 	private max_doctors: nat1 := 1;
 	private doctorsIds: set of nat := {};
 	private static currId : nat := 0;
 	private id : nat := currId;
+	
+	inv forall d in set doctorsIds & d in set dom SafetyNetNetwork`getInstance().getDoctors();
 operations
 
 	--constructor

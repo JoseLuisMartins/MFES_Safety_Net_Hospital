@@ -4,7 +4,7 @@ instance variables
 	private specialty: Utils`Specialty;
 	private static currId : nat := 0;
 	private id : nat := currId;
-
+	
 operations
 	--contructor
 		public Doctor : Utils`String * Utils`Specialty ==> Doctor

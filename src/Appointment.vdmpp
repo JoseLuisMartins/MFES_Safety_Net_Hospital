@@ -1,4 +1,6 @@
 class Appointment
+values 
+ public APPOINTMENT_TIME_MIN = 30; --min
 instance variables
 	private patientName : Utils`String := [];
 	private date : Utils`Date;

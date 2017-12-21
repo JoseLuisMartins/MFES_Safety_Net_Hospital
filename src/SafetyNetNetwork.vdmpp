@@ -1,9 +1,14 @@
 class SafetyNetNetwork 
 instance variables
-		private hospitals: map nat to Hospital := { |-> };
-		private doctors: map nat to Doctor := { |-> };
+		private hospitals: inmap nat to Hospital := { |-> };
+		private doctors: inmap nat to Doctor := { |-> };
 		private appointments: set of Appointment := {};
 		private static networkInstance: SafetyNetNetwork := new SafetyNetNetwork();
+		
+		-- should the name be unique?
+		inv not exists h1, h2 in set rng hospitals &
+		h1 <> h2 and h1.getName() = h2.getName();
+		-- invariant idea: a doctor should be at leat in a hospital to be in the network
 operations
 
 		--main 
@@ -89,6 +94,12 @@ operations
 		public pure static getInstance: () ==> SafetyNetNetwork
 		getInstance() == return networkInstance;
 
+		-- get doctors
+		public pure getDoctors : () ==> map nat to Doctor
+		getDoctors() == (
+			return doctors;
+		);
+		
 		--clear network instance
 		public static clearInstance: () ==> ()
 		clearInstance() == (

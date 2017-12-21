@@ -5,6 +5,7 @@ types
 								 month: nat1
 								 day : nat1
 								 hour : nat1
+								 -- min ??
 	inv d == d.month <= 12 and d.day <= 30 and d.day >= 1 and d.year >= 2017 and d.hour >= 8 and d.hour <= 20;
 	public Agreement = <ADSE> | <MEDICARE>;
 	public Specialty = <ORTOPEDIA> | <CARDIOLOGIA> | <OFTALMOLOGIA> | <DERMATOLOGIA>;
