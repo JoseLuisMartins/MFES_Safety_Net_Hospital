@@ -43,8 +43,6 @@ operations
 		return location
 	);
 	
-		
-	
 	--add doctor
 	public addDoctor: nat ==> ()
 	addDoctor(doctorId) == (

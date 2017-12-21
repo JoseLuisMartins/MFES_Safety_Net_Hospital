@@ -204,8 +204,6 @@ operations
 		--search doctors--------------------------------
 		---get hospitals where a doctor works
 		
-		
-		
 		public getDoctorHospitals: nat ==> set of Hospital
 			getDoctorHospitals(doctorId) == (
 				dcl res : set of Hospital := {};
