@@ -1,14 +1,40 @@
-class Patient
-types
--- TODO Define types here
-values
--- TODO Define values here
+class Patient is subclass of Person
 instance variables
--- TODO Define instance variables here
+	-- Maybe this should be a sequece of suggestions!!
+	private clinicalHistoryDescription: Utils`String := [];
+	private static currId : nat := 0;
+	private id : nat := currId;
 operations
--- TODO Define operations here
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
+	public Patient : Utils`String * nat * Utils`String ==> Patient
+	Patient(n, a, d) == (
+		name := n;
+		age:= a;
+		clinicalHistoryDescription:= d;
+		currId := currId + 1;
+		return self;
+	);
+	
+		
+	--get patient id
+	public pure getId: () ==> nat
+	getId() == (
+		return id
+	);
+	
+		
+	--get clinical history 
+	public pure getClinicalHistoryDescription: () ==> Utils`String
+	getClinicalHistoryDescription() == (
+		return clinicalHistoryDescription
+	);
+	
+		
+	--set clinical history 
+	public setClinicalHistoryDescription: Utils`String ==> ()
+	setClinicalHistoryDescription(d) == (
+		clinicalHistoryDescription := d;
+	);
+	
+	
+
 end Patient

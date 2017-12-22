@@ -1,16 +1,18 @@
 class Person
 instance variables
-  private name: Utils`String := [];
-  private age: nat;
+  protected name: Utils`String := [];
+  protected age: nat;
 operations
- Person: Utils`String * nat ==> Person
- Person(n,a) == (
- 		name := n;
- 		age := a;	
+
+ getName: () ==> Utils`String
+ getName() == (
+ 		return name; 	
+ );
+
+ getAge: () ==> nat
+ getAge() == (
+ 		return age; 	
  );
  
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
+
 end Person

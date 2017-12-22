@@ -16,6 +16,7 @@ main() == (
 		dcl systemTest: SystemTest := new SystemTest();
 	
 		IO`println("network ");
+	/*
 		IO`print("test addDoctor -> ");
 		systemTest.testAddDoctor();
 		IO`println("Success");
@@ -63,10 +64,11 @@ main() == (
 		IO`print("test getHospitalSpecialties -> ");
 		systemTest.testGetHospitalSpecialties();
 		IO`println("Success");
-			
+	*/
 			
 );
 
+/*
 private testAddDoctor: () ==> ()
 	testAddDoctor () == (
 	
@@ -352,7 +354,7 @@ private testGetHospitalSpecialties: () ==> ()
 		safetyNet.clearInstance();
 				
 );
-
+*/
 
 functions
 -- TODO Define functiones here

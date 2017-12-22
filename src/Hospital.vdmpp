@@ -1,9 +1,8 @@
 class Hospital
 instance variables
 	private name: Utils`String := [];
-	-- fazer type para location?
-	private location: Utils`String := [];
-	private max_doctors: nat1 := 1;
+	private location: Utils`Location;
+	private agreements: set of Utils`Agreement := {};
 	private doctorsIds: set of nat := {};
 	private static currId : nat := 0;
 	private id : nat := currId;
@@ -12,11 +11,11 @@ instance variables
 operations
 
 	--constructor
-	public Hospital: Utils`String * Utils`String * nat1 ==> Hospital
-	Hospital(n,l,m_d) == (
+	public Hospital: Utils`String * Utils`Location * set of Utils`Agreement ==> Hospital
+	Hospital(n,l,a) == (
 		name := n;
 		location := l;
-		max_doctors := m_d;
+		agreements := a;
 		currId := currId + 1; 
 		return self 
 	);
@@ -40,10 +39,31 @@ operations
 	);
 	
 	--get hospital location
-	public pure getLocation: () ==> Utils`String
+	public pure getLocation: () ==> Utils`Location
 	getLocation() == (
 		return location
 	);
+	
+	--get hospital agreements
+	public pure getAgreements: () ==> set of Utils`Agreement
+	getAgreements() == (
+		return agreements
+	);
+	
+	--add agreement
+	public addAgreement: Utils`Agreement ==> ()
+	addAgreement(a) == (
+		agreements := agreements union {a};
+	);
+	--faltam pre e pos 
+	
+	
+	--remove agreement
+	public removeAgreement: Utils`Agreement ==> ()
+	removeAgreement(a) == (
+		agreements := agreements \ {a};
+	);
+	-- faltam pre e pos
 	
 	--add doctor
 	public addDoctor: nat ==> ()
