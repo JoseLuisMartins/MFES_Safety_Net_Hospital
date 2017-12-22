@@ -342,6 +342,12 @@ operations
 		----------------------Appointments-----------------------
 		---------------------------------------------------------
 		
+		-- get appointments
+		public pure getAppointments : () ==> set of Appointment
+		getAppointments() == (
+			return appointments;
+		);
+		
 		--get doctor appointments
 		public pure getDoctorAppointments: nat ==> set of Appointment
 		getDoctorAppointments(doctorId) == (

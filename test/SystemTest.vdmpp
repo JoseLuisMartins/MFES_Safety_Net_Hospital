@@ -17,32 +17,23 @@ main() == (
 	
 		IO`println("network ");
 	
-		IO`print("test addDoctor -> ");
-		systemTest.testAddDoctor();
-		IO`println("Success");
-		
-		IO`print("test getDoctors -> ");
-		systemTest.testGetAllDoctors();
-		IO`println("Success");
-		
-		IO`print("test removeDoctor -> ");
-		systemTest.testRemoveDoctor();
-		IO`println("Success");
-		
-		IO`print("test addHospital -> ");
-		systemTest.testAddHospital();
-		IO`println("Success");
-
-		IO`print("test removeHospital -> ");
-		systemTest.testRemoveHospital();
-		IO`println("Success");
-		
+		-- association hospital - doctor	
 		IO`print("test associateADoctorToAnHospital -> ");
 		systemTest.testAssociateDoctorToAnHospital();
 		IO`println("Success");
 		
 		IO`print("test disassociateADoctorToAnHospital -> ");
 		systemTest.testDisassociateDoctorToAnHospital();
+		IO`println("Success");
+		
+		
+		-- Hospital
+		IO`print("test addHospital -> ");
+		systemTest.testAddHospital();
+		IO`println("Success");
+
+		IO`print("test removeHospital -> ");
+		systemTest.testRemoveHospital();
 		IO`println("Success");
 		
 		IO`print("test getAllHospitalsByLocation -> ");
@@ -56,15 +47,55 @@ main() == (
 		IO`print("test getHospitalsByName -> ");
 		systemTest.testGetHospitalsByName();
 		IO`println("Success");
-
-		IO`print("test getDoctorHospitals -> ");
-		systemTest.testGetDoctorHospitals();
+		
+		IO`print("test getHospitalsById -> ");
+		systemTest.testGetHospitalsById();
 		IO`println("Success");
 		
 		IO`print("test getHospitalSpecialties -> ");
 		systemTest.testGetHospitalSpecialties();
 		IO`println("Success");
-	
+
+		-- Doctor
+		IO`print("test addDoctor -> ");
+		systemTest.testAddDoctor();
+		IO`println("Success");
+		
+		IO`print("test getDoctors -> ");
+		systemTest.testGetAllDoctors();
+		IO`println("Success");
+		
+		IO`print("test removeDoctor -> ");
+		systemTest.testRemoveDoctor();
+		IO`println("Success");
+		
+		IO`print("test getDoctorHospitals -> ");
+		systemTest.testGetDoctorHospitals();
+		IO`println("Success");
+		
+		IO`print("test getDoctorBySpecialtie-> ");
+		systemTest.testGetDoctorBySpecialtie();
+		IO`println("Success");
+		
+		IO`print("test getDoctorById -> ");
+		systemTest.testGetDoctorById();
+		IO`println("Success");
+		
+		-- Patient
+		IO`print("test addPatient -> ");
+		systemTest.testAddPatient();
+		IO`println("Success");
+		
+		IO`print("test removePatient -> ");
+		systemTest.testRemovePatient();
+		IO`println("Success");
+		
+		
+		-- Appointement
+		
+		IO`print("test addAppointment -> ");
+		systemTest.testAddAppointment();
+		IO`println("Success");
 			
 );
 
@@ -257,6 +288,26 @@ private testGetHospitalsByLocation: () ==> ()
 		safetyNet.clearInstance();
 );
 
+private testGetHospitalsById: () ==> ()
+	testGetHospitalsById () == (
+			
+		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		dcl hos3: Hospital := new Hospital("Hospital de Santo Antonio",mk_Utils`Location("Lisboa", "Avenida de Santo antonio, n� 300","4750-559"), {<ADSE>});
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addHospital(hos1);
+		safetyNet.addHospital(hos2);
+		safetyNet.addHospital(hos3);
+	
+		assertEqual(safetyNet.getHospitalsById(hos1.getId()), hos1);
+		assertEqual(safetyNet.getHospitalsById(hos2.getId()), hos2);
+		assertEqual(safetyNet.getHospitalsById(hos3.getId()), hos3);
+	
+		safetyNet.clearInstance();
+);
+
 private testGetAllHospitals: () ==> ()
 	testGetAllHospitals () == (
 		
@@ -326,6 +377,27 @@ private testGetDoctorHospitals: () ==> ()
 				
 );
 
+private testGetDoctorBySpecialtie: () ==> ()
+	testGetDoctorBySpecialtie () == (
+	
+		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+		
+		safetyNet.addDoctor(doc1);
+		safetyNet.addDoctor(doc2);
+		safetyNet.addDoctor(doc3);
+
+		assertEqual(safetyNet.getDoctorsBySpecialty(<ORTOPEDIA>), {doc1});
+		assertEqual(safetyNet.getDoctorsBySpecialty(<OFTALMOLOGIA>), {});
+		assertEqual(safetyNet.getDoctorsBySpecialty(<CARDIOLOGIA>), {doc2, doc3});		
+		
+		safetyNet.clearInstance();
+				
+);
+
 private testGetHospitalSpecialties: () ==> ()
 	testGetHospitalSpecialties () == (
 	
@@ -355,6 +427,157 @@ private testGetHospitalSpecialties: () ==> ()
 		safetyNet.clearInstance();
 				
 );
+
+private testGetDoctorById: () ==> ()
+	testGetDoctorById () == (
+			
+		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addDoctor(doc1);
+		safetyNet.addDoctor(doc2);
+		safetyNet.addDoctor(doc3);
+		
+		assertEqual(safetyNet.getDoctorById(doc1.getId()), doc1);
+		assertEqual(safetyNet.getDoctorById(doc2.getId()), doc2);
+		assertEqual(safetyNet.getDoctorById(doc3.getId()), doc3);
+	
+		safetyNet.clearInstance();
+);
+
+private testAddPatient: () ==> ()
+	testAddPatient () == (
+	
+		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
+			
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addPatient(pat1);
+		safetyNet.addPatient(pat2);
+
+		assertEqual( safetyNet.getPatients(), {pat1.getId() |-> pat1, pat2.getId() |-> pat2});
+		
+		safetyNet.clearInstance();
+				
+);
+
+private testRemovePatient: () ==> ()
+	testRemovePatient () == (
+	
+		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
+			
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addPatient(pat1);
+		safetyNet.addPatient(pat2);
+		
+		safetyNet.removePatient(pat2);
+
+		assertEqual( safetyNet.getPatients(), {pat1.getId() |-> pat1});
+		
+		safetyNet.clearInstance();
+				
+);
+
+private testAddAppointment: () ==> ()
+	testAddAppointment () == (
+	
+		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		
+		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
+		
+		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
+		
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addHospital(hos1);
+		safetyNet.addHospital(hos2);
+		
+		safetyNet.addDoctor(doc1);
+		safetyNet.addDoctor(doc2);
+		safetyNet.addDoctor(doc3);
+		
+		safetyNet.addPatient(pat1);
+		safetyNet.addPatient(pat2);
+
+		safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
+
+		assertEqual(card safetyNet.getDoctorAppointments(doc1.getId()), 0);
+		assertEqual(card safetyNet.getDoctorAppointments(doc2.getId()), 0);
+
+		safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat1.getId()));
+		safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos2.getId(), doc2.getId(), pat2.getId()));
+
+		-- doctor appointments
+		assertEqual(card safetyNet.getDoctorAppointments(doc1.getId()), 1);
+		assertEqual(card safetyNet.getDoctorAppointments(doc2.getId()), 1);
+		assertEqual(card safetyNet.getDoctorAppointments(doc3.getId()), 0);
+		
+		/* necessario verificar se sao os corretos*/
+		
+		
+		-- patient appointments
+		assertEqual(card safetyNet.getPatientAppointments(pat1.getId()), 1);
+		assertEqual(card safetyNet.getPatientAppointments(pat2.getId()), 1);
+		
+		/* necessario verificar se sao os corretos*/
+		
+		assertEqual(card safetyNet.getAppointments(), 2);
+		
+		safetyNet.clearInstance();
+				
+);
+
+/* 
+private testRemoveAppointment: () ==> ()
+	testRemoveAppointment() == (
+	
+		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		
+		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
+		
+		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
+		
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addHospital(hos1);
+		safetyNet.addHospital(hos2);
+		
+		safetyNet.addDoctor(doc1);
+		safetyNet.addDoctor(doc2);
+		safetyNet.addDoctor(doc3);
+		
+		safetyNet.addPatient(pat1);
+		safetyNet.addPatient(pat2);
+
+		safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
+
+		safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat1.getId()));
+		safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos1.getId(), doc2.getId(), pat2.getId()));
+		
+		safetyNet.clearInstance();
+				
+);
+*/
 
 
 functions
