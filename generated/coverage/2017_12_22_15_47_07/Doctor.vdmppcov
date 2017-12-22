@@ -1,0 +1,35 @@
+class Doctor is subclass of Person
+instance variables
+	private specialty: Utils`Specialty;
+	private static currId : nat := 0;
+	private id : nat := currId;
+	
+operations
+	--contructor
+		public Doctor : Utils`String * nat * Utils`Specialty ==> Doctor
+		Doctor(n, a, s) == (
+			name := n;
+			age := a;
+			specialty := s;
+			currId := currId + 1;
+			return self;
+		);
+		
+		--get doctor id
+		public pure getId: () ==> nat
+		getId() == (
+			return id
+		);
+		
+		
+		--get doctor specialties
+		public pure getSpecialty: () ==> Utils`Specialty
+		getSpecialty() == (
+			return specialty
+		);
+		
+
+functions
+-- TODO Define functiones here
+
+end Doctor

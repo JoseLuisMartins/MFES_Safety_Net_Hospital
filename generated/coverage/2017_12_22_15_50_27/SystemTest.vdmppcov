@@ -226,6 +226,9 @@ private testDisassociateDoctorToAnHospital: () ==> ()
 		safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
 		safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
 		
+		IO`println(hos2.getDoctorsIds());
+		IO`println(doc1.getId());
+		IO`println(doc2.getId());
 		
 		safetyNet.disassociateDoctorFromHospital(hos2.getId(), doc1.getId());
 
@@ -251,8 +254,8 @@ private testGetHospitalsByLocation: () ==> ()
 		safetyNet.addHospital(hos2);
 		safetyNet.addHospital(hos3);
 	
-		assertEqual(safetyNet.getHospitalsByCity("Porto"), {hos1});
-		assertEqual(safetyNet.getHospitalsByCity("Lisboa"), {hos2, hos3});
+		assertEqual(safetyNet.getHospitalsByCity("porto"), {hos1});
+		assertEqual(safetyNet.getHospitalsByCity("lisboa"), {hos2, hos3});
 	
 		safetyNet.clearInstance();
 );
@@ -270,7 +273,7 @@ private testGetAllHospitals: () ==> ()
 		safetyNet.addHospital(hos2);
 		safetyNet.addHospital(hos3);
 	
-		assertEqual(safetyNet.getHospitals(), {hos1.getId() |-> hos1, hos2.getId() |-> hos2, hos3.getId() |->hos3});
+		assertEqual(safetyNet.getHospitals(), {hos1.getId |-> hos1, hos2.getId |-> hos2, hos3.getId |->hos3});
 	
 		safetyNet.clearInstance();
 );
@@ -288,9 +291,9 @@ private testGetHospitalsByName: () ==> ()
 		safetyNet.addHospital(hos2);
 		safetyNet.addHospital(hos3);
 	
-		assertEqual(safetyNet.getHospitalsByName("Hospital Sao Joao"), {hos1});
-		assertEqual(safetyNet.getHospitalsByName("Hospital da Luz Lisboa"), {hos2});
-		assertEqual(safetyNet.getHospitalsByName("Hospital de Santo Antonio"), {hos3});
+		assertEqual(safetyNet.getHospitalsByName("sao joao"), {hos1});
+		assertEqual(safetyNet.getHospitalsByName("santo antonio"), {hos2});
+		assertEqual(safetyNet.getHospitalsByName("hospital da luz"), {hos3});
 		
 		safetyNet.clearInstance();
 );

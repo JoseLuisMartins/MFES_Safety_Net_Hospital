@@ -116,7 +116,7 @@ operations
 			associateDoctorToHospital(hospitalId, doctorId) == (
 				hospitals(hospitalId).addDoctor(doctorId)
 		)
-		pre hospitalId in set dom hospitals and doctorId in set dom doctors and doctorId not in set hospitals(hospitalId).getDoctorsIds()
+		pre hospitalId in set dom hospitals and doctorId in set dom doctors and hospitalId not in set hospitals(hospitalId).getDoctorsIds()
 	  post hospitalId in set dom hospitals and doctorId in set dom doctors and doctorId in set hospitals(hospitalId).getDoctorsIds();
 				
 		
@@ -125,8 +125,8 @@ operations
 			disassociateDoctorFromHospital(hospitalId, doctorId) == (
 				hospitals(hospitalId).removeDoctor(doctorId)
 		)
-		pre hospitalId in set dom hospitals and doctorId in set dom doctors and doctorId in set hospitals(hospitalId).getDoctorsIds()
-		post hospitalId in set dom hospitals and doctorId in set dom doctors and doctorId not in set hospitals(hospitalId).getDoctorsIds();
+		pre hospitalId in set dom hospitals and doctorId in set dom doctors and hospitalId in set hospitals(hospitalId).getDoctorsIds()
+		post hospitalId in set dom hospitals and doctorId in set dom doctors and hospitalId not in set hospitals(hospitalId).getDoctorsIds();
 				
 		-----------------------------------------------------------
 		------------------Hospital---------------------------------

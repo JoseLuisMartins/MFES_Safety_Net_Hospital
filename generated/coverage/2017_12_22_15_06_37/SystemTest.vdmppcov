@@ -16,12 +16,12 @@ main() == (
 		dcl systemTest: SystemTest := new SystemTest();
 	
 		IO`println("network ");
-	
+	/*
 		IO`print("test addDoctor -> ");
 		systemTest.testAddDoctor();
 		IO`println("Success");
 		
-		IO`print("test getDoctors -> ");
+		IO`print("test addDoctor -> ");
 		systemTest.testGetAllDoctors();
 		IO`println("Success");
 		
@@ -64,23 +64,23 @@ main() == (
 		IO`print("test getHospitalSpecialties -> ");
 		systemTest.testGetHospitalSpecialties();
 		IO`println("Success");
-	
+	*/
 			
 );
 
-
+/*
 private testAddDoctor: () ==> ()
 	testAddDoctor () == (
 	
-		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
-		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc1: Doctor := new Doctor("jose",<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo",<CARDIOLOGIA>);
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
 		safetyNet.addDoctor(doc1);
 		safetyNet.addDoctor(doc2);
 
-		assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
+		assertEqual(safetyNet.getAllDoctors(), {doc1, doc2});
 		
 		safetyNet.clearInstance();
 				
@@ -89,17 +89,17 @@ private testAddDoctor: () ==> ()
 private testGetAllDoctors: () ==> ()
 	testGetAllDoctors () == (
 		
-		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
-		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc1: Doctor := new Doctor("jose",<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo",<CARDIOLOGIA>);
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 
-		assertEqual(rng safetyNet.getDoctors(), {});
+		assertEqual(safetyNet.getAllDoctors(), {});
 			
 		safetyNet.addDoctor(doc1);
 		safetyNet.addDoctor(doc2);
 
-		assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
+		assertEqual(safetyNet.getAllDoctors(), {doc1, doc2});
 		
 		safetyNet.clearInstance();
 				
@@ -108,11 +108,11 @@ private testGetAllDoctors: () ==> ()
 private testRemoveDoctor: () ==> ()
 	testRemoveDoctor () == (
 		
-		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
-		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc1: Doctor := new Doctor("jose",<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo",<CARDIOLOGIA>);
 		
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);	
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -128,10 +128,10 @@ private testRemoveDoctor: () ==> ()
 		safetyNet.removeDoctor(doc2);
 
 		-- check if was removed from the system
-		assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1});
+		assertEqual(safetyNet.getAllDoctors(), {doc1});
 		
 		-- check if the doctor was removed from all hospitals where he worked
-		for all hs in set rng safetyNet.getHospitals() do
+		for all hs in set safetyNet.getAllHospitals() do
 			assertTrue(doc2.getId() not in set hs.getDoctorsIds());
 		
 		safetyNet.clearInstance();
@@ -141,15 +141,15 @@ private testRemoveDoctor: () ==> ()
 private testAddHospital: () ==> ()
 	testAddHospital () == (
 		
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);	
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
 		safetyNet.addHospital(hos1);
 		safetyNet.addHospital(hos2);
-		
-		assertEqual(safetyNet.getHospitals(), { hos1.getId() |-> hos1, hos2.getId() |-> hos2});
+
+		assertEqual(safetyNet.getAllHospitals(), {hos1, hos2});
 		
 		safetyNet.clearInstance();
 				
@@ -158,8 +158,8 @@ private testAddHospital: () ==> ()
 private testRemoveHospital: () ==> ()
 	testRemoveHospital () == (
 		
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);	
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -168,7 +168,7 @@ private testRemoveHospital: () ==> ()
 
 		safetyNet.removeHospital(hos1);
 
-		assertEqual(safetyNet.getHospitals(), { hos2.getId() |-> hos2});
+		assertEqual(safetyNet.getAllHospitals(), {hos2});
 		
 		safetyNet.clearInstance();
 				
@@ -178,11 +178,11 @@ private testRemoveHospital: () ==> ()
 private testAssociateDoctorToAnHospital: () ==> ()
 	testAssociateDoctorToAnHospital () == (
 	
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});	
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);		
 		
-		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
-		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc1: Doctor := new Doctor("jose",<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo",<CARDIOLOGIA>);
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -199,7 +199,7 @@ private testAssociateDoctorToAnHospital: () ==> ()
 		assertEqual(hos1.getDoctorsIds(), {doc1.getId()});
 		assertEqual(hos2.getDoctorsIds(), {doc1.getId(),doc2.getId()});
 
-		assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
+		assertEqual(safetyNet.getAllDoctors(), {doc1,doc2});
 		
 		safetyNet.clearInstance();
 				
@@ -208,11 +208,11 @@ private testAssociateDoctorToAnHospital: () ==> ()
 private testDisassociateDoctorToAnHospital: () ==> ()
 	testDisassociateDoctorToAnHospital () == (
 	
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});		
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);		
 		
-		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
-		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc1: Doctor := new Doctor("jose",<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo",<CARDIOLOGIA>);
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -226,13 +226,12 @@ private testDisassociateDoctorToAnHospital: () ==> ()
 		safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
 		safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
 		
-		
 		safetyNet.disassociateDoctorFromHospital(hos2.getId(), doc1.getId());
 
 		assertEqual(hos1.getDoctorsIds(), {doc1.getId()});
 		assertEqual(hos2.getDoctorsIds(), {doc2.getId()});
 		
-		assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
+		assertEqual(safetyNet.getAllDoctors(), {doc1,doc2});
 		
 		safetyNet.clearInstance();
 				
@@ -240,10 +239,10 @@ private testDisassociateDoctorToAnHospital: () ==> ()
 
 private testGetHospitalsByLocation: () ==> ()
 	testGetHospitalsByLocation () == (
-			
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
-		dcl hos3: Hospital := new Hospital("Hospital de Santo Antonio",mk_Utils`Location("Lisboa", "Avenida de Santo antonio, n� 300","4750-559"), {<ADSE>});
+		
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);	
+		dcl hos3: Hospital := new Hospital("hospital da luz","lisboa",5);	
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -251,8 +250,8 @@ private testGetHospitalsByLocation: () ==> ()
 		safetyNet.addHospital(hos2);
 		safetyNet.addHospital(hos3);
 	
-		assertEqual(safetyNet.getHospitalsByCity("Porto"), {hos1});
-		assertEqual(safetyNet.getHospitalsByCity("Lisboa"), {hos2, hos3});
+		assertEqual(safetyNet.getHospitalsByLocation("porto"), {hos1});
+		assertEqual(safetyNet.getHospitalsByLocation("lisboa"), {hos2, hos3});
 	
 		safetyNet.clearInstance();
 );
@@ -260,9 +259,9 @@ private testGetHospitalsByLocation: () ==> ()
 private testGetAllHospitals: () ==> ()
 	testGetAllHospitals () == (
 		
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
-		dcl hos3: Hospital := new Hospital("Hospital de Santo Antonio",mk_Utils`Location("Lisboa", "Avenida de Santo antonio, n� 300","4750-559"), {<ADSE>});
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);	
+		dcl hos3: Hospital := new Hospital("hospital da luz","lisboa",5);	
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -270,7 +269,7 @@ private testGetAllHospitals: () ==> ()
 		safetyNet.addHospital(hos2);
 		safetyNet.addHospital(hos3);
 	
-		assertEqual(safetyNet.getHospitals(), {hos1.getId() |-> hos1, hos2.getId() |-> hos2, hos3.getId() |->hos3});
+		assertEqual(safetyNet.getAllHospitals(), {hos1, hos2, hos3});
 	
 		safetyNet.clearInstance();
 );
@@ -278,9 +277,9 @@ private testGetAllHospitals: () ==> ()
 private testGetHospitalsByName: () ==> ()
 	testGetHospitalsByName () == (
 		
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
-		dcl hos3: Hospital := new Hospital("Hospital de Santo Antonio",mk_Utils`Location("Lisboa", "Avenida de Santo antonio, n� 300","4750-559"), {<ADSE>});
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);	
+		dcl hos3: Hospital := new Hospital("hospital da luz","lisboa",5);	
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -288,9 +287,9 @@ private testGetHospitalsByName: () ==> ()
 		safetyNet.addHospital(hos2);
 		safetyNet.addHospital(hos3);
 	
-		assertEqual(safetyNet.getHospitalsByName("Hospital Sao Joao"), {hos1});
-		assertEqual(safetyNet.getHospitalsByName("Hospital da Luz Lisboa"), {hos2});
-		assertEqual(safetyNet.getHospitalsByName("Hospital de Santo Antonio"), {hos3});
+		assertEqual(safetyNet.getHospitalsByName("sao joao"), {hos1});
+		assertEqual(safetyNet.getHospitalsByName("santo antonio"), {hos2});
+		assertEqual(safetyNet.getHospitalsByName("hospital da luz"), {hos3});
 		
 		safetyNet.clearInstance();
 );
@@ -298,12 +297,12 @@ private testGetHospitalsByName: () ==> ()
 private testGetDoctorHospitals: () ==> ()
 	testGetDoctorHospitals () == (
 	
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);	
 		
-		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
-		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
-		dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
+		dcl doc1: Doctor := new Doctor("jose",<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo",<CARDIOLOGIA>);
+		dcl doc3: Doctor := new Doctor("joaquim",<CARDIOLOGIA>);
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -329,12 +328,12 @@ private testGetDoctorHospitals: () ==> ()
 private testGetHospitalSpecialties: () ==> ()
 	testGetHospitalSpecialties () == (
 	
-		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
-		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		dcl hos1: Hospital := new Hospital("sao joao","porto",4);
+		dcl hos2: Hospital := new Hospital("santo antonio","lisboa",4);	
 		
-		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
-		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
-		dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
+		dcl doc1: Doctor := new Doctor("jose",<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo",<CARDIOLOGIA>);
+		dcl doc3: Doctor := new Doctor("joaquim",<CARDIOLOGIA>);
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -355,7 +354,7 @@ private testGetHospitalSpecialties: () ==> ()
 		safetyNet.clearInstance();
 				
 );
-
+*/
 
 functions
 -- TODO Define functiones here

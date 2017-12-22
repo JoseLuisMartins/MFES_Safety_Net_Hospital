@@ -1,0 +1,91 @@
+class Hospital
+instance variables
+	private name: Utils`String := [];
+	private location: Utils`Location;
+	private agreements: set of Utils`Agreement := {};
+	private doctorsIds: set of nat := {};
+	private static currId : nat := 0;
+	private id : nat := currId;
+	
+	inv forall d in set doctorsIds & d in set dom SafetyNetNetwork`getInstance().getDoctors();
+operations
+
+	--constructor
+	public Hospital: Utils`String * Utils`Location * set of Utils`Agreement ==> Hospital
+	Hospital(n,l,a) == (
+		name := n;
+		location := l;
+		agreements := a;
+		currId := currId + 1; 
+		return self 
+	);
+
+	--get hospital name	
+	public pure getName: () ==> Utils`String
+	getName() == (
+		return name
+	);
+	
+	--get hospital id
+	public pure getId: () ==> nat
+	getId() == (
+		return id
+	);
+	
+	--get hospital doctors
+	public pure getDoctorsIds: () ==> set of nat
+	getDoctorsIds() == (
+		return doctorsIds
+	);
+	
+	--get hospital location
+	public pure getLocation: () ==> Utils`Location
+	getLocation() == (
+		return location
+	);
+	
+	--get hospital agreements
+	public pure getAgreements: () ==> set of Utils`Agreement
+	getAgreements() == (
+		return agreements
+	);
+	
+	--add agreement
+	public addAgreement: Utils`Agreement ==> ()
+	addAgreement(a) == (
+		agreements := agreements union {a};
+	);
+	--faltam pre e pos 
+	
+	
+	--remove agreement
+	public removeAgreement: Utils`Agreement ==> ()
+	removeAgreement(a) == (
+		agreements := agreements \ {a};
+	);
+	-- faltam pre e pos
+	
+	--add doctor
+	public addDoctor: nat ==> ()
+	addDoctor(doctorId) == (
+		doctorsIds := doctorsIds union {doctorId}
+	)
+	pre doctorId not in set doctorsIds
+	post doctorId in set doctorsIds; 
+
+	
+	--remove doctor	
+	public removeDoctor: nat ==> ()
+	removeDoctor(doctorId) == (
+		doctorsIds := doctorsIds \ {doctorId}
+	)
+	pre doctorId in set doctorsIds
+	post doctorId not in set doctorsIds; 
+
+	
+	
+	
+functions
+-- TODO Define functiones here
+
+end Hospital

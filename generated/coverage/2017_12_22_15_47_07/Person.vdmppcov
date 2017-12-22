@@ -1,0 +1,18 @@
+class Person
+instance variables
+  protected name: Utils`String := [];
+  protected age: nat;
+operations
+
+ getName: () ==> Utils`String
+ getName() == (
+ 		return name; 	
+ );
+
+ getAge: () ==> nat
+ getAge() == (
+ 		return age; 	
+ );
+ 
+
+end Person

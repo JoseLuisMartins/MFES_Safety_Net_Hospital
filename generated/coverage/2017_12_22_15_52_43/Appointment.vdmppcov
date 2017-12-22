@@ -1,0 +1,52 @@
+class Appointment
+values 
+ public APPOINTMENT_TIME_MIN = 30; --min
+instance variables
+	private date : Utils`Date;
+  private hospitalId: nat;
+  private doctorId: nat;
+  private patientId: nat;
+  
+  -- inv 
+	inv hospitalId in set dom SafetyNetNetwork`getInstance().getHospitals() and
+	 		doctorId in set dom SafetyNetNetwork`getInstance().getDoctors() and 
+	 		patientId in set dom SafetyNetNetwork`getInstance().getPatients();
+operations
+	--constructor
+	public Appointment: Utils`Date * nat * nat * nat ==> Appointment
+	Appointment(d,hos, doc, pat) == (
+		date := d;
+		hospitalId := hos;
+		doctorId := doc;
+		patientId:= pat;
+		return self;
+	);
+
+		--get appointment date
+		public pure getDate: () ==> Utils`Date
+		getDate() == (
+			return date
+		);
+		
+		--get appointment doctor
+		public pure getDoctorId: () ==> nat
+		getDoctorId() == (
+			return doctorId
+		);
+		
+			
+		--get appointment doctor
+		public pure getHospitalId: () ==> nat
+		getHospitalId() == (
+			return hospitalId
+		);
+		
+		--get appointment doctor
+		public pure getPatientId: () ==> nat
+		getPatientId() == (
+			return patientId
+		);
+		
+functions
+-- TODO Define functiones here
+end Appointment

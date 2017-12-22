@@ -288,9 +288,9 @@ private testGetHospitalsByName: () ==> ()
 		safetyNet.addHospital(hos2);
 		safetyNet.addHospital(hos3);
 	
-		assertEqual(safetyNet.getHospitalsByName("Hospital Sao Joao"), {hos1});
-		assertEqual(safetyNet.getHospitalsByName("Hospital da Luz Lisboa"), {hos2});
-		assertEqual(safetyNet.getHospitalsByName("Hospital de Santo Antonio"), {hos3});
+		assertEqual(safetyNet.getHospitalsByName("sao joao"), {hos1});
+		assertEqual(safetyNet.getHospitalsByName("santo antonio"), {hos2});
+		assertEqual(safetyNet.getHospitalsByName("hospital da luz"), {hos3});
 		
 		safetyNet.clearInstance();
 );
