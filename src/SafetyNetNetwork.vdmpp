@@ -11,7 +11,7 @@ instance variables
 		h1 <> h2 and h1.getName() = h2.getName();
 		-- invariant idea: a doctor should be at leat in a hospital to be in the network
 operations
-
+ /* 
 		--main 
 		public static main: () ==> ()
 		main() ==
@@ -92,7 +92,7 @@ operations
 			
 		);
 
-
+*/ 
 		--constructor
 		private SafetyNetNetwork: () ==> SafetyNetNetwork
 		SafetyNetNetwork() == return self

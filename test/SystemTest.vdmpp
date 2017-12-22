@@ -110,7 +110,14 @@ private testAddDoctor: () ==> ()
 			
 		safetyNet.addDoctor(doc1);
 		safetyNet.addDoctor(doc2);
-
+	/* 	
+		assertEqual(doc1`getName(), "jose");
+		assertEqual(doc2`getName(), "marcelo");
+		
+		assertEqual(doc1.getAge(), 35);
+		assertEqual(doc2.getAge(), 40);
+		
+*/
 		assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
 		
 		safetyNet.clearInstance();
@@ -522,9 +529,23 @@ private testAddAppointment: () ==> ()
 
 		-- doctor appointments
 		assertEqual(card safetyNet.getDoctorAppointments(doc1.getId()), 1);
+		
+		for all a in set safetyNet.getDoctorAppointments(doc1.getId()) do (
+			assertEqual(a.getDoctorId(), doc1.getId());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		
 		assertEqual(card safetyNet.getDoctorAppointments(doc2.getId()), 1);
+		
+		for all a in set safetyNet.getDoctorAppointments(doc2.getId()) do (
+			assertEqual(a.getDoctorId(), doc2.getId());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		
 		assertEqual(card safetyNet.getDoctorAppointments(doc3.getId()), 0);
 		
+
+
 		/* necessario verificar se sao os corretos*/
 		
 		
@@ -532,9 +553,13 @@ private testAddAppointment: () ==> ()
 		assertEqual(card safetyNet.getPatientAppointments(pat1.getId()), 1);
 		assertEqual(card safetyNet.getPatientAppointments(pat2.getId()), 1);
 		
+		
 		/* necessario verificar se sao os corretos*/
 		
 		assertEqual(card safetyNet.getAppointments(), 2);
+		
+		assertEqual(safetyNet.getHospitalNumberOfAppointments(hos1.getId()), 1);	
+		assertEqual(safetyNet.getHospitalNumberOfAppointments(hos2.getId()), 1);		
 		
 		safetyNet.clearInstance();
 				
