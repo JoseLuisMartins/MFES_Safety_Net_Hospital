@@ -43,15 +43,12 @@ operations
 			safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
 			safetyNet.associateDoctorToHospital(hos2.getId(), doc3.getId());
 			
-			--dcl ap1: Appointment := new Appointment(mk_Utils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat1.getId());
-			--dcl ap2: Appointment := new Appointment(mk_Utils`Date(2018,12,21,8,30),hos1.getId(), doc2.getId(), pat1.getId());
-			--dcl ap3: Appointment := new Appointment(mk_Utils`Date(2018,12,21,9,30),hos2.getId(), doc2.getId(),pat2.getId());
 			
-			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos2.getId(), doc1.getId(), pat1.getId()));
-			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,9,00),hos2.getId(), doc1.getId(),pat1.getId()));
-			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,10,00),hos2.getId(), doc1.getId(),pat1.getId()));
-			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30),hos2.getId(), doc3.getId(),pat2.getId()));
-			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,9,30),hos2.getId(), doc3.getId(),pat2.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,1,1,8,30), hos2.getId(), doc1.getId(), pat1.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,1,1,9,00),hos2.getId(), doc1.getId(),pat1.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,1,1,10,00),hos2.getId(), doc1.getId(),pat1.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,1,1,8,30),hos2.getId(), doc3.getId(),pat2.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,1,1,9,00),hos2.getId(), doc3.getId(),pat2.getId()));
 			
 			IO`println("Network");
 			IO`println(safetyNet);
@@ -448,26 +445,33 @@ operations
 			dcl minDate: Utils`Date := Utils`getMaxDate(); 
 			dcl doctorId: nat;
 			dcl availableDoctors: set of nat := {};
+			dcl occupiedDates: set of Utils`Date := {};
 			
 			for all ap in set appointmentSet do 
-				availableDoctors := availableDoctors union {ap.getDoctorId()};
-			
-			for all ap in set appointmentSet do
 			(
-				dcl auxDate : Utils`Date := Appointment`getNextAppointmentDate(ap.getDate());
+				availableDoctors := availableDoctors union {ap.getDoctorId()};
+				occupiedDates := occupiedDates union {ap.getDate()};
+			);
+			
+			-- have to check if the first date is available
+			occupiedDates := occupiedDates union {Utils`getMinDate()};
+			
+			for all date in set occupiedDates do
+			(
+				dcl auxDate : Utils`Date := Appointment`getNextAppointmentDate(date);
 				if(Utils`isDateLower(auxDate, minDate)) then
 					for all docId in set availableDoctors do 		 
 							if(forall docAp in set getDoctorAppointments(docId) &  Appointment`appointmentDatesDontOverlap(docAp.getDate(),auxDate)) then -- if the next appointment is on a closer date than the actual minimum and one of the doctor has the date slot available, update the minimum
 							(
 								doctorId := docId;
-								minDate := Appointment`getNextAppointmentDate(ap.getDate());
+								minDate := auxDate;
 							)
 			);
 			
-			-- have to see the case of the first date is available
 			return mk_Utils`Date_DoctorId(minDate, doctorId);
 		)
-		pre forall ap in set appointmentSet & ap in set appointments;
+		pre forall ap in set appointmentSet & ap in set appointments
+		post RESULT.doctorId in set dom doctors;
 		
   	---------------------------------------------------------
 		----------------------End Appointments-------------------

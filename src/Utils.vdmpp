@@ -1,8 +1,9 @@
 class Utils
 values
 	public HOUR_MIN = 60; -- minutes in an hour
-	public DAY_HOURS = 24; -- minutes in an hour
-	public MONTH_DAYS = 30; -- minutes in an hour
+	public DAY_HOURS = 24; -- hour in a day
+	public MONTH_DAYS = 30; -- days in a month
+	public YEAR_MONTHS = 12; -- months in a year
 types
 	public String = seq of char;
 	public Location :: city: String
@@ -13,9 +14,10 @@ types
 								 day : nat1
 								 hour : nat
 								 min : nat
-	inv d == d.year > 2017 and d.month <= 12 and d.day < 31 and d.hour < 24 and d.min < 60;
+	inv d == d.year > 2017 and d.month <= YEAR_MONTHS and d.day <= MONTH_DAYS and d.hour < DAY_HOURS and d.min < HOUR_MIN;
 	public Date_DoctorId :: date : Date
-							 						doctorId: nat;							 
+							 						doctorId: nat;
+							 
 	public Agreement = <ADSE> | <MEDICARE> | <MEDIS> | <MULTICARE>;
 	public Specialty = <ORTOPEDIA> | <CARDIOLOGIA> | <OFTALMOLOGIA> | 
 										 <DERMATOLOGIA> | <GINECOLOGIA> | <NEUROLOGIA> | 
