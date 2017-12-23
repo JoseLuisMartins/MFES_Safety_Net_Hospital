@@ -14,6 +14,8 @@ types
 								 hour : nat
 								 min : nat
 	inv d == d.year > 2017 and d.month <= 12 and d.day < 31 and d.hour < 24 and d.min < 60;
+	public Date_DoctorId :: date : Date
+							 						doctorId: nat;							 
 	public Agreement = <ADSE> | <MEDICARE> | <MEDIS> | <MULTICARE>;
 	public Specialty = <ORTOPEDIA> | <CARDIOLOGIA> | <OFTALMOLOGIA> | 
 										 <DERMATOLOGIA> | <GINECOLOGIA> | <NEUROLOGIA> | 

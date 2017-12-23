@@ -441,9 +441,9 @@ operations
 		
 		
 		
-		--get closest appointment date available
-		-- Still not perfect
-		public getHospitalClosestAvailableDate: set of Appointment ==> Utils`Date   
+		-- get closest appointment date available given a set of appointments
+		-- example: pass the appointments related to a specialty and it will return the closest appointment date available for that specialty as well as the doctor
+		public getHospitalClosestAvailableDate: set of Appointment ==> Utils`Date_DoctorId   
 		 getHospitalClosestAvailableDate(appointmentSet) == (
 			dcl minDate: Utils`Date := Utils`getMaxDate(); 
 			dcl doctorId: nat;
@@ -455,17 +455,19 @@ operations
 			for all ap in set appointmentSet do
 			(
 				dcl auxDate : Utils`Date := Appointment`getNextAppointmentDate(ap.getDate());
-				if(Utils`isDateLower(auxDate, minDate) and
-							forall docId in set availableDoctors & 
-							forall docAp in set getDoctorAppointments(docId) &  Appointment`appointmentDatesDontOverlap(docAp.getDate(),auxDate)) then -- if the next appointment is on a closer date than the actual minimum and one of the doctor has the date slot available, update the minimum
-					
-					minDate := Appointment`getNextAppointmentDate(ap.getDate());
+				if(Utils`isDateLower(auxDate, minDate)) then
+					for all docId in set availableDoctors do 		 
+							if(forall docAp in set getDoctorAppointments(docId) &  Appointment`appointmentDatesDontOverlap(docAp.getDate(),auxDate)) then -- if the next appointment is on a closer date than the actual minimum and one of the doctor has the date slot available, update the minimum
+							(
+								doctorId := docId;
+								minDate := Appointment`getNextAppointmentDate(ap.getDate());
+							)
 			);
 			
 			-- have to see the case of the first date is available
-			return minDate;
+			return mk_Utils`Date_DoctorId(minDate, doctorId);
 		)
-		pre forall ap in set appointmentSet & ap in set appointments
+		pre forall ap in set appointmentSet & ap in set appointments;
 		
   	---------------------------------------------------------
 		----------------------End Appointments-------------------
