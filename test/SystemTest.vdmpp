@@ -100,6 +100,16 @@ main() == (
 		IO`print("test removeAppointment -> ");
 		systemTest.testRemoveAppointment();
 		IO`println("Success");
+		
+		-- Agreement
+		
+		IO`print("test addAgreement-> ");
+		systemTest.testAddAgreement();
+		IO`println("Success");
+				
+		IO`print("test removeAgreement -> ");
+		systemTest.testRemoveAgreement();
+		IO`println("Success");
 			
 );
 
@@ -114,14 +124,13 @@ private testAddDoctor: () ==> ()
 			
 		safetyNet.addDoctor(doc1);
 		safetyNet.addDoctor(doc2);
-	/* 	
-		assertEqual(doc1`getName(), "jose");
-		assertEqual(doc2`getName(), "marcelo");
+		/*
+		assertEqual(doc1.getName(), "jose");
+		assertEqual(doc2.getName(), "marcelo");
 		
 		assertEqual(doc1.getAge(), 35);
-		assertEqual(doc2.getAge(), 40);
+		assertEqual(doc2.getAge(), 40); */
 		
-*/
 		assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
 		
 		safetyNet.clearInstance();
@@ -649,7 +658,11 @@ private testRemoveAppointment: () ==> ()
 
 
 		-- remove Appointment
+		assertTrue(app2 in set safetyNet.getAppointments());
+		
 		safetyNet.removeAppointment(app2);
+		
+		assertTrue(app2 not in set safetyNet.getAppointments());
 		
 		-- verification of data
 		
@@ -710,6 +723,46 @@ private testRemoveAppointment: () ==> ()
 		safetyNet.removeHospital(hos2);
 		
 		assertEqual(safetyNet.getAppointments(), {});	
+		
+		safetyNet.clearInstance();
+				
+);
+
+private testAddAgreement: () ==> ()
+	testAddAgreement () == (
+		
+		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addHospital(hos1);
+		safetyNet.addHospital(hos2);
+		
+		assertEqual(hos1.getAgreements(), {<ADSE>,<MEDICARE>});
+		
+		hos1.addAgreement(<MULTICARE>);
+		
+		assertEqual(hos1.getAgreements(), {<ADSE>,<MEDICARE>, <MULTICARE>});
+		
+		safetyNet.clearInstance();
+				
+);
+
+private testRemoveAgreement: () ==> ()
+	testRemoveAgreement () == (
+		
+		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addHospital(hos1);
+		safetyNet.addHospital(hos2);
+		
+		hos1.removeAgreement(<ADSE>);
+		
+		assertEqual(hos1.getAgreements(), {<MEDICARE>});
 		
 		safetyNet.clearInstance();
 				
