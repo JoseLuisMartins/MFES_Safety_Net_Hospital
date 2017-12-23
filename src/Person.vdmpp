@@ -2,6 +2,7 @@ class Person
 instance variables
   protected name: Utils`String := [];
   protected age: nat;
+  
 operations
 
 	 protected retName: () ==> Utils`String

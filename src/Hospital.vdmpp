@@ -8,6 +8,7 @@ instance variables
 	private id : nat := currId;
 	
 	inv forall d in set doctorsIds & d in set dom SafetyNetNetwork`getInstance().getDoctors();
+	
 operations
 
 	--constructor
@@ -56,16 +57,16 @@ operations
 	public addAgreement: Utils`Agreement ==> ()
 	addAgreement(a) == (
 		agreements := agreements union {a};
-	);
-	--faltam pre e pos 
+	)
+	post a in set agreements; 
 	
 	
 	--remove agreement
 	public removeAgreement: Utils`Agreement ==> ()
 	removeAgreement(a) == (
 		agreements := agreements \ {a};
-	);
-	-- faltam pre e pos
+	)
+	post a not in set agreements; 
 	
 	--add doctor
 	public addDoctor: nat ==> ()
@@ -83,11 +84,5 @@ operations
 	)
 	pre doctorId in set doctorsIds
 	post doctorId not in set doctorsIds; 
-
-	
-	
-	
-functions
--- TODO Define functiones here
 
 end Hospital

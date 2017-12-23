@@ -1,4 +1,8 @@
 class Utils
+values
+	public HOUR_MIN = 60; -- minutes in an hour
+	public DAY_HOURS = 24; -- minutes in an hour
+	public MONTH_DAYS = 30; -- minutes in an hour
 types
 	public String = seq of char;
 	public Location :: city: String
@@ -17,23 +21,17 @@ types
 										 <PNEUMOLOGIA>;
 
 functions
-	--checks if two dates are equal
-	static public isDateDiferent: Date * Date -> bool
-	isDateDiferent(d1,d2) == (
-		dateToNat(d1) <> dateToNat(d2)
-	);
-	
-		--checks if two dates are equal
-	static public datesDontOverlap: Date * Date -> bool
-	datesDontOverlap(d1,d2) == (
-		(dateToNat(d1) + Appointment`APPOINTMENT_TIME_MIN < dateToNat(d2)) or
-		(dateToNat(d2) + Appointment`APPOINTMENT_TIME_MIN < dateToNat(d1)) 
-	);
 	
 	--checks if two dates are equal
 	static public isDateLower: Date * Date -> bool
 	isDateLower(d1,d2) == (
 		dateToNat(d1) < dateToNat(d2)
+	);
+	
+	--get max date
+	static public getMaxDate: () -> Date
+	getMaxDate() == (
+		mk_Utils`Date(99999,12,30,23,59)
 	);
 	
 	--checks if two dates are equal

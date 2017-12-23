@@ -41,9 +41,5 @@ operations
 	 getAge() == (
 	 		return retAge(); 	
 	 );
-	 
-
-functions
--- TODO Define functiones here
 
 end Doctor

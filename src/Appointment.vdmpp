@@ -1,6 +1,6 @@
 class Appointment
 values 
- public APPOINTMENT_TIME_MIN = 30; --min
+ public APPOINTMENT_TIME_MIN = 30; -- duration of an appointment in minutes
 instance variables
 	private date : Utils`Date;
   private hospitalId: nat;
@@ -12,6 +12,7 @@ instance variables
 	 		doctorId in set dom SafetyNetNetwork`getInstance().getDoctors() and       -- |Check if they are in the network
 	 		patientId in set dom SafetyNetNetwork`getInstance().getPatients() and     -- |
 	 		doctorId in set SafetyNetNetwork`getInstance().getHospitals()(hospitalId).getDoctorsIds(); --check if the doctor works in that hospital
+	 		
 operations
 	--constructor
 	public Appointment: Utils`Date * nat * nat * nat ==> Appointment
@@ -50,5 +51,28 @@ operations
 		);
 		
 functions
--- TODO Define functiones here
+	--checks if two dates are equal
+	static public appointmentDatesDontOverlap: Utils`Date * Utils`Date -> bool
+	appointmentDatesDontOverlap(d1,d2) == (
+		(Utils`dateToNat(getNextAppointmentDate(d1)) <= Utils`dateToNat(d2)) or
+		(Utils`dateToNat(getNextAppointmentDate(d2)) <= Utils`dateToNat(d1)) 
+	);
+	
+	--get next appointment slot date
+	static public getNextAppointmentDate: Utils`Date -> Utils`Date
+	getNextAppointmentDate(d) == (
+
+		if(d.month = 12 and d.day=30 and d.hour = 23 and d.min >= (Utils`HOUR_MIN - APPOINTMENT_TIME_MIN)) then
+			mk_Utils`Date(d.year + 1, 1, 1, 00, (d.min + APPOINTMENT_TIME_MIN) mod Utils`HOUR_MIN)
+		elseif(d.day=30 and d.hour = 23 and d.min >= (Utils`HOUR_MIN - APPOINTMENT_TIME_MIN)) then
+			mk_Utils`Date(d.year, d.month + 1, 1, 00, (d.min + APPOINTMENT_TIME_MIN) mod Utils`HOUR_MIN)
+		elseif (d.hour = 23 and d.min >= (Utils`HOUR_MIN - APPOINTMENT_TIME_MIN)) then
+			mk_Utils`Date(d.year, d.month, d.day+1, 00, (d.min + APPOINTMENT_TIME_MIN) mod Utils`HOUR_MIN)
+		elseif (d.min >= (Utils`HOUR_MIN - APPOINTMENT_TIME_MIN)) then
+			mk_Utils`Date(d.year, d.month, d.day, d.hour + 1, (d.min + APPOINTMENT_TIME_MIN) mod Utils`HOUR_MIN)
+		else
+			mk_Utils`Date(d.year, d.month, d.day, d.hour, d.min + APPOINTMENT_TIME_MIN)
+	);
+	
+	
 end Appointment

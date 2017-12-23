@@ -6,10 +6,9 @@ instance variables
 		private appointments: set of Appointment := {};
 		private static networkInstance: SafetyNetNetwork := new SafetyNetNetwork();
 		
-		-- should the name be unique?
 		inv not exists h1, h2 in set rng hospitals &
 		h1 <> h2 and h1.getName() = h2.getName();
-		-- invariant idea: a doctor should be at leat in a hospital to be in the network
+
 operations
   
 		--main 
@@ -76,7 +75,6 @@ operations
 			IO`println("Removed doc1");
 			safetyNet.removeDoctor(doc1);
 			
-				
 			IO`println("Hospitals specialties->1");
 			IO`println(safetyNet.getHospitalSpecialties(hos1.getId()));
 		
@@ -89,7 +87,8 @@ operations
 			IO`println("Hospitals number appointmens");
 			IO`println(safetyNet.getHospitalNumberOfAppointments(hos1.getId()));
 			
-			
+			IO`println("next date");
+			IO`println(Appointment`getNextAppointmentDate(mk_Utils`Date(2018,11,29,22,20)));
 		);
 
 
@@ -108,8 +107,6 @@ operations
 		clearInstance() == (
 			networkInstance := new SafetyNetNetwork(); 
 		);
-	
-
 		
 		--associate doctor to hospital
 		public associateDoctorToHospital : nat * nat ==> ()
@@ -159,8 +156,20 @@ operations
 		post {hospital.getId()} <: hospitals = { |-> } and 
 				 forall a in set appointments & a.getHospitalId() <> hospital.getId();
 		
-		----------Todo: add agreement to hospital
-		----------Todo: remove agreement from hospital
+		-- add agreement to hospital
+		public addAgreementToHospital: nat * Utils`Agreement ==> ()
+		addAgreementToHospital(hospitalId, agreement) == (
+			hospitals(hospitalId).addAgreement(agreement);
+		)
+		pre {hospitalId} <: hospitals = { hospitalId |-> hospitals(hospitalId) };
+		
+
+		-- remove agreement from hospital
+		public removeAgreementFromHospital: nat * Utils`Agreement ==> ()
+		removeAgreementFromHospital(hospitalId, agreement) == (
+			hospitals(hospitalId).removeAgreement(agreement);
+		)
+		pre {hospitalId} <: hospitals = { hospitalId |-> hospitals(hospitalId) };
 		
 		-------search hospitals------------------------------------
 	
@@ -192,8 +201,15 @@ operations
 				return res
 			);
 		
-		----------Todo: get hospitals by agreement
-		
+		----------get hospitals by agreement
+		public pure getHospitalsByAgreement: Utils`Agreement ==> set of Hospital
+			getHospitalsByAgreement(agreement) == (
+				dcl res : set of Hospital := {};
+				for all h in set rng hospitals do
+						if(agreement in set h.getAgreements()) then
+							res := res union {h};
+				return res
+			);
 			
 		-------------------End hospital search--------------------------------
 				
@@ -206,26 +222,7 @@ operations
 				return res
 			);
 			
-			--get hospital appointments
-		public pure getHospitalAppointments: nat ==> set of Appointment
-		getHospitalAppointments(hospitalId) == (
-			dcl res: set of Appointment := {};
-			for all a in set appointments do 
-				if(a.getHospitalId() = hospitalId) then
-						res := res union {a}; 
-		
-			return res
-		);
-		-- check doctor existence
-		-- check type and id 
-
-		-- total number of appointments in a hospital
-		public pure getHospitalNumberOfAppointments: nat ==> nat
-			getHospitalNumberOfAppointments(hospitalId) == (
-				return card getHospitalAppointments(hospitalId);
-			);
-			
-			
+				
 		---------------------------------------------------------------
 		-----------------------end hospital ---------------------------
 		---------------------------------------------------------------
@@ -327,17 +324,24 @@ operations
 	  pre {patient.getId()} <: patients = { patient.getId() |-> patient } 
 		post {patient.getId()} <: patients = { |-> } and forall a in set appointments & a.getPatientId() <> patient.getId();
 			
-		
+		--add clinical observation
+		public addClinicalObservation: nat * Utils`String ==> ()
+		addClinicalObservation(patientId, obs) == (
+			patients(patientId).addObservation(obs);
+		)
+	  pre {patientId} <: patients = { patientId |-> patients(patientId) } ;
+	  
+	  -- get patients
+		public pure getPatients : () ==> inmap nat to Patient
+		getPatients() == (
+			return patients;
+		);
 		
 		
 		---------------------------------------------------------
 		------------------End Patients-----------------------------
 		-----------------------------------------------------------
-		-- get patients
-		public pure getPatients : () ==> inmap nat to Patient
-		getPatients() == (
-			return patients;
-		);
+
 		---------------------------------------------------------
 		----------------------Appointments-----------------------
 		---------------------------------------------------------
@@ -347,6 +351,28 @@ operations
 		getAppointments() == (
 			return appointments;
 		);
+		
+		--get hospital appointments
+		public pure getHospitalAppointments: nat ==> set of Appointment
+		getHospitalAppointments(hospitalId) == (
+			dcl res: set of Appointment := {};
+			for all a in set appointments do 
+				if(a.getHospitalId() = hospitalId) then
+						res := res union {a}; 
+		
+			return res
+		)
+		pre {hospitalId} <: hospitals = { hospitalId |-> hospitals(hospitalId) }
+		post forall a in set RESULT & isofclass(Appointment,a) and a.getHospitalId() = hospitalId;
+
+		-- total number of appointments in a hospital
+		public pure getHospitalNumberOfAppointments: nat ==> nat
+			getHospitalNumberOfAppointments(hospitalId) == (
+				return card getHospitalAppointments(hospitalId);
+		)
+		pre hospitalId in set dom hospitals;
+			
+		
 		
 		--get doctor appointments
 		public pure getDoctorAppointments: nat ==> set of Appointment
@@ -378,7 +404,7 @@ operations
 		addAppointment(a) == (
 			appointments := appointments union {a}; 
 		)
-		pre forall ap in set getDoctorAppointments(a.getDoctorId()) union getPatientAppointments(a.getPatientId()) & Utils`datesDontOverlap(ap.getDate(), a.getDate())
+		pre forall ap in set getDoctorAppointments(a.getDoctorId()) union getPatientAppointments(a.getPatientId()) & Appointment`appointmentDatesDontOverlap(ap.getDate(), a.getDate())
 		post a in set appointments;
 		
 		--remove an Appointment
@@ -387,22 +413,30 @@ operations
 			appointments := appointments \ {a}; 
 		)
 		pre a in set appointments
-		post a not in set appointments
+		post a not in set appointments;
 		
 		
-		--get closest doctor available date
-		--public getDoctorCloseDate: nat ==> Utils`Date
-		--getDoctorCloseDate(doctorId) == (
-		--	dcl doctorAppointments: set of Appointment := getDoctorAppointments();
+		--get closest appointment date available
+		-- Still not perfect
+		public getHospitalClosestAvailableDate: set of Appointment ==> Utils`Date 
+		 getHospitalClosestAvailableDate(appointmentSet) == (
+			dcl minDate: Utils`Date := Utils`getMaxDate();
 			
-	--	)
-		--post forall ap in set getDoctorAppointments(a.getDoctorId()) & Utils`isDateDiferent(ap.getDate(), RESULT);
+			for all ap in set appointmentSet do
+			(
+				dcl auxDate : Utils`Date := Appointment`getNextAppointmentDate(ap.getDate());
+				if(Utils`isDateLower(auxDate, minDate) and forall docAp in set getDoctorAppointments(ap.getDoctorId()) &  Appointment`appointmentDatesDontOverlap(docAp.getDate(),auxDate)) then -- if the next appointment is on a closer date than the actual minimum and it's not coliding with other doctor appointments, update appoitment
+					minDate := Appointment`getNextAppointmentDate(ap.getDate());
+			);
+			
+			return minDate;
+		)
+		pre forall ap in set appointmentSet & ap in set appointments
+		post forall ap in set appointmentSet & Appointment`appointmentDatesDontOverlap(ap.getDate(), RESULT);
 		
   	---------------------------------------------------------
 		----------------------End Appointments-------------------
 		---------------------------------------------------------
 		
-	
-functions
--- TODO Define functiones here
+
 end SafetyNetNetwork

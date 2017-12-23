@@ -3,6 +3,7 @@ instance variables
 	private clinicalObservations: seq of Utils`String := [];
 	private static currId : nat := 0;
 	private id : nat := currId;
+	
 operations
 	public Patient : Utils`String * nat * Utils`String ==> Patient
 	Patient(n, a, d) == (
@@ -14,7 +15,6 @@ operations
 		);
 		return self;
 	);
-	
 		
 	--get patient id
 	public pure getId: () ==> nat
@@ -34,19 +34,20 @@ operations
 	 		return retAge(); 	
 	 );
 		
-	--get clinical history 
+	--get clinical observations
 	public pure getClinicalObservations: () ==> seq of Utils`String
 	getClinicalObservations() == (
 		return clinicalObservations
 	);
 	
-		
-	--add clinical history 
-	public addClinicalObservation: Utils`String ==> ()
-	addClinicalObservation(d) == (
+	
+	--add clinical observation
+	public addObservation: Utils`String ==> ()
+	addObservation(d) == (
 		clinicalObservations := clinicalObservations ^ [d];
-	);
+	)
+	post len clinicalObservations = len clinicalObservations~ + 1 and
+			 exists i in set inds clinicalObservations & clinicalObservations(i) = d;
 	
 	
-
 end Patient
