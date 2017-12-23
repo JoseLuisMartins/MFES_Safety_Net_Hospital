@@ -13,10 +13,12 @@ operations
 	--constructor
 	public Hospital: Utils`String * Utils`Location * set of Utils`Agreement ==> Hospital
 	Hospital(n,l,a) == (
-		name := n;
-		location := l;
-		agreements := a;
-		currId := currId + 1; 
+		atomic (
+			name := n;
+			location := l;
+			agreements := a;
+			currId := currId + 1;
+		); 
 		return self 
 	);
 

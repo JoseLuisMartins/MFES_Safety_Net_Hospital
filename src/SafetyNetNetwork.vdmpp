@@ -11,7 +11,7 @@ instance variables
 		h1 <> h2 and h1.getName() = h2.getName();
 		-- invariant idea: a doctor should be at leat in a hospital to be in the network
 operations
- /* 
+  
 		--main 
 		public static main: () ==> ()
 		main() ==
@@ -33,7 +33,7 @@ operations
 			safetyNet.addDoctor(doc1);
 			safetyNet.addDoctor(doc2);
 			
-				
+			
 			safetyNet.addPatient(pat1);
 			safetyNet.addPatient(pat2);
 			
@@ -45,8 +45,8 @@ operations
 			--dcl ap2: Appointment := new Appointment(mk_Utils`Date(2018,12,21,8,30),hos1.getId(), doc2.getId(), pat1.getId());
 			--dcl ap3: Appointment := new Appointment(mk_Utils`Date(2018,12,21,9,30),hos2.getId(), doc2.getId(),pat2.getId());
 			
-			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat1.getId()));
-			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,9,30),hos2.getId(), doc2.getId(),pat2.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos2.getId(), doc1.getId(), pat1.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,9,00),hos2.getId(), doc2.getId(),pat1.getId()));
 			
 			IO`println("Network");
 			IO`println(safetyNet);
@@ -92,7 +92,7 @@ operations
 			
 		);
 
-*/ 
+
 		--constructor
 		private SafetyNetNetwork: () ==> SafetyNetNetwork
 		SafetyNetNetwork() == return self
@@ -378,13 +378,7 @@ operations
 		addAppointment(a) == (
 			appointments := appointments union {a}; 
 		)
-		--this date verification should maybe consider the time of the appointment (it's a constant in the appointment class)
-		pre a.getHospitalId() in set dom hospitals and -- |
-				a.getDoctorId() in set dom doctors and     -- | ESTAS ACHO QUE NÂO SAO NECESSARIAS PORQUE JÀ TENHO NA CLASSE APPOINTMENT!!
-				a.getPatientId() in set dom patients and   -- |
-		    a.getDoctorId() in set hospitals(a.getHospitalId()).getDoctorsIds() and--check if the doctor works in that hospital
-				forall d_ap in set getDoctorAppointments(a.getDoctorId()) & Utils`isDateDiferent(d_ap.getDate(), a.getDate()) and -- check if a doctor already has an appointment at the specified date
-				forall p_ap in set getPatientAppointments(a.getPatientId()) & Utils`isDateDiferent(p_ap.getDate(), a.getDate())  -- check if a patient already has an appointment at the specified date
+		pre forall ap in set getDoctorAppointments(a.getDoctorId()) union getPatientAppointments(a.getPatientId()) & Utils`datesDontOverlap(ap.getDate(), a.getDate())
 		post a in set appointments;
 		
 		--remove an Appointment
@@ -394,8 +388,6 @@ operations
 		)
 		pre a in set appointments
 		post a not in set appointments
-		
-		
 		
 		
 		--get closest doctor available date

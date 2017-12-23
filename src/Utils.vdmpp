@@ -23,6 +23,13 @@ functions
 		dateToNat(d1) <> dateToNat(d2)
 	);
 	
+		--checks if two dates are equal
+	static public datesDontOverlap: Date * Date -> bool
+	datesDontOverlap(d1,d2) == (
+		(dateToNat(d1) + Appointment`APPOINTMENT_TIME_MIN < dateToNat(d2)) or
+		(dateToNat(d2) + Appointment`APPOINTMENT_TIME_MIN < dateToNat(d1)) 
+	);
+	
 	--checks if two dates are equal
 	static public isDateLower: Date * Date -> bool
 	isDateLower(d1,d2) == (

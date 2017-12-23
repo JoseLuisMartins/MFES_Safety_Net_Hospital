@@ -8,17 +8,20 @@ instance variables
   private patientId: nat;
   
   -- inv 
-	inv hospitalId in set dom SafetyNetNetwork`getInstance().getHospitals() and
-	 		doctorId in set dom SafetyNetNetwork`getInstance().getDoctors() and 
-	 		patientId in set dom SafetyNetNetwork`getInstance().getPatients();
+	inv hospitalId in set dom SafetyNetNetwork`getInstance().getHospitals() and   -- |
+	 		doctorId in set dom SafetyNetNetwork`getInstance().getDoctors() and       -- |Check if they are in the network
+	 		patientId in set dom SafetyNetNetwork`getInstance().getPatients() and     -- |
+	 		doctorId in set SafetyNetNetwork`getInstance().getHospitals()(hospitalId).getDoctorsIds(); --check if the doctor works in that hospital
 operations
 	--constructor
 	public Appointment: Utils`Date * nat * nat * nat ==> Appointment
 	Appointment(d,hos, doc, pat) == (
-		date := d;
-		hospitalId := hos;
-		doctorId := doc;
-		patientId:= pat;
+		atomic (
+			date := d;
+			hospitalId := hos;
+			doctorId := doc;
+			patientId:= pat;
+		);
 		return self;
 	);
 
@@ -27,21 +30,20 @@ operations
 		getDate() == (
 			return date
 		);
-		
-		--get appointment doctor
-		public pure getDoctorId: () ==> nat
-		getDoctorId() == (
-			return doctorId
-		);
-		
-			
-		--get appointment doctor
+				
+		--get appointment hospital
 		public pure getHospitalId: () ==> nat
 		getHospitalId() == (
 			return hospitalId
 		);
 		
 		--get appointment doctor
+		public pure getDoctorId: () ==> nat
+		getDoctorId() == (
+			return doctorId
+		);
+	
+		--get appointment patient
 		public pure getPatientId: () ==> nat
 		getPatientId() == (
 			return patientId

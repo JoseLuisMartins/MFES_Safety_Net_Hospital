@@ -4,15 +4,15 @@ instance variables
   protected age: nat;
 operations
 
- getName: () ==> Utils`String
- getName() == (
- 		return name; 	
- );
-
- getAge: () ==> nat
- getAge() == (
- 		return age; 	
- );
- 
+	 protected retName: () ==> Utils`String
+	 retName() == (
+	 		return name; 	
+	 );
+	
+	 protected retAge: () ==> nat
+	 retAge() == (
+	 		return age; 	
+	 );
+	 
 
 end Person
