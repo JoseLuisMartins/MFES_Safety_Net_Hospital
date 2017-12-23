@@ -124,12 +124,15 @@ private testAddDoctor: () ==> ()
 			
 		safetyNet.addDoctor(doc1);
 		safetyNet.addDoctor(doc2);
-		/*
+		
 		assertEqual(doc1.getName(), "jose");
 		assertEqual(doc2.getName(), "marcelo");
 		
 		assertEqual(doc1.getAge(), 35);
-		assertEqual(doc2.getAge(), 40); */
+		assertEqual(doc2.getAge(), 40); 
+		
+		assertEqual(doc1.getSpecialty(), <ORTOPEDIA>);
+		assertEqual(doc2.getSpecialty(), <CARDIOLOGIA>);
 		
 		assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
 		
@@ -478,6 +481,12 @@ private testAddPatient: () ==> ()
 			
 		safetyNet.addPatient(pat1);
 		safetyNet.addPatient(pat2);
+		
+		assertEqual(pat1.getName(), "Susana");
+		assertEqual(pat2.getName(), "Maria");
+		
+		assertEqual(pat1.getAge(), 26);
+		assertEqual(pat2.getAge(), 38); 
 
 		assertEqual( safetyNet.getPatients(), {pat1.getId() |-> pat1, pat2.getId() |-> pat2});
 		
