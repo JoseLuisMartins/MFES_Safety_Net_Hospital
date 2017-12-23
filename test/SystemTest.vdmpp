@@ -183,7 +183,7 @@ private testRemoveDoctor: () ==> ()
 		
 		-- check if the doctor was removed from all hospitals where he worked
 		for all hs in set rng safetyNet.getHospitals() do
-			assertTrue(doc2.getId() not in set hs.getDoctorsIds());
+			assertFalse(doc2.getId() in set hs.getDoctorsIds());
 		
 		safetyNet.clearInstance();
 				

@@ -11,7 +11,7 @@ operations
 	protected assertFalse: bool ==> ()
 	assertFalse(arg) == 
 		return 
-	pre arg;
+	pre not arg;
 	
 	protected assertEqual: ? * ? ==> ()
 	assertEqual(expected, actual) == 
