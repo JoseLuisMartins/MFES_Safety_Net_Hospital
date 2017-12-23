@@ -504,6 +504,11 @@ private testAddAppointment: () ==> ()
 		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
 		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
 		
+		dcl dt1: set of Utils`Date := {};
+		dcl dt2: set of Utils`Date := {};
+		
+		dcl pt1: set of Utils`Date := {};
+		dcl pt2: set of Utils`Date := {};
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -529,45 +534,72 @@ private testAddAppointment: () ==> ()
 
 		-- doctor appointments
 		assertEqual(card safetyNet.getDoctorAppointments(doc1.getId()), 1);
-		
 		for all a in set safetyNet.getDoctorAppointments(doc1.getId()) do (
+			dt1 := dt1 union {a.getDate()};
 			assertEqual(a.getDoctorId(), doc1.getId());
 			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
 		);
+		assertEqual(card dt1, card safetyNet.getDoctorAppointments(doc1.getId()));
 		
 		assertEqual(card safetyNet.getDoctorAppointments(doc2.getId()), 1);
-		
 		for all a in set safetyNet.getDoctorAppointments(doc2.getId()) do (
+			dt2 := dt2 union {a.getDate()};
 			assertEqual(a.getDoctorId(), doc2.getId());
 			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
 		);
+		assertEqual(card dt2, card safetyNet.getDoctorAppointments(doc2.getId()));
+		
 		
 		assertEqual(card safetyNet.getDoctorAppointments(doc3.getId()), 0);
-		
-
-
-		/* necessario verificar se sao os corretos*/
 		
 		
 		-- patient appointments
 		assertEqual(card safetyNet.getPatientAppointments(pat1.getId()), 1);
+		for all a in set safetyNet.getPatientAppointments(pat1.getId()) do (
+			pt1 := pt1 union {a.getDate()};
+			assertEqual(a.getPatientId(), pat1.getId());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		assertEqual(card pt1, card safetyNet.getPatientAppointments(pat1.getId()));
+		
+		
 		assertEqual(card safetyNet.getPatientAppointments(pat2.getId()), 1);
+		for all a in set safetyNet.getPatientAppointments(pat2.getId()) do (
+			pt2 := pt2 union {a.getDate()};
+			assertEqual(a.getPatientId(), pat2.getId());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		assertEqual(card pt2, card safetyNet.getPatientAppointments(pat2.getId()));
 		
-		
-		/* necessario verificar se sao os corretos*/
-		
+		-- system
 		assertEqual(card safetyNet.getAppointments(), 2);
 		
-		assertEqual(safetyNet.getHospitalNumberOfAppointments(hos1.getId()), 1);	
+		-- hospital
+		assertEqual(safetyNet.getHospitalNumberOfAppointments(hos1.getId()), 1);
+		for all a in set safetyNet.getHospitalAppointments(hos1.getId()) do (
+			pt1 := pt1 union {a.getDate()};
+			assertEqual(a.getHospitalId(), hos1.getId());
+			assertTrue(a.getDoctorId() in set hos1.getDoctorsIds());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+			
 		assertEqual(safetyNet.getHospitalNumberOfAppointments(hos2.getId()), 1);		
+		for all a in set safetyNet.getHospitalAppointments(hos2.getId()) do (
+			pt1 := pt1 union {a.getDate()};
+			assertEqual(a.getHospitalId(), hos2.getId());
+			assertTrue(a.getDoctorId() in set hos2.getDoctorsIds());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		
 		
 		safetyNet.clearInstance();
 				
 );
 
 /* 
+ 
 private testRemoveAppointment: () ==> ()
-	testRemoveAppointment() == (
+	testRemoveAppointment () == (
 	
 		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_Utils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
 		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
@@ -579,6 +611,11 @@ private testRemoveAppointment: () ==> ()
 		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
 		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
 		
+		dcl dt1: set of Utils`Date := {};
+		dcl dt2: set of Utils`Date := {};
+		
+		dcl pt1: set of Utils`Date := {};
+		dcl pt2: set of Utils`Date := {};
 		
 		safetyNet := SafetyNetNetwork`getInstance();
 			
@@ -596,15 +633,77 @@ private testRemoveAppointment: () ==> ()
 		safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
 		safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
 
+		assertEqual(card safetyNet.getDoctorAppointments(doc1.getId()), 0);
+		assertEqual(card safetyNet.getDoctorAppointments(doc2.getId()), 0);
+
 		safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat1.getId()));
-		safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos1.getId(), doc2.getId(), pat2.getId()));
+		safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos2.getId(), doc2.getId(), pat2.getId()));
+
+		-- doctor appointments
+		assertEqual(card safetyNet.getDoctorAppointments(doc1.getId()), 1);
+		for all a in set safetyNet.getDoctorAppointments(doc1.getId()) do (
+			dt1 := dt1 union {a.getDate()};
+			assertEqual(a.getDoctorId(), doc1.getId());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		assertEqual(card dt1, card safetyNet.getDoctorAppointments(doc1.getId()));
+		
+		assertEqual(card safetyNet.getDoctorAppointments(doc2.getId()), 1);
+		for all a in set safetyNet.getDoctorAppointments(doc2.getId()) do (
+			dt2 := dt2 union {a.getDate()};
+			assertEqual(a.getDoctorId(), doc2.getId());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		assertEqual(card dt2, card safetyNet.getDoctorAppointments(doc2.getId()));
+		
+		
+		assertEqual(card safetyNet.getDoctorAppointments(doc3.getId()), 0);
+		
+		
+		-- patient appointments
+		assertEqual(card safetyNet.getPatientAppointments(pat1.getId()), 1);
+		for all a in set safetyNet.getPatientAppointments(pat1.getId()) do (
+			pt1 := pt1 union {a.getDate()};
+			assertEqual(a.getPatientId(), pat1.getId());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		assertEqual(card pt1, card safetyNet.getPatientAppointments(pat1.getId()));
+		
+		
+		assertEqual(card safetyNet.getPatientAppointments(pat2.getId()), 1);
+		for all a in set safetyNet.getPatientAppointments(pat2.getId()) do (
+			pt2 := pt2 union {a.getDate()};
+			assertEqual(a.getPatientId(), pat2.getId());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		assertEqual(card pt2, card safetyNet.getPatientAppointments(pat2.getId()));
+		
+		-- system
+		assertEqual(card safetyNet.getAppointments(), 2);
+		
+		-- hospital
+		assertEqual(safetyNet.getHospitalNumberOfAppointments(hos1.getId()), 1);
+		for all a in set safetyNet.getHospitalAppointments(hos1.getId()) do (
+			pt1 := pt1 union {a.getDate()};
+			assertEqual(a.getHospitalId(), hos1.getId());
+			assertTrue(a.getDoctorId() in set hos1.getDoctorsIds());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+			
+		assertEqual(safetyNet.getHospitalNumberOfAppointments(hos2.getId()), 1);		
+		for all a in set safetyNet.getHospitalAppointments(hos2.getId()) do (
+			pt1 := pt1 union {a.getDate()};
+			assertEqual(a.getHospitalId(), hos2.getId());
+			assertTrue(a.getDoctorId() in set hos2.getDoctorsIds());
+			assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
+		);
+		
 		
 		safetyNet.clearInstance();
 				
 );
-*/
 
-
+*/ 
 functions
 -- TODO Define functiones here
 traces
