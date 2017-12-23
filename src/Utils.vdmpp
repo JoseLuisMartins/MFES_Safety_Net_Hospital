@@ -34,6 +34,12 @@ functions
 		mk_Utils`Date(99999,12,30,23,59)
 	);
 	
+	--get min date
+	static public getMinDate: () -> Date
+	getMinDate() == (
+		mk_Utils`Date(2018,01,01,08,00)
+	);
+	
 	--checks if two dates are equal
 	static public dateToNat: Date -> nat
 	dateToNat(d) == (

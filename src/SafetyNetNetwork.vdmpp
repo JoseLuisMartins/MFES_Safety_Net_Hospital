@@ -21,9 +21,10 @@ operations
 			dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_Utils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
 		
 			dcl doc1: Doctor := new Doctor("Jose", 26, <ORTOPEDIA>);
-			dcl doc2: Doctor := new Doctor("Marcelo", 38, <CARDIOLOGIA>);
+			dcl doc2: Doctor := new Doctor("Susana", 25, <CARDIOLOGIA>);
+			dcl doc3: Doctor := new Doctor("Marcelo", 38, <ORTOPEDIA>);
 			
-		  dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		  dcl pat1: Patient := new Patient("", 26, "Gripe");
 			dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
 			
 			safetyNet.addHospital(hos1);
@@ -31,6 +32,7 @@ operations
 			
 			safetyNet.addDoctor(doc1);
 			safetyNet.addDoctor(doc2);
+			safetyNet.addDoctor(doc3);
 			
 			
 			safetyNet.addPatient(pat1);
@@ -39,13 +41,17 @@ operations
 			safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
 			safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
 			safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
+			safetyNet.associateDoctorToHospital(hos2.getId(), doc3.getId());
 			
 			--dcl ap1: Appointment := new Appointment(mk_Utils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat1.getId());
 			--dcl ap2: Appointment := new Appointment(mk_Utils`Date(2018,12,21,8,30),hos1.getId(), doc2.getId(), pat1.getId());
 			--dcl ap3: Appointment := new Appointment(mk_Utils`Date(2018,12,21,9,30),hos2.getId(), doc2.getId(),pat2.getId());
 			
 			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30), hos2.getId(), doc1.getId(), pat1.getId()));
-			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,9,00),hos2.getId(), doc2.getId(),pat1.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,9,00),hos2.getId(), doc1.getId(),pat1.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,10,00),hos2.getId(), doc1.getId(),pat1.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,8,30),hos2.getId(), doc3.getId(),pat2.getId()));
+			safetyNet.addAppointment(new Appointment(mk_Utils`Date(2018,12,21,9,30),hos2.getId(), doc3.getId(),pat2.getId()));
 			
 			IO`println("Network");
 			IO`println(safetyNet);
@@ -71,6 +77,14 @@ operations
 			IO`println("Hospitals where a doctor works");
 			IO`println(safetyNet.getDoctorHospitals(doc1.getId()));
 			
+			IO`println("get doctor appointments");
+			IO`println(safetyNet.getDoctorAppointments(doc1.getId()));			
+				
+			IO`println("appointments ortopedia");
+			IO`println(safetyNet.getSpecialtyAppointments(<ORTOPEDIA>));
+			
+			IO`println("available date");
+			IO`println(safetyNet.getHospitalClosestAvailableDate(safetyNet.getSpecialtyAppointments(<ORTOPEDIA>)));
 			
 			IO`println("Removed doc1");
 			safetyNet.removeDoctor(doc1);
@@ -87,8 +101,6 @@ operations
 			IO`println("Hospitals number appointmens");
 			IO`println(safetyNet.getHospitalNumberOfAppointments(hos1.getId()));
 			
-			IO`println("next date");
-			IO`println(Appointment`getNextAppointmentDate(mk_Utils`Date(2018,11,29,22,20)));
 		);
 
 
@@ -99,7 +111,8 @@ operations
 
 		--get network instance
 		public pure static getInstance: () ==> SafetyNetNetwork
-		getInstance() == return networkInstance;
+		getInstance() == return networkInstance
+		post isofclass(SafetyNetNetwork,RESULT);
 
 		
 		--clear network instance
@@ -398,6 +411,17 @@ operations
 		pre {patientId} <: patients = { patientId |-> patients(patientId) }
 		post forall a in set RESULT & isofclass(Appointment,a) and a.getPatientId() = patientId;
 		
+		--get specialty appointments
+		public pure getSpecialtyAppointments: Utils`Specialty ==> set of Appointment
+		getSpecialtyAppointments(specialty) == (
+			dcl res: set of Appointment := {};
+			for all a in set appointments do 
+				if(doctors(a.getDoctorId()).getSpecialty() = specialty) then
+						res := res union {a}; 
+			return res
+		)
+		post forall a in set RESULT & isofclass(Appointment,a) and doctors(a.getDoctorId()).getSpecialty() = specialty;
+		
 		
 		--add an Appointment
 		public addAppointment: Appointment ==> ()
@@ -416,23 +440,32 @@ operations
 		post a not in set appointments;
 		
 		
+		
 		--get closest appointment date available
 		-- Still not perfect
-		public getHospitalClosestAvailableDate: set of Appointment ==> Utils`Date 
+		public getHospitalClosestAvailableDate: set of Appointment ==> Utils`Date   
 		 getHospitalClosestAvailableDate(appointmentSet) == (
-			dcl minDate: Utils`Date := Utils`getMaxDate();
+			dcl minDate: Utils`Date := Utils`getMaxDate(); 
+			dcl doctorId: nat;
+			dcl availableDoctors: set of nat := {};
+			
+			for all ap in set appointmentSet do 
+				availableDoctors := availableDoctors union {ap.getDoctorId()};
 			
 			for all ap in set appointmentSet do
 			(
 				dcl auxDate : Utils`Date := Appointment`getNextAppointmentDate(ap.getDate());
-				if(Utils`isDateLower(auxDate, minDate) and forall docAp in set getDoctorAppointments(ap.getDoctorId()) &  Appointment`appointmentDatesDontOverlap(docAp.getDate(),auxDate)) then -- if the next appointment is on a closer date than the actual minimum and it's not coliding with other doctor appointments, update appoitment
+				if(Utils`isDateLower(auxDate, minDate) and
+							forall docId in set availableDoctors & 
+							forall docAp in set getDoctorAppointments(docId) &  Appointment`appointmentDatesDontOverlap(docAp.getDate(),auxDate)) then -- if the next appointment is on a closer date than the actual minimum and one of the doctor has the date slot available, update the minimum
+					
 					minDate := Appointment`getNextAppointmentDate(ap.getDate());
 			);
 			
+			-- have to see the case of the first date is available
 			return minDate;
 		)
 		pre forall ap in set appointmentSet & ap in set appointments
-		post forall ap in set appointmentSet & Appointment`appointmentDatesDontOverlap(ap.getDate(), RESULT);
 		
   	---------------------------------------------------------
 		----------------------End Appointments-------------------
