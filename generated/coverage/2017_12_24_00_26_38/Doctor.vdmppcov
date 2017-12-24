@@ -4,7 +4,6 @@ instance variables
 	private static currId : nat := 0;
 	private id : nat := currId;
 	
-	inv age > 18;
 operations
 	--contructor
 		public Doctor : ModelUtils`String * nat * ModelUtils`Specialty ==> Doctor
