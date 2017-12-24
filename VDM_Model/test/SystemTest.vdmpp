@@ -116,6 +116,11 @@ main() == (
 		IO`print("test getHospitalClosestAvailableDate -> ");
 		systemTest.testGetHospitalClosestAvailableDate();
 		IO`println("Success");
+		
+		IO`print("test getNextAppointmentDate -> ");
+		systemTest.testGetNextAppointmentDate();
+		IO`println("Success");
+		
 		-- Agreement
 		
 		IO`print("test addAgreement-> ");
@@ -697,7 +702,7 @@ private testRemoveAppointment: () ==> ()
 		app2 := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos2.getId(), doc2.getId(), pat2.getId());
 
 		
-		-- add Appointment
+		-- add Appointment (app1, app2)
 		safetyNet.addAppointment(app1);
 		safetyNet.addAppointment(app2);
 
@@ -759,15 +764,18 @@ private testRemoveAppointment: () ==> ()
 		-- remove an hospital and all his appointments
 		
 		safetyNet.addPatient(pat1);
-		-- all apointments added is on hos2
+		safetyNet.addAppointment(app1);
+		safetyNet.addAppointment(app2);
 		safetyNet.addAppointment(app3);
 		safetyNet.addAppointment(app4);
 		
-		assertEqual(safetyNet.getAppointments(), {app3, app4});	
+		assertEqual(safetyNet.getAppointments(), {app1, app2, app3, app4});	
 		
 		safetyNet.removeHospital(hos2);
 		
-		assertEqual(safetyNet.getAppointments(), {});	
+		assertEqual(safetyNet.getAppointments(), {app1});
+		
+		assertTrue(forall a in set safetyNet.getAppointments() & a.getHospitalId() <> hos2.getId());	
 		
 		safetyNet.clearInstance();
 				
@@ -950,6 +958,21 @@ private testGetHospitalClosestAvailableDate: () ==> ()
 		
 		safetyNet.clearInstance();
 				
+);
+
+
+private testGetNextAppointmentDate: () ==> ()
+	testGetNextAppointmentDate () == (
+	
+		-- next day
+		assertEqual(Appointment`getNextAppointmentDate(mk_ModelUtils`Date(2018,12,12,23,45)) ,mk_ModelUtils`Date(2018,12,13,0,15));
+		-- next year
+		assertEqual(Appointment`getNextAppointmentDate(mk_ModelUtils`Date(2018,12,30,23,45)) ,mk_ModelUtils`Date(2019,1,1,0,15));
+		-- next month
+		assertEqual(Appointment`getNextAppointmentDate(mk_ModelUtils`Date(2018,10,30,23,45)) ,mk_ModelUtils`Date(2018,11,1,0,15));
+		-- next 30 min
+		assertEqual(Appointment`getNextAppointmentDate(mk_ModelUtils`Date(2018,10,15,10,30)) ,mk_ModelUtils`Date(2018,10,15,11,0));
+	
 );
  
 functions
