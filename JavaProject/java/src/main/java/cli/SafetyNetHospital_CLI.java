@@ -9,17 +9,15 @@ import SafetyNetHospital.quotes.*;
 import cli.menus.*;
 import cli.vdm_enum.AGREEMENT;
 import cli.vdm_enum.SPECIALTY;
-import com.sun.xml.internal.bind.v2.util.QNameMap;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
-import org.overture.codegen.runtime.VDMMap;
 import org.overture.codegen.runtime.VDMSet;
 
-import javax.print.Doc;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 public class SafetyNetHospital_CLI {
@@ -153,18 +151,44 @@ public class SafetyNetHospital_CLI {
                 }while(parsingAgreements);
 
                 safetyNet.addHospital(new Hospital(name,new ModelUtils.Location(city,address,postalCode),agreements));
+                hospitals();
+
                 break;
             case REMOVE:
+                HashMap<Number,Hospital> m = new HashMap<Number,Hospital>(safetyNet.getHospitals());
+                List<Integer> rmValues= new ArrayList<Integer>();
+                for (Map.Entry<Number,Hospital> entry : m.entrySet())
+                {
+                    this.terminal.printf("--------------------------Hospitals--------------------------\n");
+                    this.terminal.printf("key:" + entry.getKey() + " -- Data: " +  entry.getValue() + "\n");
+                    rmValues.add(entry.getKey().intValue());
+                }
+
+                int rmId = textIO.newIntInputReader()
+                        .withInlinePossibleValues(rmValues)
+                        .read("Age");
+
+                safetyNet.removeHospital(m.get(rmId));
+                hospitals();
                 break;
             case SEARCH:
-                HashMap<Number,Hospital> map = new HashMap(safetyNet.getHospitals());
 
-                for (Map.Entry<Number,Hospital> entry : map.entrySet())
+                for (Map.Entry<Number,Hospital> entry : new HashMap<Number,Hospital>(safetyNet.getHospitals()).entrySet())
                 {
                     this.terminal.printf("--------------------------Hospitals--------------------------\n");
                     this.terminal.printf("key:" + entry.getKey() + " -- Data: " +  entry.getValue() + "\n");
                 }
-                break;
+
+                BACK v = textIO.newEnumInputReader(BACK.class)
+                        .read("Select an option!");
+
+                switch (v) {
+                    case BACK:
+                        hospitals();
+                        break;
+                }
+
+                    break;
             case BACK:
                 start();
                 break;
