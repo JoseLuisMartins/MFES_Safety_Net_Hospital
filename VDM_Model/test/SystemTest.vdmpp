@@ -52,6 +52,10 @@ main() == (
 		systemTest.testGetHospitalsById();
 		IO`println("Success");
 		
+		IO`print("test getHospitalsByAgreement -> ");
+		systemTest.testGetHospitalsByAgreement();
+		IO`println("Success");
+		
 		IO`print("test getHospitalSpecialties -> ");
 		systemTest.testGetHospitalSpecialties();
 		IO`println("Success");
@@ -90,6 +94,10 @@ main() == (
 		systemTest.testRemovePatient();
 		IO`println("Success");
 		
+		IO`print("test addObservation -> ");
+		systemTest.testAddObservation();
+		IO`println("Success");
+		
 		
 		-- Appointement
 		
@@ -101,6 +109,13 @@ main() == (
 		systemTest.testRemoveAppointment();
 		IO`println("Success");
 		
+		IO`print("test getSpecialtyAppointments -> ");
+		systemTest.testGetSpecialtyAppointments();
+		IO`println("Success");
+		
+		IO`print("test getHospitalClosestAvailableDate -> ");
+		systemTest.testGetHospitalClosestAvailableDate();
+		IO`println("Success");
 		-- Agreement
 		
 		IO`print("test addAgreement-> ");
@@ -308,6 +323,27 @@ private testGetHospitalsByLocation: () ==> ()
 		assertEqual(safetyNet.getHospitalsByCity("Porto"), {hos1});
 		assertEqual(safetyNet.getHospitalsByCity("Lisboa"), {hos2, hos3});
 	
+		safetyNet.clearInstance();
+);
+
+private testGetHospitalsByAgreement: () ==> ()
+	testGetHospitalsByAgreement () == (
+			
+		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_ModelUtils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		dcl hos3: Hospital := new Hospital("Hospital de Santo Antonio",mk_ModelUtils`Location("Lisboa", "Avenida de Santo antonio, n� 300","4750-559"), {<ADSE>});
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addHospital(hos1);
+		safetyNet.addHospital(hos2);
+		safetyNet.addHospital(hos3);
+	
+		assertEqual(safetyNet.getHospitalsByAgreement(<ADSE>), {hos1, hos2, hos3});
+		assertEqual(safetyNet.getHospitalsByAgreement(<MEDIS>), {hos2});
+		assertEqual(safetyNet.getHospitalsByAgreement(<MULTICARE>), {hos2});
+		assertEqual(safetyNet.getHospitalsByAgreement(<MEDICARE>), {hos1});
+		
 		safetyNet.clearInstance();
 );
 
@@ -750,7 +786,7 @@ private testAddAgreement: () ==> ()
 		
 		assertEqual(hos1.getAgreements(), {<ADSE>,<MEDICARE>});
 		
-		hos1.addAgreement(<MULTICARE>);
+		safetyNet.addAgreementToHospital(hos1.getId(),<MULTICARE>);
 		
 		assertEqual(hos1.getAgreements(), {<ADSE>,<MEDICARE>, <MULTICARE>});
 		
@@ -769,7 +805,7 @@ private testRemoveAgreement: () ==> ()
 		safetyNet.addHospital(hos1);
 		safetyNet.addHospital(hos2);
 		
-		hos1.removeAgreement(<ADSE>);
+		safetyNet.removeAgreementFromHospital(hos1.getId(),<ADSE>);
 		
 		assertEqual(hos1.getAgreements(), {<MEDICARE>});
 		
@@ -777,6 +813,144 @@ private testRemoveAgreement: () ==> ()
 				
 );
 
+
+private testAddObservation: () ==> ()
+	testAddObservation () == (
+		
+		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		dcl pat2: Patient := new Patient("Maria", 38, "Doenca pulmonar");
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addPatient(pat1);
+		safetyNet.addPatient(pat2);
+
+		assertEqual(pat1.getClinicalObservations(), ["Gripe"]);
+		assertEqual(pat2.getClinicalObservations(), ["Doenca pulmonar"]);
+		
+		safetyNet.addClinicalObservation(pat1.getId(), "Pneumonia");
+		safetyNet.addClinicalObservation(pat1.getId(), "Varicela");
+
+		assertEqual(pat1.getClinicalObservations(), ["Gripe", "Pneumonia", "Varicela"]);
+		assertEqual(pat2.getClinicalObservations(), ["Doenca pulmonar"]);	
+			
+		safetyNet.clearInstance();
+				
+);
+
+
+private testGetSpecialtyAppointments: () ==> ()
+	testGetSpecialtyAppointments () == (
+	
+		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_ModelUtils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		
+		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
+		
+		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
+		
+		dcl app1: Appointment;
+		dcl app2: Appointment;
+		dcl app3: Appointment;
+		dcl app4: Appointment;
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addHospital(hos1);
+		safetyNet.addHospital(hos2);
+		
+		safetyNet.addDoctor(doc1);
+		safetyNet.addDoctor(doc2);
+		safetyNet.addDoctor(doc3);
+		
+		safetyNet.addPatient(pat1);
+		safetyNet.addPatient(pat2);
+
+		safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
+
+		app1 := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat1.getId());
+		app2 := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos2.getId(), doc2.getId(), pat2.getId());
+		app3 := new Appointment(mk_ModelUtils`Date(2018,01,21,8,30), hos2.getId(), doc2.getId(), pat1.getId());
+		app4 := new Appointment(mk_ModelUtils`Date(2018,01,15,8,30), hos2.getId(), doc1.getId(), pat1.getId());
+				
+		-- add Appointment
+		safetyNet.addAppointment(app1);
+		safetyNet.addAppointment(app2);
+		safetyNet.addAppointment(app3);
+		safetyNet.addAppointment(app4);
+		
+		assertEqual(safetyNet.getSpecialtyAppointments(<ORTOPEDIA>), {app1, app4});
+		assertEqual(safetyNet.getSpecialtyAppointments(<CARDIOLOGIA>), {app2, app3});
+		assertEqual(safetyNet.getSpecialtyAppointments(<GINECOLOGIA>), {});
+		
+		
+		safetyNet.clearInstance();
+				
+);
+
+private testGetHospitalClosestAvailableDate: () ==> ()
+	testGetHospitalClosestAvailableDate () == (
+	
+		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_ModelUtils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+		
+		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
+		
+		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
+		
+		dcl app1: Appointment;
+		dcl app2: Appointment;
+		dcl app3: Appointment;
+		dcl app4: Appointment;
+		
+		dcl res: ModelUtils`Date_DoctorId;
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addHospital(hos1);
+		safetyNet.addHospital(hos2);
+		
+		safetyNet.addDoctor(doc1);
+		safetyNet.addDoctor(doc2);
+		safetyNet.addDoctor(doc3);
+		
+		safetyNet.addPatient(pat1);
+		safetyNet.addPatient(pat2);
+
+		safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
+		
+				
+		app1 := new Appointment(mk_ModelUtils`Date(2018,01,15,8,30), hos2.getId(), doc1.getId(), pat1.getId());
+		app2 := new Appointment(mk_ModelUtils`Date(2018,01,21,8,30), hos2.getId(), doc2.getId(), pat1.getId());
+		app3 := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat1.getId());
+		app4 := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos2.getId(), doc2.getId(), pat2.getId());
+
+				
+		-- add Appointment
+		safetyNet.addAppointment(app1);
+		safetyNet.addAppointment(app2);
+		safetyNet.addAppointment(app3);
+		safetyNet.addAppointment(app4);
+	
+		assertFalse(Appointment`appointmentDatesDontOverlap(app1.getDate(), mk_ModelUtils`Date(2018,01,15,8,30)));
+		
+		res := safetyNet.getHospitalClosestAvailableDate({app1, app2, app3, app4});	
+		
+		assertEqual(res, mk_ModelUtils`Date_DoctorId(mk_ModelUtils`Date(2018,1,1,8,30), doc2.getId()));
+		
+		safetyNet.clearInstance();
+				
+);
  
 functions
 -- TODO Define functiones here

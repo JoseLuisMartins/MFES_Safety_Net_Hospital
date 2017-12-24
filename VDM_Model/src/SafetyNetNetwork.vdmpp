@@ -12,6 +12,8 @@ instance variables
 operations
 /*
 		--main 
+		/* 
+		
 		public static main: () ==> ()
 		main() ==
 		(
@@ -99,7 +101,9 @@ operations
 			IO`println(safetyNet.getHospitalNumberOfAppointments(hos1.getId()));
 			
 		);
+
 */
+
 
 		--constructor
 		private SafetyNetNetwork: () ==> SafetyNetNetwork
