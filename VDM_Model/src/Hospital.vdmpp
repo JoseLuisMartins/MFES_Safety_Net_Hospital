@@ -58,6 +58,7 @@ operations
 	addAgreement(a) == (
 		agreements := agreements union {a};
 	)
+	pre a not in set agreements
 	post a in set agreements; 
 	
 	
@@ -66,6 +67,7 @@ operations
 	removeAgreement(a) == (
 		agreements := agreements \ {a};
 	)
+	pre a in set agreements
 	post a not in set agreements; 
 	
 	--add doctor
