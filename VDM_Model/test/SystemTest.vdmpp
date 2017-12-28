@@ -974,9 +974,144 @@ private testGetNextAppointmentDate: () ==> ()
 		assertEqual(Appointment`getNextAppointmentDate(mk_ModelUtils`Date(2018,10,15,10,30)) ,mk_ModelUtils`Date(2018,10,15,11,0));
 	
 );
+
+/*
+
+	Tests containing invalid inputs (should be tested one at a time)
+*/
+
+public testFailForgotToAddDoctor: () ==> ()
+	testFailForgotToAddDoctor () == (
+	
+			dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+			dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+			
+			safetyNet.clearInstance();
+			
+			safetyNet := SafetyNetNetwork`getInstance();
+			
+			safetyNet.addHospital(hos1);
+				
+			-- you can not associate a doctor to an hospital if that doctor was not added to the network	
+			safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+			
+			safetyNet.clearInstance();
+);
+ 
+ 
+ public testFailForgotToAddHospital: () ==> ()
+ 	testFailForgotToAddHospital () == (
+ 	
+ 			dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+			dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+			
+			safetyNet.clearInstance();			
+			
+			safetyNet := SafetyNetNetwork`getInstance();
+			
+			safetyNet.addDoctor(doc1);
+				
+			-- you can not associate a doctor to an hospital if that hospital was not added to the network	
+			safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+			
+			safetyNet.clearInstance();
+ 	
+ 	);
+ 
+ 
+ public testFailCanNotRemoveAnAgreement: () ==> ()
+ 	testFailCanNotRemoveAnAgreement () == (
+ 	
+ 			dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+ 		
+ 			safetyNet.clearInstance();
+ 			
+ 			safetyNet := SafetyNetNetwork`getInstance();
+			
+			safetyNet.addHospital(hos1);
+			
+			-- it is not possible to remove an agreement from an hospital if that agreement didn't exist already
+			safetyNet.removeAgreementFromHospital(hos1.getId(),<MEDIS>);
+			
+			safetyNet.clearInstance();
+			
+ 	);
+ 	
+ 	
+ 
+ 	public testFailSearchForADoctor: () ==> ()
+ 		testFailSearchForADoctor () == (
+ 		
+ 			dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+			dcl doc2: Doctor;
+			
+			safetyNet.clearInstance();
+			
+			safetyNet := SafetyNetNetwork`getInstance();
+			
+			doc2 := safetyNet.getDoctorById(doc1.getId());
+			
+			safetyNet.clearInstance();
+ 		
+ 	);
+ 	
+ 	
+ 	public testFailDisassociatingADoctorFromAnHospital: () ==> ()
+ 		testFailDisassociatingADoctorFromAnHospital () == (
+ 		
+ 			dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+ 		
+ 			dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+ 			
+ 			safetyNet.clearInstance();
+ 			
+ 			safetyNet := SafetyNetNetwork`getInstance();
+ 		
+ 			-- you can not remove a doctor from an hospital if previously that doctor was not associated to that hospital
+ 			safetyNet.disassociateDoctorFromHospital(hos1.getId(), doc2.getId());
+ 		
+ 			safetyNet.clearInstance();
+ 		);
+ 
+ 
+ public testFailCreatingAnAppointment: () ==> ()
+ 	testFailCreatingAnAppointment () == (
+ 		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		
+		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+		
+		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
+		
+		dcl app1: Appointment;
+		dcl app2: Appointment;
+ 	
+ 		safetyNet.clearInstance();
+ 			
+ 		safetyNet := SafetyNetNetwork`getInstance();
+ 		
+ 		safetyNet.addHospital(hos1);
+				
+		safetyNet.addDoctor(doc1);
+		
+		safetyNet.addPatient(pat1);
+		safetyNet.addPatient(pat2);
+
+		safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+
+		app1 := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat1.getId());
+		app2 := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), pat2.getId());
+
+		-- a doctor and a patient can not have overlapped appointments
+		safetyNet.addAppointment(app1);
+		safetyNet.addAppointment(app2);
+
+ 		safetyNet.clearInstance();
+ 	
+ 	)
  
 functions
--- TODO Define functiones here
+
 traces
--- TODO Define Combinatorial Test Traces here
+
 end SystemTest
