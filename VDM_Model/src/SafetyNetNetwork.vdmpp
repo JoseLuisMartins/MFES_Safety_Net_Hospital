@@ -131,6 +131,17 @@ operations
 				return res
 			);
 			
+		----------get hospitals by specialty
+		public pure getHospitalsBySpecialty: ModelUtils`Specialty ==> set of Hospital
+			getHospitalsBySpecialty(specialty) == (
+				dcl res : set of Hospital := {};
+				for all h in set rng hospitals do
+					for all d in set h.getDoctorsIds() do
+						if(specialty = doctors(d).getSpecialty()) then
+							res := res union {h};
+				return res
+			);
+			
 		-------------------End hospital search--------------------------------
 				
 		-- get hospitals specialties
@@ -256,6 +267,14 @@ operations
 		getPatients() == (
 			return patients;
 		);
+		
+		----------get patient by id
+		public pure getPatientById: nat ==> Patient
+			getPatientById(patientId) == (
+				return patients(patientId);
+			)
+		pre patientId in set dom patients
+		post RESULT.getId() = patientId;
 		
 		
 		---------------------------------------------------------

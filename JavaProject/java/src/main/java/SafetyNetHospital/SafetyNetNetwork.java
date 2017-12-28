@@ -56,8 +56,8 @@ public class SafetyNetNetwork {
   public void removeHospital(final Hospital hospital) {
 
     hospitals = MapUtil.domResBy(SetUtil.set(hospital.getId()), Utils.copy(hospitals));
-    for (Iterator iterator_13 = appointments.iterator(); iterator_13.hasNext(); ) {
-      Appointment a = (Appointment) iterator_13.next();
+    for (Iterator iterator_14 = appointments.iterator(); iterator_14.hasNext(); ) {
+      Appointment a = (Appointment) iterator_14.next();
       if (Utils.equals(a.getHospitalId(), hospital.getId())) {
         removeAppointment(a);
       }
@@ -82,10 +82,10 @@ public class SafetyNetNetwork {
   public VDMSet getHospitalsByCity(final String city) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_14 = MapUtil.rng(Utils.copy(hospitals)).iterator();
-        iterator_14.hasNext();
+    for (Iterator iterator_15 = MapUtil.rng(Utils.copy(hospitals)).iterator();
+        iterator_15.hasNext();
         ) {
-      Hospital h = (Hospital) iterator_14.next();
+      Hospital h = (Hospital) iterator_15.next();
       if (Utils.equals(h.getLocation().city, city)) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(h));
       }
@@ -96,10 +96,10 @@ public class SafetyNetNetwork {
   public VDMSet getHospitalsByName(final String name) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_15 = MapUtil.rng(Utils.copy(hospitals)).iterator();
-        iterator_15.hasNext();
+    for (Iterator iterator_16 = MapUtil.rng(Utils.copy(hospitals)).iterator();
+        iterator_16.hasNext();
         ) {
-      Hospital h = (Hospital) iterator_15.next();
+      Hospital h = (Hospital) iterator_16.next();
       if (Utils.equals(h.getName(), name)) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(h));
       }
@@ -110,12 +110,29 @@ public class SafetyNetNetwork {
   public VDMSet getHospitalsByAgreement(final Object agreement) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_16 = MapUtil.rng(Utils.copy(hospitals)).iterator();
-        iterator_16.hasNext();
+    for (Iterator iterator_17 = MapUtil.rng(Utils.copy(hospitals)).iterator();
+        iterator_17.hasNext();
         ) {
-      Hospital h = (Hospital) iterator_16.next();
+      Hospital h = (Hospital) iterator_17.next();
       if (SetUtil.inSet(agreement, h.getAgreements())) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(h));
+      }
+    }
+    return Utils.copy(res);
+  }
+
+  public VDMSet getHospitalsBySpecialty(final Object specialty) {
+
+    VDMSet res = SetUtil.set();
+    for (Iterator iterator_18 = MapUtil.rng(Utils.copy(hospitals)).iterator();
+        iterator_18.hasNext();
+        ) {
+      Hospital h = (Hospital) iterator_18.next();
+      for (Iterator iterator_19 = h.getDoctorsIds().iterator(); iterator_19.hasNext(); ) {
+        Number d = (Number) iterator_19.next();
+        if (Utils.equals(specialty, ((Doctor) Utils.get(doctors, d)).getSpecialty())) {
+          res = SetUtil.union(Utils.copy(res), SetUtil.set(h));
+        }
       }
     }
     return Utils.copy(res);
@@ -124,11 +141,11 @@ public class SafetyNetNetwork {
   public VDMSet getHospitalSpecialties(final Number hospitalId) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_17 =
+    for (Iterator iterator_20 =
             ((Hospital) Utils.get(hospitals, hospitalId)).getDoctorsIds().iterator();
-        iterator_17.hasNext();
+        iterator_20.hasNext();
         ) {
-      Number doctorId = (Number) iterator_17.next();
+      Number doctorId = (Number) iterator_20.next();
       res =
           SetUtil.union(
               Utils.copy(res), SetUtil.set(((Doctor) Utils.get(doctors, doctorId)).getSpecialty()));
@@ -150,16 +167,16 @@ public class SafetyNetNetwork {
   public void removeDoctor(final Doctor doctor) {
 
     doctors = MapUtil.domResBy(SetUtil.set(doctor.getId()), Utils.copy(doctors));
-    for (Iterator iterator_18 = MapUtil.rng(Utils.copy(hospitals)).iterator();
-        iterator_18.hasNext();
+    for (Iterator iterator_21 = MapUtil.rng(Utils.copy(hospitals)).iterator();
+        iterator_21.hasNext();
         ) {
-      Hospital h = (Hospital) iterator_18.next();
+      Hospital h = (Hospital) iterator_21.next();
       if (SetUtil.inSet(doctor.getId(), h.getDoctorsIds())) {
         h.removeDoctor(doctor.getId());
       }
     }
-    for (Iterator iterator_19 = appointments.iterator(); iterator_19.hasNext(); ) {
-      Appointment a = (Appointment) iterator_19.next();
+    for (Iterator iterator_22 = appointments.iterator(); iterator_22.hasNext(); ) {
+      Appointment a = (Appointment) iterator_22.next();
       if (Utils.equals(a.getDoctorId(), doctor.getId())) {
         removeAppointment(a);
       }
@@ -169,10 +186,10 @@ public class SafetyNetNetwork {
   public VDMSet getDoctorsBySpecialty(final Object s) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_20 = MapUtil.rng(Utils.copy(doctors)).iterator();
-        iterator_20.hasNext();
+    for (Iterator iterator_23 = MapUtil.rng(Utils.copy(doctors)).iterator();
+        iterator_23.hasNext();
         ) {
-      Doctor d = (Doctor) iterator_20.next();
+      Doctor d = (Doctor) iterator_23.next();
       if (Utils.equals(d.getSpecialty(), s)) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(d));
       }
@@ -188,10 +205,10 @@ public class SafetyNetNetwork {
   public VDMSet getDoctorHospitals(final Number doctorId) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_21 = MapUtil.rng(Utils.copy(hospitals)).iterator();
-        iterator_21.hasNext();
+    for (Iterator iterator_24 = MapUtil.rng(Utils.copy(hospitals)).iterator();
+        iterator_24.hasNext();
         ) {
-      Hospital h = (Hospital) iterator_21.next();
+      Hospital h = (Hospital) iterator_24.next();
       if (SetUtil.inSet(doctorId, h.getDoctorsIds())) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(h));
       }
@@ -207,13 +224,13 @@ public class SafetyNetNetwork {
 
   public void removePatient(final Patient patient) {
 
-    patients = MapUtil.domResBy(SetUtil.set(patient.getId()), Utils.copy(patients));
-    for (Iterator iterator_22 = appointments.iterator(); iterator_22.hasNext(); ) {
-      Appointment a = (Appointment) iterator_22.next();
+    for (Iterator iterator_25 = appointments.iterator(); iterator_25.hasNext(); ) {
+      Appointment a = (Appointment) iterator_25.next();
       if (Utils.equals(a.getPatientId(), patient.getId())) {
         removeAppointment(a);
       }
     }
+    patients = MapUtil.domResBy(SetUtil.set(patient.getId()), Utils.copy(patients));
   }
 
   public void addClinicalObservation(final Number patientId, final String obs) {
@@ -226,6 +243,11 @@ public class SafetyNetNetwork {
     return Utils.copy(patients);
   }
 
+  public Patient getPatientById(final Number patientId) {
+
+    return ((Patient) Utils.get(patients, patientId));
+  }
+
   public VDMSet getAppointments() {
 
     return Utils.copy(appointments);
@@ -234,8 +256,8 @@ public class SafetyNetNetwork {
   public VDMSet getHospitalAppointments(final Number hospitalId) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_23 = appointments.iterator(); iterator_23.hasNext(); ) {
-      Appointment a = (Appointment) iterator_23.next();
+    for (Iterator iterator_26 = appointments.iterator(); iterator_26.hasNext(); ) {
+      Appointment a = (Appointment) iterator_26.next();
       if (Utils.equals(a.getHospitalId(), hospitalId)) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(a));
       }
@@ -251,8 +273,8 @@ public class SafetyNetNetwork {
   public VDMSet getDoctorAppointments(final Number doctorId) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_24 = appointments.iterator(); iterator_24.hasNext(); ) {
-      Appointment a = (Appointment) iterator_24.next();
+    for (Iterator iterator_27 = appointments.iterator(); iterator_27.hasNext(); ) {
+      Appointment a = (Appointment) iterator_27.next();
       if (Utils.equals(a.getDoctorId(), doctorId)) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(a));
       }
@@ -263,8 +285,8 @@ public class SafetyNetNetwork {
   public VDMSet getPatientAppointments(final Number patientId) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_25 = appointments.iterator(); iterator_25.hasNext(); ) {
-      Appointment a = (Appointment) iterator_25.next();
+    for (Iterator iterator_28 = appointments.iterator(); iterator_28.hasNext(); ) {
+      Appointment a = (Appointment) iterator_28.next();
       if (Utils.equals(a.getPatientId(), patientId)) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(a));
       }
@@ -275,8 +297,8 @@ public class SafetyNetNetwork {
   public VDMSet getSpecialtyAppointments(final Object specialty) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_26 = appointments.iterator(); iterator_26.hasNext(); ) {
-      Appointment a = (Appointment) iterator_26.next();
+    for (Iterator iterator_29 = appointments.iterator(); iterator_29.hasNext(); ) {
+      Appointment a = (Appointment) iterator_29.next();
       if (Utils.equals(((Doctor) Utils.get(doctors, a.getDoctorId())).getSpecialty(), specialty)) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(a));
       }
@@ -300,18 +322,18 @@ public class SafetyNetNetwork {
     Number doctorId = 0L;
     VDMSet availableDoctors = SetUtil.set();
     VDMSet occupiedDates = SetUtil.set();
-    for (Iterator iterator_27 = appointmentSet.iterator(); iterator_27.hasNext(); ) {
-      Appointment ap = (Appointment) iterator_27.next();
+    for (Iterator iterator_30 = appointmentSet.iterator(); iterator_30.hasNext(); ) {
+      Appointment ap = (Appointment) iterator_30.next();
       availableDoctors = SetUtil.union(Utils.copy(availableDoctors), SetUtil.set(ap.getDoctorId()));
       occupiedDates = SetUtil.union(Utils.copy(occupiedDates), SetUtil.set(ap.getDate()));
     }
     occupiedDates = SetUtil.union(Utils.copy(occupiedDates), SetUtil.set(ModelUtils.getMinDate()));
-    for (Iterator iterator_28 = occupiedDates.iterator(); iterator_28.hasNext(); ) {
-      ModelUtils.Date date = (ModelUtils.Date) iterator_28.next();
+    for (Iterator iterator_31 = occupiedDates.iterator(); iterator_31.hasNext(); ) {
+      ModelUtils.Date date = (ModelUtils.Date) iterator_31.next();
       ModelUtils.Date auxDate = Appointment.getNextAppointmentDate(Utils.copy(date));
       if (ModelUtils.isDateLower(Utils.copy(auxDate), Utils.copy(minDate))) {
-        for (Iterator iterator_29 = availableDoctors.iterator(); iterator_29.hasNext(); ) {
-          Number docId = (Number) iterator_29.next();
+        for (Iterator iterator_32 = availableDoctors.iterator(); iterator_32.hasNext(); ) {
+          Number docId = (Number) iterator_32.next();
           Boolean forAllExpResult_11 = true;
           VDMSet set_12 = getDoctorAppointments(docId);
           for (Iterator iterator_12 = set_12.iterator();

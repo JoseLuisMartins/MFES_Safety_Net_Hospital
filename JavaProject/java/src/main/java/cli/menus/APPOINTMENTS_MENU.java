@@ -6,7 +6,7 @@ package cli.menus;
 public enum APPOINTMENTS_MENU {
     ADD,
     REMOVE,
-    SEE,
+    SEE_ALL,
     GET_FIRST_AVAILABLE_DATE_FOR_AN_APPOINTMENT,
     BACK,
     EXIT,

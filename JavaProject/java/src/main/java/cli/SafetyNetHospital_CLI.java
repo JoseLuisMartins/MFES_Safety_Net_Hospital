@@ -9,11 +9,7 @@ import cli.vdm_enum.SPECIALTY;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
-import org.overture.codegen.runtime.VDMMap;
 import org.overture.codegen.runtime.VDMSet;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 
@@ -53,6 +49,34 @@ public class SafetyNetHospital_CLI {
 
         this.start();
     }
+
+
+    public SPECIALTY getSpecialty(Object specialty){
+
+        if( specialty instanceof  ORTOPEDIAQuote)
+            return SPECIALTY.ORTOPEDIA;
+        else if(specialty instanceof  CARDIOLOGIAQuote)
+            return SPECIALTY.CARDIOLOGIA;
+        else if(specialty instanceof  OFTALMOLOGIAQuote)
+            return SPECIALTY.OFTALMOLOGIA;
+        else if(specialty instanceof  DERMATOLOGIAQuote)
+            return SPECIALTY.DERMATOLOGIA;
+        else if(specialty instanceof  GINECOLOGIAQuote)
+            return SPECIALTY.GINECOLOGIA;
+        else if(specialty instanceof  NEUROLOGIAQuote)
+            return SPECIALTY.NEUROLOGIA;
+        else if(specialty instanceof  PEDIATRIAQuote)
+            return SPECIALTY.PEDIATRIA;
+        else if(specialty instanceof  REUMATOLOGIAQuote)
+            return SPECIALTY.REUMATOLOGIA;
+        else if(specialty instanceof  UROLOGIAQuote)
+            return SPECIALTY.UROLOGIA;
+        else if(specialty instanceof  PNEUMOLOGIAQuote)
+            return SPECIALTY.PNEUMOLOGIA;
+
+        return null;
+    }
+
 
     public Object getSpecialty(SPECIALTY specialty){
         switch (specialty) {
@@ -209,33 +233,110 @@ public class SafetyNetHospital_CLI {
                     hospitals();
                 }
                 break;
-            case SEARCH: //TODO: search by property
-                this.terminal.printf("--------------------------Hospitals--------------------------\n");
-                i=0;
-                for (Map.Entry<Number,Hospital> entry : new HashMap<Number,Hospital>(safetyNet.getHospitals()).entrySet())
-                {
-                    this.terminal.printf(i +  "- \n" +  entry.getValue() + "\n");
-                    i++;
-                }
-
-                BACK v = textIO.newEnumInputReader(BACK.class)
-                        .read("Select an option!");
-
-                this.terminal.printf("\n\n");
-
-                switch (v) {
-                    case BACK:
-                        hospitals();
-                        break;
-                }
-
-                    break;
+            case SEARCH:
+                searchHospital();
+                break;
             case BACK:
                 start();
                 break;
             case EXIT:
             default:
                 System.exit(0);
+                break;
+        }
+    }
+
+
+    public void searchHospital(){
+        separator();
+        this.terminal.printf("--------------------------Search Hospitals--------------------------\n");
+
+        SEARCH_HOSPITALS_OPTIONS_MENU val = textIO.newEnumInputReader(SEARCH_HOSPITALS_OPTIONS_MENU.class)
+                .read("Select an option!");
+
+        List<Hospital> list;
+        int i = 0;
+
+        switch (val){
+            case SEE_ALL:
+                i=0;
+                for (Map.Entry<Number,Hospital> entry : new HashMap<Number,Hospital>(safetyNet.getHospitals()).entrySet())
+                {
+                    displayHospital(i,entry.getValue());
+                    i++;
+                }
+                backToHospitalSearchMenu();
+                break;
+            case BY_NAME:
+                String name = textIO.newStringInputReader()
+                        .read("Hospital Name");
+
+                list = new ArrayList<Hospital>(safetyNet.getHospitalsByName(name));
+
+                i=0;
+                for (int j = 0; j < list.size(); j++) {
+                   displayHospital(i,list.get(j));
+                   i++;
+                }
+                backToHospitalSearchMenu();
+                break;
+            case BY_SPECIALTY:
+                SPECIALTY specialty = textIO.newEnumInputReader(SPECIALTY.class)
+                        .read("Select a Specialty!");
+
+
+                list = new ArrayList<Hospital>(safetyNet.getHospitalsBySpecialty(getSpecialty(specialty)));
+
+                i=0;
+                for (int j = 0; j < list.size(); j++) {
+                    displayHospital(i,list.get(j));
+                    i++;
+                }
+                backToHospitalSearchMenu();
+                break;
+            case BY_AGREEMENT:
+                AGREEMENT agreement = textIO.newEnumInputReader(AGREEMENT.class)
+                        .read("Select an Agreement!");
+
+
+                list = new ArrayList<Hospital>(safetyNet.getHospitalsBySpecialty(getAgreement(agreement)));
+
+                i=0;
+                for (int j = 0; j < list.size(); j++) {
+                    displayHospital(i,list.get(j));
+                    i++;
+                }
+                backToHospitalSearchMenu();
+                break;
+            case BY_CITY:
+                String city = textIO.newStringInputReader()
+                        .read("Hospital City");
+
+                list = new ArrayList<Hospital>(safetyNet.getHospitalsByCity(city));
+
+                i=0;
+                for (int j = 0; j < list.size(); j++) {
+                    displayHospital(i,list.get(j));
+                    i++;
+                }
+                backToHospitalSearchMenu();
+                break;
+            case BACK:
+                break;
+            case EXIT:
+                break;
+        }
+    }
+
+    private void backToHospitalSearchMenu(){
+        this.terminal.printf("\n\n");
+
+        BACK v = textIO.newEnumInputReader(BACK.class)
+                .read("Select an option!");
+
+        switch (v) {
+            case BACK:
+                searchHospital();
                 break;
         }
     }
@@ -247,8 +348,7 @@ public class SafetyNetHospital_CLI {
         int i=0;
         for (Map.Entry<Number,Object> entry : map.entrySet())
         {
-            this.terminal.printf( i + "- \n " +  entry.getValue() + "\n");
-
+            displayHospital(i,(Hospital)entry.getValue());
             values.add(i);
             i++;
         }
@@ -267,6 +367,18 @@ public class SafetyNetHospital_CLI {
 
 
         return (Number) map.keySet().toArray()[rmId];
+    }
+
+    public void displayHospital(int i, Hospital hos){
+        this.terminal.printf( i + "- \n " +
+                            "Hospital Details" + hos + "\n");
+
+        List<Object> list = new ArrayList<Object>(safetyNet.getHospitalSpecialties(hos.getId()));
+        this.terminal.printf("Hospital Specialties");
+        for (int j = 0; j < list.size(); j++){
+            this.terminal.printf(j + " - " + getSpecialty(list.get(j)));
+        }
+
     }
 
 
@@ -323,23 +435,33 @@ public class SafetyNetHospital_CLI {
         separator();
         this.terminal.printf("--------------------------Search Doctors--------------------------\n");
 
-        SEARCH_OPTIONS_MENU val = textIO.newEnumInputReader(SEARCH_OPTIONS_MENU.class)
+        SEARCH_DOCTORS_OPTIONS_MENU val = textIO.newEnumInputReader(SEARCH_DOCTORS_OPTIONS_MENU.class)
                 .read("Select an option!");
 
+        List<Doctor> list;
+        int i= 0;
         switch (val){
-
             case SEE_ALL:
-                HashMap<Number,Doctor> map = new HashMap(safetyNet.getDoctors());
-
-                for (Map.Entry<Number,Doctor> entry : map.entrySet())
+                i=0;
+                for (Map.Entry<Number,Doctor> entry : new HashMap<Number,Doctor>(safetyNet.getDoctors()).entrySet())
                 {
-                    this.terminal.printf("--------------------------Doctors--------------------------\n");
-                    this.terminal.printf("key:" + entry.getKey() + " -- Data: " +  entry.getValue() + "\n");
+                    displayDoctor(i, entry.getValue());
+                    i++;
                 }
-                break;
-            case BY_NAME:
+                backToDoctorSearchMenu();
                 break;
             case BY_SPECIALTY:
+                SPECIALTY specialty = textIO.newEnumInputReader(SPECIALTY.class)
+                        .read("Doctor Specialty");
+
+                list = new ArrayList<Doctor>(safetyNet.getDoctorsBySpecialty(specialty));
+
+                i=0;
+                for (int j = 0; j < list.size(); j++) {
+                    displayDoctor(i, list.get(j));
+                    i++;
+                }
+                backToDoctorSearchMenu();
                 break;
             case BACK:
                 doctors();
@@ -349,6 +471,31 @@ public class SafetyNetHospital_CLI {
                 System.exit(0);
                 break;
         }
+    }
+
+    private void backToDoctorSearchMenu(){
+        this.terminal.printf("\n\n");
+
+        BACK v = textIO.newEnumInputReader(BACK.class)
+                .read("Select an option!");
+
+        switch (v) {
+            case BACK:
+                searchDoctor();
+                break;
+        }
+    }
+
+    public void displayDoctor(int i, Doctor doc){
+        this.terminal.printf( i + "- \n " +
+                "Doctor Details" + doc + "\n");
+
+        List<Hospital> list = new ArrayList<Hospital>(safetyNet.getDoctorHospitals(doc.getId()));
+        this.terminal.printf("Hospitals where" + doc.getName() + " works");
+        for (int j = 0; j < list.size(); j++){
+            this.terminal.printf(j + " - " + list.get(j).getName());
+        }
+
     }
 
 
@@ -364,7 +511,15 @@ public class SafetyNetHospital_CLI {
                 break;
             case REMOVE:
                 break;
-            case SEE:
+            case SEE_ALL:
+                List<Appointment> list = new ArrayList<Appointment>(safetyNet.getAppointments());
+                this.terminal.printf("--------------- See Appointments----------------------");
+
+                int i=0;
+                for (int j = 0; j < list.size(); j++){
+                    displayAppointment(i, list.get(j));
+                    i++;
+                }
                 break;
             case GET_FIRST_AVAILABLE_DATE_FOR_AN_APPOINTMENT:
                 break;
@@ -378,6 +533,14 @@ public class SafetyNetHospital_CLI {
         }
     }
 
+    public void displayAppointment(int i, Appointment appointment){
+        this.terminal.printf( i + "- \n " +
+                             "Appointment Details:" + "\n" +
+                              "Hospital: " + safetyNet.getHospitalsById(appointment.getHospitalId()).getName()+
+                              "Doctor: " + safetyNet.getDoctorById(appointment.getDoctorId()).getName() +
+                              "Patient: " + safetyNet.getPatientById(appointment.getPatientId()).getName() +
+                              "Date: " + appointment.getDate());
+    }
 
     public void patients(){
         separator();
@@ -413,8 +576,24 @@ public class SafetyNetHospital_CLI {
                     patients();
                 }
                 break;
-            case SEARCH:
-                start();
+            case SEE_ALL:
+                int i=0;
+                for (Map.Entry<Number,Patient> entry : new HashMap<Number,Patient>(safetyNet.getPatients()).entrySet())
+                {
+                    displayPatient(i, entry.getValue());
+                    i++;
+                }
+
+                this.terminal.printf("\n\n");
+
+                BACK v = textIO.newEnumInputReader(BACK.class)
+                        .read("Select an option!");
+
+                switch (v) {
+                    case BACK:
+                        patients();
+                        break;
+                }
             case BACK:
                 start();
                 break;
@@ -422,6 +601,12 @@ public class SafetyNetHospital_CLI {
                 System.exit(0);
                 break;
         }
+    }
+
+    public void displayPatient(int i, Patient pat){
+        this.terminal.printf( i + "- \n " +
+                "Patient Details" + pat + "\n");
+
     }
 
     public void separator(){
