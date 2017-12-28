@@ -179,21 +179,21 @@ operations
 \label{getHospitalsBySpecialty:135}
 @*)
   public pure getHospitalsBySpecialty: ModelUtils`Specialty ==> set of Hospital
-   getHospitalsBySpecialty(specialty) == (*@\vdmnotcovered{(}@*)
-(*@
-\label{getHospitalSpecialties:137}
-@*)
-    dcl res : set of Hospital := (*@\vdmnotcovered{\{}@*)};
-    (*@\vdmnotcovered{for}@*) all h in set rng (*@\vdmnotcovered{hospitals}@*) do
-     for all d in set h.(*@\vdmnotcovered{getDoctorsIds}@*)() do
-      (*@\vdmnotcovered{if}@*)((*@\vdmnotcovered{specialty}@*) = doctors((*@\vdmnotcovered{d}@*)).(*@\vdmnotcovered{getSpecialty}@*)()) then
-       res := res union {(*@\vdmnotcovered{h}@*)};
+   getHospitalsBySpecialty(specialty) == (
+    dcl res : set of Hospital := {};
+    for all h in set rng hospitals do
+     for all d in set h.getDoctorsIds() do
+      if(specialty = doctors(d).getSpecialty()) then
+       res := res union {h};
     return res
    );
    
   -------------------End hospital search--------------------------------
     
   -- get hospitals specialties
+(*@
+\label{getHospitalSpecialties:148}
+@*)
   public pure getHospitalSpecialties: nat ==> set of ModelUtils`Specialty
    getHospitalSpecialties(hospitalId) == (
     dcl res : set of ModelUtils`Specialty := {};
@@ -201,32 +201,29 @@ operations
        res := res union {doctors(doctorId).getSpecialty()};
     return res
    );
-(*@
-\label{getDoctors:155}
-@*)
    
     
   ---------------------------------------------------------------
   -----------------------end hospital ---------------------------
   ---------------------------------------------------------------
   
-(*@
-\label{addDoctor:161}
-@*)
   
   ---------------------------------------------------------
   -----------------------Doctors --------------------------
   ---------------------------------------------------------
   -- get doctors
+(*@
+\label{getDoctors:166}
+@*)
   public pure getDoctors : () ==> inmap nat to Doctor
   getDoctors() == (
    return doctors;
-(*@
-\label{removeDoctor:169}
-@*)
   );
     
   --add doctor
+(*@
+\label{addDoctor:172}
+@*)
   public addDoctor: Doctor ==> ()
   addDoctor(doctor) == (
    doctors := doctors ++  { doctor.getId() |-> doctor};
@@ -235,6 +232,9 @@ operations
   post {doctor.getId() } <: doctors = { doctor.getId() |-> doctor };
   
   --remove doctor from the network and from all the hospitals where he works
+(*@
+\label{removeDoctor:180}
+@*)
   public removeDoctor: Doctor ==> ()
   removeDoctor(doctor) == (
    --remove doctor from network
@@ -245,9 +245,6 @@ operations
      h.removeDoctor(doctor.getId());
    --cancel doctor appointments
    for all a in set appointments do 
-(*@
-\label{getDoctorsBySpecialty:190}
-@*)
     if(a.getDoctorId() = doctor.getId()) then
      removeAppointment(a);
   )
@@ -258,10 +255,10 @@ operations
   
   
   --search doctors--------------------------------
-(*@
-\label{getDoctorById:200}
-@*)
   ----------get doctor by specialty
+(*@
+\label{getDoctorsBySpecialty:201}
+@*)
   public pure getDoctorsBySpecialty: ModelUtils`Specialty ==> set of Doctor
    getDoctorsBySpecialty(s) == (
     dcl res : set of Doctor := {};
@@ -269,12 +266,12 @@ operations
       if(d.getSpecialty() = s) then
        res := res union {d};
     return res
-(*@
-\label{getDoctorHospitals:208}
-@*)
    );
   
   ----------get doctor by id
+(*@
+\label{getDoctorById:211}
+@*)
   public pure getDoctorById: nat ==> Doctor
    getDoctorById(doctorId) == (
     return doctors(doctorId);
@@ -283,6 +280,9 @@ operations
   post RESULT.getId() = doctorId;
    
   ----------get hospitals where a doctor works
+(*@
+\label{getDoctorHospitals:219}
+@*)
   public pure getDoctorHospitals: nat ==> set of Hospital
    getDoctorHospitals(doctorId) == (
     dcl res : set of Hospital := {};
@@ -291,9 +291,6 @@ operations
       res := res union {h};
     return res
    );
-(*@
-\label{addPatient:227}
-@*)
    
   ---------------------------------------------------------
   -----------------------End Doctors ----------------------
@@ -302,12 +299,12 @@ operations
   
   -----------------------------------------------------------
   ------------------Patients---------------------------------
-(*@
-\label{removePatient:235}
-@*)
   -----------------------------------------------------------
   
   --add patient
+(*@
+\label{addPatient:238}
+@*)
   public addPatient: Patient ==> ()
   addPatient(patient) == (
    patients := patients ++  { patient.getId() |-> patient};
@@ -316,11 +313,11 @@ operations
   post {patient.getId() } <: patients = { patient.getId() |-> patient };
   
   --remove patient
+(*@
+\label{removePatient:246}
+@*)
   public removePatient: Patient ==> ()
   removePatient(patient) == (
-(*@
-\label{addClinicalObservation:248}
-@*)
    --remove patient appointments
    for all a in set appointments do 
     if(a.getPatientId() = patient.getId()) then
@@ -328,13 +325,13 @@ operations
    --remove patient from network
    patients := {patient.getId()} <-: patients;
   )
-(*@
-\label{getPatients:255}
-@*)
    pre {patient.getId()} <: patients = { patient.getId() |-> patient } 
   post {patient.getId()} <: patients = { |-> } and forall a in set appointments & a.getPatientId() <> patient.getId();
    
   --add clinical observation
+(*@
+\label{addClinicalObservation:259}
+@*)
   public addClinicalObservation: nat * ModelUtils`String ==> ()
   addClinicalObservation(patientId, obs) == (
    patients(patientId).addObservation(obs);
@@ -342,27 +339,24 @@ operations
    pre {patientId} <: patients = { patientId |-> patients(patientId) } ;
    
    -- get patients
+(*@
+\label{getPatients:266}
+@*)
   public pure getPatients : () ==> inmap nat to Patient
   getPatients() == (
    return patients;
   );
-(*@
-\label{getAppointments:270}
-@*)
   
   ----------get patient by id
 (*@
 \label{getPatientById:272}
 @*)
   public pure getPatientById: nat ==> Patient
-   getPatientById(patientId) == (*@\vdmnotcovered{(}@*)
-    (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{patients}@*)((*@\vdmnotcovered{patientId}@*));
+   getPatientById(patientId) == (
+    return patients(patientId);
    )
-(*@
-\label{getHospitalAppointments:276}
-@*)
-  pre patientId (*@\vdmnotcovered{in}@*) set dom (*@\vdmnotcovered{patients}@*)
-  post RESULT.(*@\vdmnotcovered{getId}@*)() (*@\vdmnotcovered{=}@*) (*@\vdmnotcovered{patientId}@*);
+  pre patientId in set dom patients
+  post RESULT.getId() = patientId;
   
   
   ---------------------------------------------------------
@@ -375,7 +369,7 @@ operations
   
   -- get appointments
 (*@
-\label{getHospitalNumberOfAppointments:289}
+\label{getAppointments:289}
 @*)
   public pure getAppointments : () ==> set of Appointment
   getAppointments() == (
@@ -383,12 +377,12 @@ operations
   );
   
   --get hospital appointments
+(*@
+\label{getHospitalAppointments:295}
+@*)
   public pure getHospitalAppointments: nat ==> set of Appointment
   getHospitalAppointments(hospitalId) == (
    dcl res: set of Appointment := {};
-(*@
-\label{getDoctorAppointments:298}
-@*)
    for all a in set appointments do 
     if(a.getHospitalId() = hospitalId) then
       res := res union {a}; 
@@ -399,11 +393,11 @@ operations
   post forall a in set RESULT & isofclass(Appointment,a) and a.getHospitalId() = hospitalId;
 
   -- total number of appointments in a hospital
+(*@
+\label{getHospitalNumberOfAppointments:308}
+@*)
   public pure getHospitalNumberOfAppointments: nat ==> nat
    getHospitalNumberOfAppointments(hospitalId) == (
-(*@
-\label{getPatientAppointments:310}
-@*)
     return card getHospitalAppointments(hospitalId);
   )
   pre hospitalId in set dom hospitals;
@@ -411,14 +405,14 @@ operations
   
   
   --get doctor appointments
+(*@
+\label{getDoctorAppointments:317}
+@*)
   public pure getDoctorAppointments: nat ==> set of Appointment
   getDoctorAppointments(doctorId) == (
    dcl res: set of Appointment := {};
    for all a in set appointments do 
     if(a.getDoctorId() = doctorId) then
-(*@
-\label{getSpecialtyAppointments:322}
-@*)
       res := res union {a}; 
    return res
   )
@@ -426,14 +420,14 @@ operations
   post forall a in set RESULT & isofclass(Appointment,a) and a.getDoctorId() = doctorId;
   
   --get patient appointments
+(*@
+\label{getPatientAppointments:329}
+@*)
   public pure getPatientAppointments: nat ==> set of Appointment
   getPatientAppointments(patientId) == (
    dcl res: set of Appointment := {};
    for all a in set appointments do 
     if(a.getPatientId() = patientId) then
-(*@
-\label{addAppointment:334}
-@*)
       res := res union {a}; 
    return res
   )
@@ -441,10 +435,10 @@ operations
   post forall a in set RESULT & isofclass(Appointment,a) and a.getPatientId() = patientId;
   
   --get specialty appointments
-  public pure getSpecialtyAppointments: ModelUtils`Specialty ==> set of Appointment
 (*@
-\label{removeAppointment:342}
+\label{getSpecialtyAppointments:341}
 @*)
+  public pure getSpecialtyAppointments: ModelUtils`Specialty ==> set of Appointment
   getSpecialtyAppointments(specialty) == (
    dcl res: set of Appointment := {};
    for all a in set appointments do 
@@ -457,7 +451,7 @@ operations
   
   --add an Appointment
 (*@
-\label{getHospitalClosestAvailableDate:353}
+\label{addAppointment:353}
 @*)
   public addAppointment: Appointment ==> ()
   addAppointment(a) == (
@@ -467,6 +461,9 @@ operations
   post a in set appointments;
   
   --remove an Appointment
+(*@
+\label{removeAppointment:361}
+@*)
   public removeAppointment: Appointment ==> ()
   removeAppointment(a) == (
    appointments := appointments \ {a}; 
@@ -478,6 +475,9 @@ operations
   
   -- get closest appointment date available given a set of doctors
   -- example: pass the doctor ids with who you want to get an appointment and receive the closest appointment date and the doctor available on that date
+(*@
+\label{getHospitalClosestAvailableDate:372}
+@*)
 (*@
 \label{getClosestAvailableDate:372}
 @*)
@@ -502,6 +502,9 @@ operations
   post RESULT.doctorId in set dom doctors;
   
   -- get the doctor first available date
+(*@
+\label{getDoctorFirstAvailableDate:393}
+@*)
   public getDoctorFirstAvailableDate: nat ==> ModelUtils`Date   
    getDoctorFirstAvailableDate(docId) == (
    dcl minDate: ModelUtils`Date := ModelUtils`getMaxDate(); 
@@ -513,9 +516,6 @@ operations
    
    
    -- have to check if the first date is available
-(*@
-\label{getDoctorFirstAvailableDate:404}
-@*)
    occupiedDates := occupiedDates union {ModelUtils`getMinDate()};
    
    for all date in set occupiedDates do
@@ -546,84 +546,84 @@ end SafetyNetNetwork
 Function or operation & Line & Coverage & Calls \\
 \hline
 \hline
-\hyperref[SafetyNetNetwork:15]{SafetyNetNetwork} & 15&100.0\% & 513 \\
+\hyperref[SafetyNetNetwork:15]{SafetyNetNetwork} & 15&100.0\% & 606 \\
 \hline
-\hyperref[addAgreementToHospital:80]{addAgreementToHospital} & 80&100.0\% & 10 \\
+\hyperref[addAgreementToHospital:80]{addAgreementToHospital} & 80&100.0\% & 13 \\
 \hline
-\hyperref[addAppointment:334]{addAppointment} & 334&100.0\% & 488 \\
+\hyperref[addAppointment:353]{addAppointment} & 353&100.0\% & 448 \\
 \hline
-\hyperref[addClinicalObservation:248]{addClinicalObservation} & 248&100.0\% & 40 \\
+\hyperref[addClinicalObservation:259]{addClinicalObservation} & 259&100.0\% & 48 \\
 \hline
-\hyperref[addDoctor:161]{addDoctor} & 161&100.0\% & 2100 \\
+\hyperref[addDoctor:172]{addDoctor} & 172&100.0\% & 852 \\
 \hline
-\hyperref[addHospital:59]{addHospital} & 59&100.0\% & 817 \\
+\hyperref[addHospital:59]{addHospital} & 59&100.0\% & 971 \\
 \hline
-\hyperref[addPatient:227]{addPatient} & 227&100.0\% & 300 \\
+\hyperref[addPatient:238]{addPatient} & 238&100.0\% & 364 \\
 \hline
-\hyperref[associateDoctorToHospital:32]{associateDoctorToHospital} & 32&100.0\% & 593 \\
+\hyperref[associateDoctorToHospital:32]{associateDoctorToHospital} & 32&100.0\% & 694 \\
 \hline
-\hyperref[clearInstance:26]{clearInstance} & 26&100.0\% & 492 \\
+\hyperref[clearInstance:26]{clearInstance} & 26&100.0\% & 581 \\
 \hline
-\hyperref[disassociateDoctorFromHospital:41]{disassociateDoctorFromHospital} & 41&100.0\% & 21 \\
+\hyperref[disassociateDoctorFromHospital:41]{disassociateDoctorFromHospital} & 41&100.0\% & 25 \\
 \hline
-\hyperref[getAppointments:270]{getAppointments} & 270&100.0\% & 200 \\
+\hyperref[getAppointments:289]{getAppointments} & 289&100.0\% & 240 \\
 \hline
-\hyperref[getClosestAvailableDate:372]{getClosestAvailableDate} & 372&100.0\% & 14 \\
+\hyperref[getClosestAvailableDate:372]{getClosestAvailableDate} & 372&100.0\% & 38 \\
 \hline
-\hyperref[getDoctorAppointments:298]{getDoctorAppointments} & 298&100.0\% & 3792 \\
+\hyperref[getDoctorAppointments:317]{getDoctorAppointments} & 317&100.0\% & 920 \\
 \hline
-\hyperref[getDoctorById:200]{getDoctorById} & 200&100.0\% & 60 \\
+\hyperref[getDoctorById:211]{getDoctorById} & 211&100.0\% & 72 \\
 \hline
-\hyperref[getDoctorFirstAvailableDate:404]{getDoctorFirstAvailableDate} & 404&100.0\% & 22 \\
+\hyperref[getDoctorFirstAvailableDate:393]{getDoctorFirstAvailableDate} & 393&100.0\% & 19 \\
 \hline
-\hyperref[getDoctorHospitals:208]{getDoctorHospitals} & 208&100.0\% & 60 \\
+\hyperref[getDoctorHospitals:219]{getDoctorHospitals} & 219&100.0\% & 72 \\
 \hline
-\hyperref[getDoctors:155]{getDoctors} & 155&100.0\% & 1231 \\
+\hyperref[getDoctors:166]{getDoctors} & 166&100.0\% & 1499 \\
 \hline
-\hyperref[getDoctorsBySpecialty:190]{getDoctorsBySpecialty} & 190&100.0\% & 60 \\
+\hyperref[getDoctorsBySpecialty:201]{getDoctorsBySpecialty} & 201&100.0\% & 72 \\
 \hline
-\hyperref[getHospitalAppointments:276]{getHospitalAppointments} & 276&100.0\% & 200 \\
+\hyperref[getHospitalAppointments:295]{getHospitalAppointments} & 295&100.0\% & 120 \\
 \hline
-\hyperref[getHospitalClosestAvailableDate:353]{getHospitalClosestAvailableDate} & 353&100.0\% & 14 \\
+\hyperref[getHospitalClosestAvailableDate:372]{getHospitalClosestAvailableDate} & 372&100.0\% & 38 \\
 \hline
-\hyperref[getHospitalNumberOfAppointments:289]{getHospitalNumberOfAppointments} & 289&100.0\% & 80 \\
+\hyperref[getHospitalNumberOfAppointments:308]{getHospitalNumberOfAppointments} & 308&100.0\% & 192 \\
 \hline
-\hyperref[getHospitalSpecialties:137]{getHospitalSpecialties} & 137&100.0\% & 40 \\
+\hyperref[getHospitalSpecialties:148]{getHospitalSpecialties} & 148&100.0\% & 72 \\
 \hline
-\hyperref[getHospitals:52]{getHospitals} & 52&100.0\% & 1005 \\
+\hyperref[getHospitals:52]{getHospitals} & 52&100.0\% & 1155 \\
 \hline
-\hyperref[getHospitalsByAgreement:125]{getHospitalsByAgreement} & 125&100.0\% & 252 \\
+\hyperref[getHospitalsByAgreement:125]{getHospitalsByAgreement} & 125&100.0\% & 150 \\
 \hline
-\hyperref[getHospitalsByCity:105]{getHospitalsByCity} & 105&100.0\% & 42 \\
+\hyperref[getHospitalsByCity:105]{getHospitalsByCity} & 105&100.0\% & 50 \\
 \hline
-\hyperref[getHospitalsById:97]{getHospitalsById} & 97&100.0\% & 63 \\
+\hyperref[getHospitalsById:97]{getHospitalsById} & 97&100.0\% & 75 \\
 \hline
-\hyperref[getHospitalsByName:115]{getHospitalsByName} & 115&100.0\% & 63 \\
+\hyperref[getHospitalsByName:115]{getHospitalsByName} & 115&100.0\% & 75 \\
 \hline
-\hyperref[getHospitalsBySpecialty:135]{getHospitalsBySpecialty} & 135&28.5\% & 2 \\
+\hyperref[getHospitalsBySpecialty:135]{getHospitalsBySpecialty} & 135&100.0\% & 99 \\
 \hline
-\hyperref[getInstance:20]{getInstance} & 20&100.0\% & 4961 \\
+\hyperref[getInstance:20]{getInstance} & 20&100.0\% & 5758 \\
 \hline
-\hyperref[getPatientAppointments:310]{getPatientAppointments} & 310&100.0\% & 340 \\
+\hyperref[getPatientAppointments:329]{getPatientAppointments} & 329&100.0\% & 640 \\
 \hline
-\hyperref[getPatientById:272]{getPatientById} & 272&0.0\% & 0 \\
+\hyperref[getPatientById:272]{getPatientById} & 272&100.0\% & 4 \\
 \hline
-\hyperref[getPatients:255]{getPatients} & 255&100.0\% & 332 \\
+\hyperref[getPatients:266]{getPatients} & 266&100.0\% & 400 \\
 \hline
-\hyperref[getSpecialtyAppointments:322]{getSpecialtyAppointments} & 322&100.0\% & 60 \\
+\hyperref[getSpecialtyAppointments:341]{getSpecialtyAppointments} & 341&100.0\% & 72 \\
 \hline
-\hyperref[removeAgreementFromHospital:88]{removeAgreementFromHospital} & 88&100.0\% & 10 \\
+\hyperref[removeAgreementFromHospital:88]{removeAgreementFromHospital} & 88&100.0\% & 13 \\
 \hline
-\hyperref[removeAppointment:342]{removeAppointment} & 342&100.0\% & 160 \\
+\hyperref[removeAppointment:361]{removeAppointment} & 361&100.0\% & 192 \\
 \hline
-\hyperref[removeDoctor:169]{removeDoctor} & 169&100.0\% & 20 \\
+\hyperref[removeDoctor:180]{removeDoctor} & 180&100.0\% & 48 \\
 \hline
-\hyperref[removeHospital:67]{removeHospital} & 67&100.0\% & 42 \\
+\hyperref[removeHospital:67]{removeHospital} & 67&100.0\% & 72 \\
 \hline
-\hyperref[removePatient:235]{removePatient} & 235&100.0\% & 40 \\
+\hyperref[removePatient:246]{removePatient} & 246&100.0\% & 48 \\
 \hline
 \hline
-SafetyNetNetwork.vdmpp & & 96.5\% & 18539 \\
+SafetyNetNetwork.vdmpp & & 100.0\% & 16807 \\
 \hline
 \end{longtable}
 

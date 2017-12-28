@@ -60,6 +60,10 @@ main() == (
   systemTest.testGetHospitalsByAgreement();
   IO`println("Success");
   
+  IO`print("test getHospitalBySpecialtie -> ");
+  systemTest.testGetHospitalBySpecialtie();
+  IO`println("Success");
+  
   IO`print("test getHospitalSpecialties -> ");
   systemTest.testGetHospitalSpecialties();
   IO`println("Success");
@@ -102,6 +106,10 @@ main() == (
   systemTest.testAddObservation();
   IO`println("Success");
   
+  IO`print("test getPatientById -> ");
+  systemTest.testGetPatientById();
+  IO`println("Success");
+  
   
   -- Appointement
   
@@ -130,6 +138,9 @@ main() == (
   IO`print("test addAgreement-> ");
   systemTest.testAddAgreement();
   IO`println("Success");
+(*@
+\label{testAddDoctor:137}
+@*)
     
   IO`print("test removeAgreement -> ");
   systemTest.testRemoveAgreement();
@@ -138,9 +149,6 @@ main() == (
 );
 
 
-(*@
-\label{testAddDoctor:137}
-@*)
 private testAddDoctor: () ==> ()
  testAddDoctor () == (
  
@@ -159,6 +167,9 @@ private testAddDoctor: () ==> ()
   assertEqual(doc2.getAge(), 40); 
   
   assertEqual(doc1.getSpecialty(), <ORTOPEDIA>);
+(*@
+\label{testGetAllDoctors:163}
+@*)
   assertEqual(doc2.getSpecialty(), <CARDIOLOGIA>);
   
   assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
@@ -167,9 +178,6 @@ private testAddDoctor: () ==> ()
     
 );
 
-(*@
-\label{testGetAllDoctors:163}
-@*)
 private testGetAllDoctors: () ==> ()
  testGetAllDoctors () == (
   
@@ -181,6 +189,9 @@ private testGetAllDoctors: () ==> ()
   assertEqual(rng safetyNet.getDoctors(), {});
    
   safetyNet.addDoctor(doc1);
+(*@
+\label{testRemoveDoctor:182}
+@*)
   safetyNet.addDoctor(doc2);
 
   assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
@@ -189,9 +200,6 @@ private testGetAllDoctors: () ==> ()
     
 );
 
-(*@
-\label{testRemoveDoctor:182}
-@*)
 private testRemoveDoctor: () ==> ()
  testRemoveDoctor () == (
   
@@ -217,6 +225,9 @@ private testRemoveDoctor: () ==> ()
   -- check if was removed from the system
   assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1});
   
+(*@
+\label{testAddHospital:215}
+@*)
   -- check if the doctor was removed from all hospitals where he worked
   for all hs in set rng safetyNet.getHospitals() do
    assertFalse(doc2.getId() in set hs.getDoctorsIds());
@@ -225,9 +236,6 @@ private testRemoveDoctor: () ==> ()
     
 );
 
-(*@
-\label{testAddHospital:215}
-@*)
 private testAddHospital: () ==> ()
  testAddHospital () == (
   
@@ -237,6 +245,9 @@ private testAddHospital: () ==> ()
   safetyNet := SafetyNetNetwork`getInstance();
    
   safetyNet.addHospital(hos1);
+(*@
+\label{testRemoveHospital:232}
+@*)
   safetyNet.addHospital(hos2);
   
   assertEqual(safetyNet.getHospitals(), { hos1.getId() |-> hos1, hos2.getId() |-> hos2});
@@ -245,9 +256,6 @@ private testAddHospital: () ==> ()
     
 );
 
-(*@
-\label{testRemoveHospital:232}
-@*)
 private testRemoveHospital: () ==> ()
  testRemoveHospital () == (
   
@@ -260,6 +268,9 @@ private testRemoveHospital: () ==> ()
   safetyNet.addHospital(hos2);
 
   safetyNet.removeHospital(hos1);
+(*@
+\label{testAssociateDoctorToAnHospital:252}
+@*)
 
   assertEqual(safetyNet.getHospitals(), { hos2.getId() |-> hos2});
   
@@ -267,10 +278,7 @@ private testRemoveHospital: () ==> ()
     
 );
 
--- change test
-(*@
-\label{testAssociateDoctorToAnHospital:252}
-@*)
+
 private testAssociateDoctorToAnHospital: () ==> ()
  testAssociateDoctorToAnHospital () == (
  
@@ -293,6 +301,12 @@ private testAssociateDoctorToAnHospital: () ==> ()
   safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
   
   assertEqual(hos1.getDoctorsIds(), {doc1.getId()});
+(*@
+\label{testGetHospitalBySpecialtie:282}
+@*)
+(*@
+\label{testDisassociateDoctorToAnHospital:282}
+@*)
   assertEqual(hos2.getDoctorsIds(), {doc1.getId(),doc2.getId()});
 
   assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
@@ -300,10 +314,46 @@ private testAssociateDoctorToAnHospital: () ==> ()
   safetyNet.clearInstance();
     
 );
--- change test
+
+private testGetHospitalBySpecialtie: () ==> ()
+ testGetHospitalBySpecialtie () == (
+ 
+  dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+  dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_ModelUtils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>}); 
+  
+  dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+  dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+  
+  dcl aux: set of ModelUtils`Specialty := {<ORTOPEDIA>, <CARDIOLOGIA>, <OFTALMOLOGIA>, <DERMATOLOGIA>, <GINECOLOGIA>, <NEUROLOGIA>, <PEDIATRIA>, <REUMATOLOGIA>, <UROLOGIA>, <PNEUMOLOGIA>};
+  
+  safetyNet := SafetyNetNetwork`getInstance();
+   
+  safetyNet.addHospital(hos1);
+  safetyNet.addHospital(hos2);
+  
+  safetyNet.addDoctor(doc1);
+  safetyNet.addDoctor(doc2);
+
+  safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+  safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
+  safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
+  
+  assertEqual(safetyNet.getHospitalsBySpecialty(<ORTOPEDIA>), {hos1, hos2});
+  assertEqual(safetyNet.getHospitalsBySpecialty(<CARDIOLOGIA>), {hos2});
 (*@
-\label{testDisassociateDoctorToAnHospital:282}
+\label{testGetHospitalsByLocation:315}
 @*)
+  
+  for all s in set aux do (
+   if ((s <> <ORTOPEDIA>) and (s <> <CARDIOLOGIA>)) then
+    assertEqual(safetyNet.getHospitalsBySpecialty(s), {});
+  );
+  
+  safetyNet.clearInstance();
+ 
+ );
+
+
 private testDisassociateDoctorToAnHospital: () ==> ()
  testDisassociateDoctorToAnHospital () == (
  
@@ -312,6 +362,9 @@ private testDisassociateDoctorToAnHospital: () ==> ()
   
   dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
   dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+(*@
+\label{testGetHospitalsByAgreement:334}
+@*)
   
   safetyNet := SafetyNetNetwork`getInstance();
    
@@ -333,13 +386,13 @@ private testDisassociateDoctorToAnHospital: () ==> ()
   
   assertEqual( safetyNet.getDoctors(), {doc1.getId() |-> doc1, doc2.getId() |->doc2});
   
+(*@
+\label{testGetHospitalsById:355}
+@*)
   safetyNet.clearInstance();
     
 );
 
-(*@
-\label{testGetHospitalsByLocation:315}
-@*)
 private testGetHospitalsByLocation: () ==> ()
  testGetHospitalsByLocation () == (
    
@@ -356,12 +409,12 @@ private testGetHospitalsByLocation: () ==> ()
   assertEqual(safetyNet.getHospitalsByCity("Porto"), {hos1});
   assertEqual(safetyNet.getHospitalsByCity("Lisboa"), {hos2, hos3});
  
+(*@
+\label{testGetAllHospitals:375}
+@*)
   safetyNet.clearInstance();
 );
 
-(*@
-\label{testGetHospitalsByAgreement:334}
-@*)
 private testGetHospitalsByAgreement: () ==> ()
  testGetHospitalsByAgreement () == (
    
@@ -377,15 +430,15 @@ private testGetHospitalsByAgreement: () ==> ()
  
   assertEqual(safetyNet.getHospitalsByAgreement(<ADSE>), {hos1, hos2, hos3});
   assertEqual(safetyNet.getHospitalsByAgreement(<MEDIS>), {hos2});
+(*@
+\label{testGetHospitalsByName:393}
+@*)
   assertEqual(safetyNet.getHospitalsByAgreement(<MULTICARE>), {hos2});
   assertEqual(safetyNet.getHospitalsByAgreement(<MEDICARE>), {hos1});
   
   safetyNet.clearInstance();
 );
 
-(*@
-\label{testGetHospitalsById:355}
-@*)
 private testGetHospitalsById: () ==> ()
  testGetHospitalsById () == (
    
@@ -400,15 +453,15 @@ private testGetHospitalsById: () ==> ()
   safetyNet.addHospital(hos3);
  
   assertEqual(safetyNet.getHospitalsById(hos1.getId()), hos1);
+(*@
+\label{testGetDoctorHospitals:413}
+@*)
   assertEqual(safetyNet.getHospitalsById(hos2.getId()), hos2);
   assertEqual(safetyNet.getHospitalsById(hos3.getId()), hos3);
  
   safetyNet.clearInstance();
 );
 
-(*@
-\label{testGetAllHospitals:375}
-@*)
 private testGetAllHospitals: () ==> ()
  testGetAllHospitals () == (
   
@@ -427,9 +480,6 @@ private testGetAllHospitals: () ==> ()
   safetyNet.clearInstance();
 );
 
-(*@
-\label{testGetHospitalsByName:393}
-@*)
 private testGetHospitalsByName: () ==> ()
  testGetHospitalsByName () == (
   
@@ -437,6 +487,9 @@ private testGetHospitalsByName: () ==> ()
   dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_ModelUtils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
   dcl hos3: Hospital := new Hospital("Hospital de Santo Antonio",mk_ModelUtils`Location("Lisboa", "Avenida de Santo antonio, n� 300","4750-559"), {<ADSE>});
   
+(*@
+\label{testGetDoctorBySpecialtie:444}
+@*)
   safetyNet := SafetyNetNetwork`getInstance();
    
   safetyNet.addHospital(hos1);
@@ -450,9 +503,6 @@ private testGetHospitalsByName: () ==> ()
   safetyNet.clearInstance();
 );
 
-(*@
-\label{testGetDoctorHospitals:413}
-@*)
 private testGetDoctorHospitals: () ==> ()
  testGetDoctorHospitals () == (
  
@@ -461,6 +511,9 @@ private testGetDoctorHospitals: () ==> ()
   
   dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
   dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+(*@
+\label{testGetHospitalSpecialties:465}
+@*)
   dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
   
   safetyNet := SafetyNetNetwork`getInstance();
@@ -484,9 +537,6 @@ private testGetDoctorHospitals: () ==> ()
     
 );
 
-(*@
-\label{testGetDoctorBySpecialtie:444}
-@*)
 private testGetDoctorBySpecialtie: () ==> ()
  testGetDoctorBySpecialtie () == (
  
@@ -494,6 +544,9 @@ private testGetDoctorBySpecialtie: () ==> ()
   dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
   dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
   
+(*@
+\label{testGetDoctorById:495}
+@*)
   safetyNet := SafetyNetNetwork`getInstance();
   
   safetyNet.addDoctor(doc1);
@@ -508,15 +561,15 @@ private testGetDoctorBySpecialtie: () ==> ()
     
 );
 
-(*@
-\label{testGetHospitalSpecialties:465}
-@*)
 private testGetHospitalSpecialties: () ==> ()
  testGetHospitalSpecialties () == (
  
   dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
   dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_ModelUtils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
   
+(*@
+\label{testAddPatient:515}
+@*)
   dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
   dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
   dcl doc3: Doctor := new Doctor("joaquim",50,<CARDIOLOGIA>);
@@ -540,10 +593,10 @@ private testGetHospitalSpecialties: () ==> ()
   safetyNet.clearInstance();
     
 );
-
 (*@
-\label{testGetDoctorById:495}
+\label{testRemovePatient:538}
 @*)
+
 private testGetDoctorById: () ==> ()
  testGetDoctorById () == (
    
@@ -562,11 +615,11 @@ private testGetDoctorById: () ==> ()
   assertEqual(safetyNet.getDoctorById(doc3.getId()), doc3);
  
   safetyNet.clearInstance();
+(*@
+\label{testAddAppointment:557}
+@*)
 );
 
-(*@
-\label{testAddPatient:515}
-@*)
 private testAddPatient: () ==> ()
  testAddPatient () == (
  
@@ -590,9 +643,6 @@ private testAddPatient: () ==> ()
     
 );
 
-(*@
-\label{testRemovePatient:538}
-@*)
 private testRemovePatient: () ==> ()
  testRemovePatient () == (
  
@@ -613,8 +663,25 @@ private testRemovePatient: () ==> ()
 );
 
 (*@
-\label{testAddAppointment:557}
+\label{testGetPatientById:601}
 @*)
+private testGetPatientById: () ==> ()
+ testGetPatientById () == (
+   
+  dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+  dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
+  
+  safetyNet := SafetyNetNetwork`getInstance();
+   
+  safetyNet.addPatient(pat1);
+  safetyNet.addPatient(pat2);
+  
+  assertEqual(safetyNet.getPatientById(pat1.getId()), pat1);
+  assertEqual(safetyNet.getPatientById(pat2.getId()), pat2);
+ 
+  safetyNet.clearInstance();
+);
+
 private testAddAppointment: () ==> ()
  testAddAppointment () == (
  
@@ -661,6 +728,9 @@ private testAddAppointment: () ==> ()
   for all a in set safetyNet.getDoctorAppointments(doc1.getId()) do (
    dt1 := dt1 union {a.getDate()};
    assertEqual(a.getDoctorId(), doc1.getId());
+(*@
+\label{testRemoveAppointment:664}
+@*)
    assertTrue(a.getDate().year > 2017 and a.getDate().month <= 12 and a.getDate().day < 31 and a.getDate().hour < 24 and a.getDate().min < 60);
   );
   assertEqual(card dt1, card safetyNet.getDoctorAppointments(doc1.getId()));
@@ -722,9 +792,6 @@ private testAddAppointment: () ==> ()
 
 
  
-(*@
-\label{testRemoveAppointment:664}
-@*)
 private testRemoveAppointment: () ==> ()
  testRemoveAppointment () == (
  
@@ -784,6 +851,9 @@ private testRemoveAppointment: () ==> ()
   assertEqual(safetyNet.getDoctorAppointments(doc1.getId()), {app1});
   assertEqual(safetyNet.getDoctorAppointments(doc2.getId()), {});
   assertEqual(safetyNet.getDoctorAppointments(doc3.getId()), {});
+(*@
+\label{testAddAgreement:784}
+@*)
   
   -- patient appointments
   assertEqual(safetyNet.getPatientAppointments(pat1.getId()), {app1});
@@ -805,6 +875,9 @@ private testRemoveAppointment: () ==> ()
   safetyNet.removeDoctor(doc2);
   
   assertEqual(safetyNet.getAppointments(), {app1}); 
+(*@
+\label{testRemoveAgreement:805}
+@*)
   
   
   -- remove a patient and all his appointments
@@ -825,6 +898,9 @@ private testRemoveAppointment: () ==> ()
   
   safetyNet.removeAppointment(app2);
   
+(*@
+\label{testAddObservation:825}
+@*)
   -- remove an hospital and all his appointments
   
   safetyNet.addPatient(pat1);
@@ -845,14 +921,14 @@ private testRemoveAppointment: () ==> ()
     
 );
 
-(*@
-\label{testAddAgreement:784}
-@*)
 private testAddAgreement: () ==> ()
  testAddAgreement () == (
   
   dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
   dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_ModelUtils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});
+(*@
+\label{testGetSpecialtyAppointments:850}
+@*)
   
   safetyNet := SafetyNetNetwork`getInstance();
    
@@ -869,9 +945,6 @@ private testAddAgreement: () ==> ()
     
 );
 
-(*@
-\label{testRemoveAgreement:805}
-@*)
 private testRemoveAgreement: () ==> ()
  testRemoveAgreement () == (
   
@@ -892,9 +965,6 @@ private testRemoveAgreement: () ==> ()
 );
 
 
-(*@
-\label{testAddObservation:825}
-@*)
 private testAddObservation: () ==> ()
  testAddObservation () == (
   
@@ -913,6 +983,9 @@ private testAddObservation: () ==> ()
   safetyNet.addClinicalObservation(pat1.getId(), "Varicela");
 
   assertEqual(pat1.getClinicalObservations(), ["Gripe", "Pneumonia", "Varicela"]);
+(*@
+\label{testGetHospitalClosestAvailableDate:904}
+@*)
   assertEqual(pat2.getClinicalObservations(), ["Doenca pulmonar"]); 
    
   safetyNet.clearInstance();
@@ -920,9 +993,6 @@ private testAddObservation: () ==> ()
 );
 
 
-(*@
-\label{testGetSpecialtyAppointments:850}
-@*)
 private testGetSpecialtyAppointments: () ==> ()
  testGetSpecialtyAppointments () == (
  
@@ -976,10 +1046,10 @@ private testGetSpecialtyAppointments: () ==> ()
   safetyNet.clearInstance();
     
 );
-
 (*@
-\label{testGetHospitalClosestAvailableDate:904}
+\label{testGetNextAppointmentDate:964}
 @*)
+
 private testGetHospitalClosestAvailableDate: () ==> ()
  testGetHospitalClosestAvailableDate () == (
  
@@ -995,9 +1065,15 @@ private testGetHospitalClosestAvailableDate: () ==> ()
   
   dcl app1: Appointment;
   dcl app2: Appointment;
+(*@
+\label{testForogotToAddDoctor:980}
+@*)
   dcl app3: Appointment;
   dcl app4: Appointment;
   
+(*@
+\label{testFailForgotToAddDoctor:983}
+@*)
   dcl res: ModelUtils`Date_DoctorId;
   
   safetyNet := SafetyNetNetwork`getInstance();
@@ -1016,6 +1092,12 @@ private testGetHospitalClosestAvailableDate: () ==> ()
   safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
   safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
   safetyNet.associateDoctorToHospital(hos1.getId(), doc3.getId());
+(*@
+\label{testForgotToAddHospital:1001}
+@*)
+(*@
+\label{testFailForgotToAddHospital:1001}
+@*)
   safetyNet.associateDoctorToHospital(hos2.getId(), doc3.getId());
   
     
@@ -1035,14 +1117,17 @@ private testGetHospitalClosestAvailableDate: () ==> ()
   res := safetyNet.getClosestAvailableDate({doc1.getId(), doc2.getId()}); 
   assertEqual(res, mk_ModelUtils`Date_DoctorId(mk_ModelUtils`Date(2018,1,1,9,00), doc2.getId()));
   
+(*@
+\label{testFailCanNotRemoveAnAgreement:1020}
+@*)
+(*@
+\label{testCanNotRemoveAnAgreement:1020}
+@*)
   res := safetyNet.getClosestAvailableDate({doc1.getId(), doc2.getId(),doc3.getId()}); 
   assertEqual(res, mk_ModelUtils`Date_DoctorId(mk_ModelUtils`Date(2018,1,1,8,30), doc3.getId()));
   
   
   safetyNet.clearInstance(); 
-(*@
-\label{testGetNextAppointmentDate:964}
-@*)
 );
 
 
@@ -1057,36 +1142,39 @@ private testGetNextAppointmentDate: () ==> ()
   assertEqual(Appointment`getNextAppointmentDate(mk_ModelUtils`Date(2018,10,30,23,45)) ,mk_ModelUtils`Date(2018,11,1,0,15));
   -- next 30 min
   assertEqual(Appointment`getNextAppointmentDate(mk_ModelUtils`Date(2018,10,15,10,30)) ,mk_ModelUtils`Date(2018,10,15,11,0));
+(*@
+\label{testFailSearchForADoctor:1039}
+@*)
  
 );
 
 /*
 
-(*@
-\label{testFailForgotToAddDoctor:983}
-@*)
  Tests containing invalid inputs (should be tested one at a time)
 */
 
 public testFailForgotToAddDoctor: () ==> ()
  testFailForgotToAddDoctor () == (*@\vdmnotcovered{(}@*)
  
-   dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", (*@\vdmnotcovered{"Alameda Prof. Hernâni Monteiro"}@*),(*@\vdmnotcovered{"4200-319"}@*)), {(*@\vdmnotcovered{<ADSE>}@*),(*@\vdmnotcovered{<MEDICARE>}@*)});
-   dcl doc1: Doctor := new (*@\vdmnotcovered{Doctor}@*)((*@\vdmnotcovered{"jose"}@*),(*@\vdmnotcovered{35}@*),(*@\vdmnotcovered{<ORTOPEDIA>}@*));
+   dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro",(*@\vdmnotcovered{"4200-319"}@*)), {(*@\vdmnotcovered{<ADSE>}@*),(*@\vdmnotcovered{<MEDICARE>}@*)});
+   dcl doc1: Doctor := new Doctor("jose",35,(*@\vdmnotcovered{<ORTOPEDIA>}@*));
    
+(*@
+\label{testFailDisassociatingADoctorFromAnHospital:1053}
+@*)
+(*@
+\label{testFailDisassoatingADoctorFromAnHospital:1053}
+@*)
    (*@\vdmnotcovered{safetyNet}@*).clearInstance();
    
-   (*@\vdmnotcovered{safetyNet}@*) := (*@\vdmnotcovered{SafetyNetNetwork`getInstance}@*)();
+   safetyNet := (*@\vdmnotcovered{SafetyNetNetwork`getInstance}@*)();
    
-   (*@\vdmnotcovered{safetyNet}@*).addHospital((*@\vdmnotcovered{hos1}@*));
+   safetyNet.addHospital((*@\vdmnotcovered{hos1}@*));
     
    -- you can not associate a doctor to an hospital if that doctor was not added to the network 
-   safetyNet.associateDoctorToHospital((*@\vdmnotcovered{hos1}@*).(*@\vdmnotcovered{getId}@*)(), (*@\vdmnotcovered{doc1}@*).(*@\vdmnotcovered{getId}@*)());
+   (*@\vdmnotcovered{safetyNet}@*).associateDoctorToHospital(hos1.getId(), doc1.(*@\vdmnotcovered{getId}@*)());
    
    (*@\vdmnotcovered{safetyNet}@*).clearInstance();
-(*@
-\label{testFailForgotToAddHospital:1002}
-@*)
 );
  
  
@@ -1094,29 +1182,29 @@ public testFailForgotToAddDoctor: () ==> ()
   testFailForgotToAddHospital () == (*@\vdmnotcovered{(}@*)
   
     dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,(*@\vdmnotcovered{<MEDICARE>}@*)});
-   dcl doc1: Doctor := (*@\vdmnotcovered{new}@*) (*@\vdmnotcovered{Doctor}@*)("jose",(*@\vdmnotcovered{35}@*),(*@\vdmnotcovered{<ORTOPEDIA>}@*));
+   dcl doc1: Doctor := new Doctor("jose",(*@\vdmnotcovered{35}@*),(*@\vdmnotcovered{<ORTOPEDIA>}@*));
    
    (*@\vdmnotcovered{safetyNet}@*).clearInstance();   
    
-   safetyNet := (*@\vdmnotcovered{SafetyNetNetwork`getInstance}@*)();
+   (*@\vdmnotcovered{safetyNet}@*) := (*@\vdmnotcovered{SafetyNetNetwork`getInstance}@*)();
    
    (*@\vdmnotcovered{safetyNet}@*).addDoctor((*@\vdmnotcovered{doc1}@*));
+(*@
+\label{testFailCreatingAnAppointment:1077}
+@*)
     
    -- you can not associate a doctor to an hospital if that hospital was not added to the network 
    safetyNet.associateDoctorToHospital(hos1.getId(), (*@\vdmnotcovered{doc1}@*).(*@\vdmnotcovered{getId}@*)());
    
    (*@\vdmnotcovered{safetyNet}@*).clearInstance();
   
-(*@
-\label{testFailCanNotRemoveAnAgreement:1022}
-@*)
   );
  
  
  public testFailCanNotRemoveAnAgreement: () ==> ()
   testFailCanNotRemoveAnAgreement () == (*@\vdmnotcovered{(}@*)
   
-    dcl hos1: Hospital := new (*@\vdmnotcovered{Hospital}@*)((*@\vdmnotcovered{"Hospital Sao Joao"}@*),(*@\vdmnotcovered{mk\_ModelUtils`Location}@*)("Porto", "Alameda Prof. Hernâni Monteiro",(*@\vdmnotcovered{"4200-319"}@*)), (*@\vdmnotcovered{\{}@*)(*@\vdmnotcovered{<ADSE>}@*),(*@\vdmnotcovered{<MEDICARE>}@*)});
+    dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", (*@\vdmnotcovered{"Alameda Prof. Hernâni Monteiro"}@*),"4200-319"), (*@\vdmnotcovered{\{}@*)(*@\vdmnotcovered{<ADSE>}@*),(*@\vdmnotcovered{<MEDICARE>}@*)});
    
     (*@\vdmnotcovered{safetyNet}@*).clearInstance();
     
@@ -1125,66 +1213,57 @@ public testFailForgotToAddDoctor: () ==> ()
    (*@\vdmnotcovered{safetyNet}@*).addHospital((*@\vdmnotcovered{hos1}@*));
    
    -- it is not possible to remove an agreement from an hospital if that agreement didn't exist already
-   safetyNet.removeAgreementFromHospital(hos1.getId(),(*@\vdmnotcovered{<MEDIS>}@*));
+   (*@\vdmnotcovered{safetyNet}@*).removeAgreementFromHospital(hos1.getId(),(*@\vdmnotcovered{<MEDIS>}@*));
    
    (*@\vdmnotcovered{safetyNet}@*).clearInstance();
    
   );
-(*@
-\label{testFailSearchForADoctor:1042}
-@*)
   
   
  
   public testFailSearchForADoctor: () ==> ()
    testFailSearchForADoctor () == (*@\vdmnotcovered{(}@*)
    
-    dcl doc1: Doctor := new (*@\vdmnotcovered{Doctor}@*)((*@\vdmnotcovered{"jose"}@*),(*@\vdmnotcovered{35}@*),(*@\vdmnotcovered{<ORTOPEDIA>}@*));
+    dcl doc1: Doctor := new (*@\vdmnotcovered{Doctor}@*)("jose",(*@\vdmnotcovered{35}@*),(*@\vdmnotcovered{<ORTOPEDIA>}@*));
    dcl doc2: Doctor;
    
    (*@\vdmnotcovered{safetyNet}@*).clearInstance();
    
    safetyNet := (*@\vdmnotcovered{SafetyNetNetwork`getInstance}@*)();
    
-   doc2 := safetyNet.getDoctorById(doc1.(*@\vdmnotcovered{getId}@*)());
+   (*@\vdmnotcovered{doc2}@*) := safetyNet.(*@\vdmnotcovered{getDoctorById}@*)(doc1.(*@\vdmnotcovered{getId}@*)());
    
    (*@\vdmnotcovered{safetyNet}@*).clearInstance();
    
-(*@
-\label{testFailDisassociatingADoctorFromAnHospital:1059}
-@*)
   );
   
   
   public testFailDisassociatingADoctorFromAnHospital: () ==> ()
    testFailDisassociatingADoctorFromAnHospital () == (*@\vdmnotcovered{(}@*)
    
-    dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,(*@\vdmnotcovered{<MEDICARE>}@*)});
+    dcl hos1: Hospital := (*@\vdmnotcovered{new}@*) Hospital((*@\vdmnotcovered{"Hospital Sao Joao"}@*),(*@\vdmnotcovered{mk\_ModelUtils`Location}@*)("Porto", (*@\vdmnotcovered{"Alameda Prof. Hernâni Monteiro"}@*),"4200-319"), (*@\vdmnotcovered{\{}@*)(*@\vdmnotcovered{<ADSE>}@*),(*@\vdmnotcovered{<MEDICARE>}@*)});
    
     dcl doc2: Doctor := (*@\vdmnotcovered{new}@*) (*@\vdmnotcovered{Doctor}@*)("marcelo", 40 ,(*@\vdmnotcovered{<CARDIOLOGIA>}@*));
     
     (*@\vdmnotcovered{safetyNet}@*).clearInstance();
     
-    (*@\vdmnotcovered{safetyNet}@*) := (*@\vdmnotcovered{SafetyNetNetwork`getInstance}@*)();
+    safetyNet := (*@\vdmnotcovered{SafetyNetNetwork`getInstance}@*)();
    
     -- you can not remove a doctor from an hospital if previously that doctor was not associated to that hospital
     safetyNet.disassociateDoctorFromHospital((*@\vdmnotcovered{hos1}@*).(*@\vdmnotcovered{getId}@*)(), (*@\vdmnotcovered{doc2}@*).(*@\vdmnotcovered{getId}@*)());
    
     (*@\vdmnotcovered{safetyNet}@*).clearInstance();
-(*@
-\label{testFailCreatingAnAppointment:1077}
-@*)
    );
  
  
  public testFailCreatingAnAppointment: () ==> ()
   testFailCreatingAnAppointment () == (*@\vdmnotcovered{(}@*)
-   dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,(*@\vdmnotcovered{<MEDICARE>}@*)});
+   dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {(*@\vdmnotcovered{<ADSE>}@*),(*@\vdmnotcovered{<MEDICARE>}@*)});
   
   dcl doc1: Doctor := new Doctor("jose",35,(*@\vdmnotcovered{<ORTOPEDIA>}@*));
   
   dcl pat1: Patient := new (*@\vdmnotcovered{Patient}@*)((*@\vdmnotcovered{"Susana"}@*), (*@\vdmnotcovered{26}@*), (*@\vdmnotcovered{"Gripe"}@*));
-  dcl pat2: Patient := (*@\vdmnotcovered{new}@*) (*@\vdmnotcovered{Patient}@*)((*@\vdmnotcovered{"Maria"}@*), (*@\vdmnotcovered{38}@*), (*@\vdmnotcovered{"Doença pulmonar"}@*));
+  dcl pat2: Patient := new Patient((*@\vdmnotcovered{"Maria"}@*), 38, (*@\vdmnotcovered{"Doença pulmonar"}@*));
   
   dcl app1: Appointment;
   dcl app2: Appointment;
@@ -1193,17 +1272,17 @@ public testFailForgotToAddDoctor: () ==> ()
     
    safetyNet := (*@\vdmnotcovered{SafetyNetNetwork`getInstance}@*)();
    
-   (*@\vdmnotcovered{safetyNet}@*).addHospital((*@\vdmnotcovered{hos1}@*));
+   safetyNet.addHospital((*@\vdmnotcovered{hos1}@*));
     
   safetyNet.addDoctor((*@\vdmnotcovered{doc1}@*));
   
-  safetyNet.addPatient((*@\vdmnotcovered{pat1}@*));
+  (*@\vdmnotcovered{safetyNet}@*).addPatient((*@\vdmnotcovered{pat1}@*));
   (*@\vdmnotcovered{safetyNet}@*).addPatient((*@\vdmnotcovered{pat2}@*));
 
   safetyNet.associateDoctorToHospital(hos1.(*@\vdmnotcovered{getId}@*)(), (*@\vdmnotcovered{doc1}@*).(*@\vdmnotcovered{getId}@*)());
 
-  (*@\vdmnotcovered{app1}@*) := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos1.getId(), doc1.(*@\vdmnotcovered{getId}@*)(), (*@\vdmnotcovered{pat1}@*).(*@\vdmnotcovered{getId}@*)());
-  (*@\vdmnotcovered{app2}@*) := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos1.getId(), (*@\vdmnotcovered{doc1}@*).(*@\vdmnotcovered{getId}@*)(), (*@\vdmnotcovered{pat2}@*).(*@\vdmnotcovered{getId}@*)());
+  app1 := new Appointment((*@\vdmnotcovered{mk\_ModelUtils`Date}@*)(2018,12,21,8,30), hos1.(*@\vdmnotcovered{getId}@*)(), doc1.getId(), (*@\vdmnotcovered{pat1}@*).(*@\vdmnotcovered{getId}@*)());
+  app2 := new Appointment(mk_ModelUtils`Date(2018,12,21,8,30), hos1.getId(), doc1.getId(), (*@\vdmnotcovered{pat2}@*).(*@\vdmnotcovered{getId}@*)());
 
   -- a doctor and a patient can not have overlapped appointments
   (*@\vdmnotcovered{safetyNet}@*).addAppointment((*@\vdmnotcovered{app1}@*));
@@ -1225,74 +1304,86 @@ end SystemTest
 Function or operation & Line & Coverage & Calls \\
 \hline
 \hline
-\hyperref[main:13]{main} & 13&100.0\% & 11 \\
+\hyperref[main:13]{main} & 13&100.0\% & 13 \\
 \hline
-\hyperref[testAddAgreement:784]{testAddAgreement} & 784&100.0\% & 18 \\
+\hyperref[testAddAgreement:784]{testAddAgreement} & 784&100.0\% & 1 \\
 \hline
-\hyperref[testAddAppointment:557]{testAddAppointment} & 557&100.0\% & 11 \\
+\hyperref[testAddAppointment:557]{testAddAppointment} & 557&100.0\% & 1 \\
 \hline
-\hyperref[testAddDoctor:137]{testAddDoctor} & 137&100.0\% & 11 \\
+\hyperref[testAddDoctor:137]{testAddDoctor} & 137&100.0\% & 1 \\
 \hline
-\hyperref[testAddHospital:215]{testAddHospital} & 215&100.0\% & 11 \\
+\hyperref[testAddHospital:215]{testAddHospital} & 215&100.0\% & 1 \\
 \hline
-\hyperref[testAddObservation:825]{testAddObservation} & 825&100.0\% & 11 \\
+\hyperref[testAddObservation:825]{testAddObservation} & 825&100.0\% & 1 \\
 \hline
-\hyperref[testAddPatient:515]{testAddPatient} & 515&100.0\% & 33 \\
+\hyperref[testAddPatient:515]{testAddPatient} & 515&100.0\% & 1 \\
 \hline
-\hyperref[testAssociateDoctorToAnHospital:252]{testAssociateDoctorToAnHospital} & 252&100.0\% & 11 \\
+\hyperref[testAssociateDoctorToAnHospital:252]{testAssociateDoctorToAnHospital} & 252&100.0\% & 3 \\
 \hline
-\hyperref[testDisassociateDoctorToAnHospital:282]{testDisassociateDoctorToAnHospital} & 282&100.0\% & 33 \\
+\hyperref[testCanNotRemoveAnAgreement:1020]{testCanNotRemoveAnAgreement} & 1020&100.0\% & 1 \\
 \hline
-\hyperref[testFailCanNotRemoveAnAgreement:1022]{testFailCanNotRemoveAnAgreement} & 1022&0.0\% & 0 \\
+\hyperref[testDisassociateDoctorToAnHospital:282]{testDisassociateDoctorToAnHospital} & 282&100.0\% & 1 \\
+\hline
+\hyperref[testFailCanNotRemoveAnAgreement:1020]{testFailCanNotRemoveAnAgreement} & 1020&0.0\% & 0 \\
 \hline
 \hyperref[testFailCreatingAnAppointment:1077]{testFailCreatingAnAppointment} & 1077&0.0\% & 0 \\
 \hline
-\hyperref[testFailDisassociatingADoctorFromAnHospital:1059]{testFailDisassociatingADoctorFromAnHospital} & 1059&0.0\% & 0 \\
+\hyperref[testFailDisassoatingADoctorFromAnHospital:1053]{testFailDisassoatingADoctorFromAnHospital} & 1053&0.0\% & 0 \\
+\hline
+\hyperref[testFailDisassociatingADoctorFromAnHospital:1053]{testFailDisassociatingADoctorFromAnHospital} & 1053&0.0\% & 0 \\
 \hline
 \hyperref[testFailForgotToAddDoctor:983]{testFailForgotToAddDoctor} & 983&0.0\% & 0 \\
 \hline
-\hyperref[testFailForgotToAddHospital:1002]{testFailForgotToAddHospital} & 1002&0.0\% & 0 \\
+\hyperref[testFailForgotToAddHospital:1001]{testFailForgotToAddHospital} & 1001&0.0\% & 0 \\
 \hline
-\hyperref[testFailSearchForADoctor:1042]{testFailSearchForADoctor} & 1042&0.0\% & 0 \\
+\hyperref[testFailSearchForADoctor:1039]{testFailSearchForADoctor} & 1039&0.0\% & 0 \\
 \hline
-\hyperref[testGetAllDoctors:163]{testGetAllDoctors} & 163&100.0\% & 22 \\
+\hyperref[testForgotToAddHospital:1001]{testForgotToAddHospital} & 1001&100.0\% & 1 \\
 \hline
-\hyperref[testGetAllHospitals:375]{testGetAllHospitals} & 375&100.0\% & 11 \\
+\hyperref[testForogotToAddDoctor:980]{testForogotToAddDoctor} & 980&100.0\% & 2 \\
 \hline
-\hyperref[testGetDoctorById:495]{testGetDoctorById} & 495&100.0\% & 11 \\
+\hyperref[testGetAllDoctors:163]{testGetAllDoctors} & 163&100.0\% & 1 \\
 \hline
-\hyperref[testGetDoctorBySpecialtie:444]{testGetDoctorBySpecialtie} & 444&100.0\% & 11 \\
+\hyperref[testGetAllHospitals:375]{testGetAllHospitals} & 375&100.0\% & 1 \\
 \hline
-\hyperref[testGetDoctorHospitals:413]{testGetDoctorHospitals} & 413&100.0\% & 11 \\
+\hyperref[testGetDoctorById:495]{testGetDoctorById} & 495&100.0\% & 3 \\
 \hline
-\hyperref[testGetHospitalClosestAvailableDate:904]{testGetHospitalClosestAvailableDate} & 904&100.0\% & 11 \\
+\hyperref[testGetDoctorBySpecialtie:444]{testGetDoctorBySpecialtie} & 444&100.0\% & 1 \\
 \hline
-\hyperref[testGetHospitalSpecialties:465]{testGetHospitalSpecialties} & 465&100.0\% & 11 \\
+\hyperref[testGetDoctorHospitals:413]{testGetDoctorHospitals} & 413&100.0\% & 2 \\
 \hline
-\hyperref[testGetHospitalsByAgreement:334]{testGetHospitalsByAgreement} & 334&100.0\% & 11 \\
+\hyperref[testGetHospitalBySpecialtie:282]{testGetHospitalBySpecialtie} & 282&100.0\% & 1 \\
 \hline
-\hyperref[testGetHospitalsById:355]{testGetHospitalsById} & 355&100.0\% & 11 \\
+\hyperref[testGetHospitalClosestAvailableDate:904]{testGetHospitalClosestAvailableDate} & 904&100.0\% & 1 \\
 \hline
-\hyperref[testGetHospitalsByLocation:315]{testGetHospitalsByLocation} & 315&100.0\% & 11 \\
+\hyperref[testGetHospitalSpecialties:465]{testGetHospitalSpecialties} & 465&100.0\% & 1 \\
 \hline
-\hyperref[testGetHospitalsByName:393]{testGetHospitalsByName} & 393&100.0\% & 11 \\
+\hyperref[testGetHospitalsByAgreement:334]{testGetHospitalsByAgreement} & 334&100.0\% & 1 \\
 \hline
-\hyperref[testGetNextAppointmentDate:964]{testGetNextAppointmentDate} & 964&100.0\% & 3 \\
+\hyperref[testGetHospitalsById:355]{testGetHospitalsById} & 355&100.0\% & 1 \\
 \hline
-\hyperref[testGetSpecialtyAppointments:850]{testGetSpecialtyAppointments} & 850&100.0\% & 11 \\
+\hyperref[testGetHospitalsByLocation:315]{testGetHospitalsByLocation} & 315&100.0\% & 1 \\
 \hline
-\hyperref[testRemoveAgreement:805]{testRemoveAgreement} & 805&100.0\% & 6 \\
+\hyperref[testGetHospitalsByName:393]{testGetHospitalsByName} & 393&100.0\% & 1 \\
 \hline
-\hyperref[testRemoveAppointment:664]{testRemoveAppointment} & 664&100.0\% & 11 \\
+\hyperref[testGetNextAppointmentDate:964]{testGetNextAppointmentDate} & 964&100.0\% & 1 \\
 \hline
-\hyperref[testRemoveDoctor:182]{testRemoveDoctor} & 182&100.0\% & 11 \\
+\hyperref[testGetPatientById:601]{testGetPatientById} & 601&100.0\% & 1 \\
 \hline
-\hyperref[testRemoveHospital:232]{testRemoveHospital} & 232&100.0\% & 11 \\
+\hyperref[testGetSpecialtyAppointments:850]{testGetSpecialtyAppointments} & 850&100.0\% & 12 \\
 \hline
-\hyperref[testRemovePatient:538]{testRemovePatient} & 538&100.0\% & 11 \\
+\hyperref[testRemoveAgreement:805]{testRemoveAgreement} & 805&100.0\% & 1 \\
+\hline
+\hyperref[testRemoveAppointment:664]{testRemoveAppointment} & 664&100.0\% & 1 \\
+\hline
+\hyperref[testRemoveDoctor:182]{testRemoveDoctor} & 182&100.0\% & 1 \\
+\hline
+\hyperref[testRemoveHospital:232]{testRemoveHospital} & 232&100.0\% & 1 \\
+\hline
+\hyperref[testRemovePatient:538]{testRemovePatient} & 538&100.0\% & 1 \\
 \hline
 \hline
-SystemTest.vdmpp & & 92.9\% & 346 \\
+SystemTest.vdmpp & & 93.2\% & 61 \\
 \hline
 \end{longtable}
 
