@@ -56,6 +56,10 @@ main() == (
 		systemTest.testGetHospitalsByAgreement();
 		IO`println("Success");
 		
+		IO`print("test getHospitalBySpecialtie -> ");
+		systemTest.testGetHospitalBySpecialtie();
+		IO`println("Success");
+		
 		IO`print("test getHospitalSpecialties -> ");
 		systemTest.testGetHospitalSpecialties();
 		IO`println("Success");
@@ -96,6 +100,10 @@ main() == (
 		
 		IO`print("test addObservation -> ");
 		systemTest.testAddObservation();
+		IO`println("Success");
+		
+		IO`print("test getPatientById -> ");
+		systemTest.testGetPatientById();
 		IO`println("Success");
 		
 		
@@ -248,7 +256,7 @@ private testRemoveHospital: () ==> ()
 				
 );
 
--- change test
+
 private testAssociateDoctorToAnHospital: () ==> ()
 	testAssociateDoctorToAnHospital () == (
 	
@@ -278,7 +286,43 @@ private testAssociateDoctorToAnHospital: () ==> ()
 		safetyNet.clearInstance();
 				
 );
--- change test
+
+private testGetHospitalBySpecialtie: () ==> ()
+	testGetHospitalBySpecialtie () == (
+	
+		dcl hos1: Hospital := new Hospital("Hospital Sao Joao",mk_ModelUtils`Location("Porto", "Alameda Prof. Hernâni Monteiro","4200-319"), {<ADSE>,<MEDICARE>});
+		dcl hos2: Hospital := new Hospital("Hospital da Luz Lisboa",mk_ModelUtils`Location("Lisboa", "Avenida Lusíada, nº 100","4700-959"), {<ADSE>,<MEDIS>, <MULTICARE>});	
+		
+		dcl doc1: Doctor := new Doctor("jose",35,<ORTOPEDIA>);
+		dcl doc2: Doctor := new Doctor("marcelo", 40 ,<CARDIOLOGIA>);
+		
+		dcl aux: set of ModelUtils`Specialty := {<ORTOPEDIA>, <CARDIOLOGIA>, <OFTALMOLOGIA>, <DERMATOLOGIA>, <GINECOLOGIA>, <NEUROLOGIA>, <PEDIATRIA>, <REUMATOLOGIA>, <UROLOGIA>, <PNEUMOLOGIA>};
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addHospital(hos1);
+		safetyNet.addHospital(hos2);
+		
+		safetyNet.addDoctor(doc1);
+		safetyNet.addDoctor(doc2);
+
+		safetyNet.associateDoctorToHospital(hos1.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc1.getId());
+		safetyNet.associateDoctorToHospital(hos2.getId(), doc2.getId());
+		
+		assertEqual(safetyNet.getHospitalsBySpecialty(<ORTOPEDIA>), {hos1, hos2});
+		assertEqual(safetyNet.getHospitalsBySpecialty(<CARDIOLOGIA>), {hos2});
+		
+		for all s in set aux do (
+			if ((s <> <ORTOPEDIA>) and (s <> <CARDIOLOGIA>)) then
+				assertEqual(safetyNet.getHospitalsBySpecialty(s), {});
+		);
+		
+		safetyNet.clearInstance();
+	
+	);
+
+
 private testDisassociateDoctorToAnHospital: () ==> ()
 	testDisassociateDoctorToAnHospital () == (
 	
@@ -552,6 +596,23 @@ private testRemovePatient: () ==> ()
 		
 		safetyNet.clearInstance();
 				
+);
+
+private testGetPatientById: () ==> ()
+	testGetPatientById () == (
+			
+		dcl pat1: Patient := new Patient("Susana", 26, "Gripe");
+		dcl pat2: Patient := new Patient("Maria", 38, "Doença pulmonar");
+		
+		safetyNet := SafetyNetNetwork`getInstance();
+			
+		safetyNet.addPatient(pat1);
+		safetyNet.addPatient(pat2);
+		
+		assertEqual(safetyNet.getPatientById(pat1.getId()), pat1);
+		assertEqual(safetyNet.getPatientById(pat2.getId()), pat2);
+	
+		safetyNet.clearInstance();
 );
 
 private testAddAppointment: () ==> ()
