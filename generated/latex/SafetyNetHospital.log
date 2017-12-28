@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.12.23)  27 DEC 2017 12:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.12.23)  28 DEC 2017 16:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -322,67 +322,40 @@ Underfull \vbox (badness 10000) detected at line 95
 Underfull \vbox (badness 10000) detected at line 41
  []
 
-) (./specification/SafetyNetNetwork.vdmpp.tex [9] [10] [11] [12] [13] [14]
-[15]
+) (./specification/SafetyNetNetwork.vdmpp.tex [9] [10]
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 186.
 
-LaTeX Warning: Hyper reference `addAppointment:424' on page 16 undefined on inp
-ut line 491.
-
-
-LaTeX Warning: Hyper reference `getHospitalClosestAvailableDate:443' on page 16
- undefined on input line 521.
-
-
-Underfull \vbox (badness 10000) detected at line 524
- []
-
-
-LaTeX Warning: Hyper reference `getPatientAppointments:400' on page 16 undefine
-d on input line 539.
-
-
-LaTeX Warning: Hyper reference `getSpecialtyAppointments:412' on page 16 undefi
-ned on input line 543.
-
-
-LaTeX Warning: Hyper reference `removeAppointment:432' on page 16 undefined on 
-input line 547.
-
-[16]) (./specification/MyTestCase.vdmpp.tex
-LaTeX Font Info:    Try loading font information for OMS+pcr on input line 33.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omspcr.fd
 File: omspcr.fd 
 )
 LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 33.
-
-Underfull \vbox (badness 10000) detected at line 59
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 186.
+ [11] [12] [13]
+[14] [15]
+Underfull \vbox (badness 10000) detected at line 586
  []
 
-) (./specification/SystemTest.vdmpp.tex [17] [18] [19]
+[16]) (./specification/MyTestCase.vdmpp.tex [17]
+Underfull \vbox (badness 10000) detected at line 54
+ []
+
+) (./specification/SystemTest.vdmpp.tex [18] [19] [20]
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ¢ in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ­ in font pcrr7t!
 Missing character: There is no Â in font pcrr7t!
 Missing character: There is no º in font pcrr7t!
- [20]
-Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no ¢ in font pcrr7t!
-Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no ­ in font pcrr7t!
-Missing character: There is no Â in font pcrr7t!
-Missing character: There is no º in font pcrr7t!
-Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no ¢ in font pcrr7t!
-Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no ­ in font pcrr7t!
-Missing character: There is no Â in font pcrr7t!
-Missing character: There is no º in font pcrr7t!
-Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no ¢ in font pcrr7t!
  [21]
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ­ in font pcrr7t!
+Missing character: There is no Â in font pcrr7t!
+Missing character: There is no º in font pcrr7t!
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ­ in font pcrr7t!
 Missing character: There is no Â in font pcrr7t!
@@ -400,18 +373,6 @@ Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ­ in font pcrr7t!
 Missing character: There is no Â in font pcrr7t!
 Missing character: There is no º in font pcrr7t!
-Missing character: There is no ï in font pcrr7t!
-Missing character: There is no ¿ in font pcrr7t!
-Missing character: There is no ½ in font pcrr7t!
-Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no ¢ in font pcrr7t!
-Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no ­ in font pcrr7t!
-Missing character: There is no Â in font pcrr7t!
-Missing character: There is no º in font pcrr7t!
-Missing character: There is no ï in font pcrr7t!
-Missing character: There is no ¿ in font pcrr7t!
-Missing character: There is no ½ in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ¢ in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
@@ -446,29 +407,48 @@ Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ­ in font pcrr7t!
 Missing character: There is no Â in font pcrr7t!
 Missing character: There is no º in font pcrr7t!
-
-[24]
+Missing character: There is no ï in font pcrr7t!
+Missing character: There is no ¿ in font pcrr7t!
+Missing character: There is no ½ in font pcrr7t!
+ [24]
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ¢ in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ­ in font pcrr7t!
 Missing character: There is no Â in font pcrr7t!
 Missing character: There is no º in font pcrr7t!
- [25]
+Missing character: There is no ï in font pcrr7t!
+Missing character: There is no ¿ in font pcrr7t!
+Missing character: There is no ½ in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no § in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no § in font pcrr7t!
+Missing character: There is no ­ in font pcrr7t!
+Missing character: There is no Â in font pcrr7t!
+Missing character: There is no º in font pcrr7t!
+
+[25]
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ­ in font pcrr7t!
+Missing character: There is no Â in font pcrr7t!
+Missing character: There is no º in font pcrr7t!
  [26]
 Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no § in font pcrr7t!
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no § in font pcrr7t!
+Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ¢ in font pcrr7t!
+ [27]
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ­ in font pcrr7t!
 Missing character: There is no Â in font pcrr7t!
 Missing character: There is no º in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no § in font pcrr7t!
- [27] [28]
+ [28]
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ¢ in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
@@ -484,12 +464,6 @@ Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ­ in font pcrr7t!
 Missing character: There is no Â in font pcrr7t!
 Missing character: There is no º in font pcrr7t!
-Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no ¢ in font pcrr7t!
-Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no ­ in font pcrr7t!
-Missing character: There is no Â in font pcrr7t!
-Missing character: There is no º in font pcrr7t!
  [31]
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ¢ in font pcrr7t!
@@ -498,8 +472,14 @@ Missing character: There is no ­ in font pcrr7t!
 Missing character: There is no Â in font pcrr7t!
 Missing character: There is no º in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
-Missing character: There is no § in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ­ in font pcrr7t!
+Missing character: There is no Â in font pcrr7t!
+Missing character: There is no º in font pcrr7t!
  [32]
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no § in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no ¢ in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
@@ -508,13 +488,28 @@ Missing character: There is no Â in font pcrr7t!
 Missing character: There is no º in font pcrr7t!
 Missing character: There is no Ã in font pcrr7t!
 Missing character: There is no § in font pcrr7t!
- [33]
-Underfull \vbox (badness 10000) detected at line 1109
+ [33] [34]
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
+ [35]
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no ¢ in font pcrr7t!
+ [36]
+Missing character: There is no Ã in font pcrr7t!
+Missing character: There is no § in font pcrr7t!
+
+Underfull \vbox (badness 10000) detected at line 1265
  []
 
-[34])
+[37])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 31.
- [35]
+ [38]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 31.
  (./SafetyNetHospital.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 31.
@@ -523,21 +518,18 @@ Package rerunfilecheck Info: File `SafetyNetHospital.out' has not changed.
 (rerunfilecheck)             Checksum: 41BBCA7A920E831A56B7075A3ECF4C83;399.
 
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 31.
  ) 
 Here is how much of TeX's memory you used:
- 8660 strings out of 494953
- 129937 string characters out of 6180976
- 492291 words of memory out of 5000000
- 9971 multiletter control sequences out of 15000+600000
+ 8876 strings out of 494953
+ 133751 string characters out of 6180976
+ 490936 words of memory out of 5000000
+ 9997 multiletter control sequences out of 15000+600000
  17044 words of font info for 41 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 33i,6n,48p,379b,1930s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 33i,6n,48p,401b,1930s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/latxfont/lcircle1.pfb></usr/share/texlive/tex
@@ -545,10 +537,10 @@ mf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/co
 urier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on SafetyNetHospital.pdf (35 pages, 209140 bytes).
+Output written on SafetyNetHospital.pdf (38 pages, 222762 bytes).
 PDF statistics:
- 2586 PDF objects out of 2984 (max. 8388607)
- 2516 compressed objects within 26 object streams
- 1901 named destinations out of 2073 (max. 500000)
+ 2843 PDF objects out of 2984 (max. 8388607)
+ 2768 compressed objects within 28 object streams
+ 2091 named destinations out of 2487 (max. 500000)
  73 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java" line="235" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java" line="266" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f61a8f0-a29f-4fc0-8ee1-e44e89a2d851" name="Default" comment="" />
@@ -23,19 +23,31 @@
       <file leaf-file-name="SafetyNetHospital_CLI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="432" column="79" lean-forward="false" selection-start-line="432" selection-start-column="79" selection-end-line="432" selection-end-column="79" />
+            <state relative-caret-position="569">
+              <caret line="699" column="0" lean-forward="true" selection-start-line="699" selection-start-column="0" selection-end-line="699" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6377#6386#0" expanded="true" />
-                <element signature="e#11970#11979#0" expanded="true" />
-                <element signature="e#13238#13247#0" expanded="true" />
-                <element signature="e#14493#14501#0" expanded="true" />
-                <element signature="e#18203#18213#0" expanded="true" />
-                <element signature="e#20215#20223#0" expanded="true" />
-                <element signature="e#20604#20617#0" expanded="true" />
-                <element signature="e#21204#21212#0" expanded="true" />
+                <element signature="e#7824#7833#0" expanded="true" />
+                <element signature="e#13417#13426#0" expanded="true" />
+                <element signature="e#14685#14694#0" expanded="true" />
+                <element signature="e#15942#15950#0" expanded="true" />
+                <element signature="e#19783#19793#0" expanded="true" />
+                <element signature="e#21826#21834#0" expanded="true" />
+                <element signature="e#22274#22287#0" expanded="true" />
+                <element signature="e#23118#23126#0" expanded="true" />
+                <element signature="e#23596#23604#0" expanded="true" />
+                <element signature="e#23918#23926#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QUESTION.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/QUESTION.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -43,8 +55,8 @@
       <file leaf-file-name="SafetyNetNetwork.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/SafetyNetHospital/SafetyNetNetwork.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="224" column="14" lean-forward="false" selection-start-line="224" selection-start-column="14" selection-end-line="224" selection-end-column="14" />
+            <state relative-caret-position="239">
+              <caret line="323" column="0" lean-forward="false" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -88,16 +100,6 @@
               <folding>
                 <element signature="imports" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BACK.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/BACK.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="8" lean-forward="false" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -150,6 +152,12 @@
       <find>key</find>
       <find>display</find>
       <find>displayhos</find>
+      <find>todo</find>
+      <find>displayhospi</find>
+      <find>byid</find>
+      <find>displaydoct</find>
+      <find>displayapp</find>
+      <find>displaydoc</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -178,6 +186,7 @@
         <option value="$PROJECT_DIR$/src/main/java/cli/menus/SEARCH_DOCTORS_OPTIONS_MENU.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/menus/PATIENTS_MENU.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/menus/APPOINTMENTS_MENU.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cli/menus/QUESTION.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java" />
       </list>
     </option>
@@ -197,7 +206,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="4992" />
-    <option name="y" value="-1128" />
+    <option name="y" value="111" />
     <option name="width" value="2048" />
     <option name="height" value="1069" />
   </component>
@@ -849,15 +858,15 @@
       <workItem from="1514375876372" duration="3483000" />
       <workItem from="1514402121025" duration="6677000" />
       <workItem from="1514415983257" duration="4703000" />
-      <workItem from="1514455320589" duration="9751000" />
+      <workItem from="1514455320589" duration="15261000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35201000" />
+    <option name="totallyTimeSpent" value="40711000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="4992" y="-1128" width="2048" height="1069" extended-state="6" />
+    <frame x="4992" y="111" width="2048" height="1069" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -870,12 +879,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20554985" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18499486" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15734266" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10889111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -937,28 +946,22 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/DOCTOR_MENU.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="9" lean-forward="false" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6377#6386#0" expanded="true" />
-            <element signature="e#11970#11979#0" expanded="true" />
-            <element signature="e#13238#13247#0" expanded="true" />
-            <element signature="e#14493#14501#0" expanded="true" />
-            <element signature="e#18203#18213#0" expanded="true" />
-            <element signature="e#20215#20223#0" expanded="true" />
-            <element signature="e#20604#20617#0" expanded="true" />
-            <element signature="e#21204#21212#0" expanded="true" />
+            <element signature="e#7824#7833#0" expanded="true" />
+            <element signature="e#13417#13426#0" expanded="true" />
+            <element signature="e#14685#14694#0" expanded="true" />
+            <element signature="e#15942#15950#0" expanded="true" />
+            <element signature="e#19783#19793#0" expanded="true" />
+            <element signature="e#21826#21834#0" expanded="true" />
+            <element signature="e#22274#22287#0" expanded="true" />
+            <element signature="e#23118#23126#0" expanded="true" />
+            <element signature="e#23596#23604#0" expanded="true" />
+            <element signature="e#23918#23926#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1025,14 +1028,16 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6377#6386#0" expanded="true" />
-            <element signature="e#11970#11979#0" expanded="true" />
-            <element signature="e#13238#13247#0" expanded="true" />
-            <element signature="e#14493#14501#0" expanded="true" />
-            <element signature="e#18203#18213#0" expanded="true" />
-            <element signature="e#20215#20223#0" expanded="true" />
-            <element signature="e#20604#20617#0" expanded="true" />
-            <element signature="e#21204#21212#0" expanded="true" />
+            <element signature="e#7824#7833#0" expanded="true" />
+            <element signature="e#13417#13426#0" expanded="true" />
+            <element signature="e#14685#14694#0" expanded="true" />
+            <element signature="e#15942#15950#0" expanded="true" />
+            <element signature="e#19783#19793#0" expanded="true" />
+            <element signature="e#21826#21834#0" expanded="true" />
+            <element signature="e#22274#22287#0" expanded="true" />
+            <element signature="e#23118#23126#0" expanded="true" />
+            <element signature="e#23596#23604#0" expanded="true" />
+            <element signature="e#23918#23926#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1099,14 +1104,16 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6377#6386#0" expanded="true" />
-            <element signature="e#11970#11979#0" expanded="true" />
-            <element signature="e#13238#13247#0" expanded="true" />
-            <element signature="e#14493#14501#0" expanded="true" />
-            <element signature="e#18203#18213#0" expanded="true" />
-            <element signature="e#20215#20223#0" expanded="true" />
-            <element signature="e#20604#20617#0" expanded="true" />
-            <element signature="e#21204#21212#0" expanded="true" />
+            <element signature="e#7824#7833#0" expanded="true" />
+            <element signature="e#13417#13426#0" expanded="true" />
+            <element signature="e#14685#14694#0" expanded="true" />
+            <element signature="e#15942#15950#0" expanded="true" />
+            <element signature="e#19783#19793#0" expanded="true" />
+            <element signature="e#21826#21834#0" expanded="true" />
+            <element signature="e#22274#22287#0" expanded="true" />
+            <element signature="e#23118#23126#0" expanded="true" />
+            <element signature="e#23596#23604#0" expanded="true" />
+            <element signature="e#23918#23926#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1173,14 +1180,16 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6377#6386#0" expanded="true" />
-            <element signature="e#11970#11979#0" expanded="true" />
-            <element signature="e#13238#13247#0" expanded="true" />
-            <element signature="e#14493#14501#0" expanded="true" />
-            <element signature="e#18203#18213#0" expanded="true" />
-            <element signature="e#20215#20223#0" expanded="true" />
-            <element signature="e#20604#20617#0" expanded="true" />
-            <element signature="e#21204#21212#0" expanded="true" />
+            <element signature="e#7824#7833#0" expanded="true" />
+            <element signature="e#13417#13426#0" expanded="true" />
+            <element signature="e#14685#14694#0" expanded="true" />
+            <element signature="e#15942#15950#0" expanded="true" />
+            <element signature="e#19783#19793#0" expanded="true" />
+            <element signature="e#21826#21834#0" expanded="true" />
+            <element signature="e#22274#22287#0" expanded="true" />
+            <element signature="e#23118#23126#0" expanded="true" />
+            <element signature="e#23596#23604#0" expanded="true" />
+            <element signature="e#23918#23926#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1371,28 +1380,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/QUESTION.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/SafetyNetHospital/SafetyNetNetwork.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="224" column="14" lean-forward="false" selection-start-line="224" selection-start-column="14" selection-end-line="224" selection-end-column="14" />
+        <state relative-caret-position="239">
+          <caret line="323" column="0" lean-forward="false" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="432" column="79" lean-forward="false" selection-start-line="432" selection-start-column="79" selection-end-line="432" selection-end-column="79" />
+        <state relative-caret-position="569">
+          <caret line="699" column="0" lean-forward="true" selection-start-line="699" selection-start-column="0" selection-end-line="699" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6377#6386#0" expanded="true" />
-            <element signature="e#11970#11979#0" expanded="true" />
-            <element signature="e#13238#13247#0" expanded="true" />
-            <element signature="e#14493#14501#0" expanded="true" />
-            <element signature="e#18203#18213#0" expanded="true" />
-            <element signature="e#20215#20223#0" expanded="true" />
-            <element signature="e#20604#20617#0" expanded="true" />
-            <element signature="e#21204#21212#0" expanded="true" />
+            <element signature="e#7824#7833#0" expanded="true" />
+            <element signature="e#13417#13426#0" expanded="true" />
+            <element signature="e#14685#14694#0" expanded="true" />
+            <element signature="e#15942#15950#0" expanded="true" />
+            <element signature="e#19783#19793#0" expanded="true" />
+            <element signature="e#21826#21834#0" expanded="true" />
+            <element signature="e#22274#22287#0" expanded="true" />
+            <element signature="e#23118#23126#0" expanded="true" />
+            <element signature="e#23596#23604#0" expanded="true" />
+            <element signature="e#23918#23926#0" expanded="true" />
           </folding>
         </state>
       </provider>

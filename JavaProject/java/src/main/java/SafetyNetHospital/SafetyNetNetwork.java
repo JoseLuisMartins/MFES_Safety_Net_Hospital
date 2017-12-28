@@ -316,41 +316,49 @@ public class SafetyNetNetwork {
     appointments = SetUtil.diff(Utils.copy(appointments), SetUtil.set(a));
   }
 
-  public ModelUtils.Date_DoctorId getHospitalClosestAvailableDate(final VDMSet appointmentSet) {
+  public ModelUtils.Date_DoctorId getClosestAvailableDate(final VDMSet availableDoctors) {
 
     ModelUtils.Date minDate = ModelUtils.getMaxDate();
     Number doctorId = 0L;
-    VDMSet availableDoctors = SetUtil.set();
-    VDMSet occupiedDates = SetUtil.set();
-    for (Iterator iterator_30 = appointmentSet.iterator(); iterator_30.hasNext(); ) {
-      Appointment ap = (Appointment) iterator_30.next();
-      availableDoctors = SetUtil.union(Utils.copy(availableDoctors), SetUtil.set(ap.getDoctorId()));
-      occupiedDates = SetUtil.union(Utils.copy(occupiedDates), SetUtil.set(ap.getDate()));
-    }
-    occupiedDates = SetUtil.union(Utils.copy(occupiedDates), SetUtil.set(ModelUtils.getMinDate()));
-    for (Iterator iterator_31 = occupiedDates.iterator(); iterator_31.hasNext(); ) {
-      ModelUtils.Date date = (ModelUtils.Date) iterator_31.next();
-      ModelUtils.Date auxDate = Appointment.getNextAppointmentDate(Utils.copy(date));
+    for (Iterator iterator_30 = availableDoctors.iterator(); iterator_30.hasNext(); ) {
+      Number docId = (Number) iterator_30.next();
+      ModelUtils.Date auxDate = getDoctorFirstAvailableDate(docId);
       if (ModelUtils.isDateLower(Utils.copy(auxDate), Utils.copy(minDate))) {
-        for (Iterator iterator_32 = availableDoctors.iterator(); iterator_32.hasNext(); ) {
-          Number docId = (Number) iterator_32.next();
-          Boolean forAllExpResult_11 = true;
-          VDMSet set_12 = getDoctorAppointments(docId);
-          for (Iterator iterator_12 = set_12.iterator();
-              iterator_12.hasNext() && forAllExpResult_11;
-              ) {
-            Appointment docAp = ((Appointment) iterator_12.next());
-            forAllExpResult_11 =
-                Appointment.appointmentDatesDontOverlap(docAp.getDate(), Utils.copy(auxDate));
-          }
-          if (forAllExpResult_11) {
-            doctorId = docId;
-            minDate = Utils.copy(auxDate);
-          }
-        }
+        doctorId = docId;
+        minDate = Utils.copy(auxDate);
       }
     }
     return new ModelUtils.Date_DoctorId(minDate, doctorId);
+  }
+
+  public ModelUtils.Date getDoctorFirstAvailableDate(final Number docId) {
+
+    ModelUtils.Date minDate = ModelUtils.getMaxDate();
+    VDMSet occupiedDates = SetUtil.set();
+    for (Iterator iterator_31 = getDoctorAppointments(docId).iterator(); iterator_31.hasNext(); ) {
+      Appointment docAp = (Appointment) iterator_31.next();
+      occupiedDates = SetUtil.union(Utils.copy(occupiedDates), SetUtil.set(docAp.getDate()));
+    }
+    occupiedDates = SetUtil.union(Utils.copy(occupiedDates), SetUtil.set(ModelUtils.getMinDate()));
+    for (Iterator iterator_32 = occupiedDates.iterator(); iterator_32.hasNext(); ) {
+      ModelUtils.Date date = (ModelUtils.Date) iterator_32.next();
+      ModelUtils.Date auxDate = Appointment.getNextAppointmentDate(Utils.copy(date));
+      if (ModelUtils.isDateLower(Utils.copy(auxDate), Utils.copy(minDate))) {
+        Boolean forAllExpResult_11 = true;
+        VDMSet set_12 = getDoctorAppointments(docId);
+        for (Iterator iterator_12 = set_12.iterator();
+            iterator_12.hasNext() && forAllExpResult_11;
+            ) {
+          Appointment docAp = ((Appointment) iterator_12.next());
+          forAllExpResult_11 =
+              Appointment.appointmentDatesDontOverlap(docAp.getDate(), Utils.copy(auxDate));
+        }
+        if (forAllExpResult_11) {
+          minDate = Utils.copy(auxDate);
+        }
+      }
+    }
+    return Utils.copy(minDate);
   }
 
   public String toString() {

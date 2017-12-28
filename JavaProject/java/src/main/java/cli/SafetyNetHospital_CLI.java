@@ -30,24 +30,55 @@ public class SafetyNetHospital_CLI {
         this.textIO = TextIoFactory.getTextIO();
         this.terminal = textIO.getTextTerminal();
 
-        VDMSet agreement = new VDMSet();
-        agreement.add(getAgreement(AGREEMENT.ADSE));
-        agreement.add(getAgreement(AGREEMENT.MEDIS));
-        safetyNet.addHospital(new Hospital("Sao Joao",new ModelUtils.Location("Porto","rua x n y","4520-885"), agreement));
+
+        //---------------------------------------------INITIAL DATABASE------------------------------------------------
         VDMSet agreement1 = new VDMSet();
-        agreement1.add(getAgreement(AGREEMENT.MULTICARE));
-        agreement1.add(getAgreement(AGREEMENT.MEDICARE));
-        safetyNet.addHospital(new Hospital("Santa Maria",new ModelUtils.Location("Lisboa","Rua x blablabla","4880-724"),agreement1));
+        agreement1.add(getAgreement(AGREEMENT.ADSE));
+        agreement1.add(getAgreement(AGREEMENT.MEDIS));
+
+        VDMSet agreement2 = new VDMSet();
+        agreement2.add(getAgreement(AGREEMENT.MULTICARE));
+        agreement2.add(getAgreement(AGREEMENT.MEDICARE));
 
 
-        safetyNet.addDoctor(new Doctor("Jose",20,getSpecialty(SPECIALTY.ORTOPEDIA)));
-        safetyNet.addDoctor(new Doctor("Marcelo",19,getSpecialty(SPECIALTY.CARDIOLOGIA)));
+        Hospital hos1 = new Hospital("Sao Joao",new ModelUtils.Location("Porto","rua x n y","4520-885"), agreement1);
+        Hospital hos2 = new Hospital("Santa Maria",new ModelUtils.Location("Lisboa","Rua x blablabla","4880-724"),agreement2);
 
-        safetyNet.addPatient(new Patient("Maria",14,"gripe"));
-        safetyNet.addPatient(new Patient("Joana",20,"tosse"));
-        safetyNet.addPatient(new Patient("Felizberta",22,"asma"));
+        Doctor doc1 = new Doctor("Jose",20,getSpecialty(SPECIALTY.ORTOPEDIA));
+        Doctor doc2 = new Doctor("Marcelo",19,getSpecialty(SPECIALTY.ORTOPEDIA));
+        Doctor doc3 = new Doctor("Joana",37,getSpecialty(SPECIALTY.DERMATOLOGIA));
+
+        Patient pat1 = new Patient("Maria",14,"Gripe");
+        Patient pat2 = new Patient("Joana",20,"Tosse");
+        Patient pat3 = new Patient("Felizberta",22,"Asma");
+
+        Appointment ap1 = new Appointment(new ModelUtils.Date(2018,01,01,8,30),hos2.getId(),doc1.getId(),pat1.getId());
+        Appointment ap2 = new Appointment(new ModelUtils.Date(2018,01,01,8,30),hos2.getId(),doc2.getId(),pat2.getId());
+        Appointment ap3 = new Appointment(new ModelUtils.Date(2018,01,01,9,00),hos1.getId(),doc1.getId(),pat1.getId());
+        Appointment ap4 = new Appointment(new ModelUtils.Date(2018,01,01,9,30),hos2.getId(),doc2.getId(),pat2.getId());
+
+        safetyNet.addHospital(hos1);
+        safetyNet.addHospital(hos2);
+
+        safetyNet.addDoctor(doc1);
+        safetyNet.addDoctor(doc2);
+        safetyNet.addDoctor(doc3);
+
+        safetyNet.addPatient(pat1);
+        safetyNet.addPatient(pat2);
+        safetyNet.addPatient(pat3);
+
+        safetyNet.associateDoctorToHospital(hos1.getId(),doc1.getId());
+        safetyNet.associateDoctorToHospital(hos1.getId(),doc3.getId());
+        safetyNet.associateDoctorToHospital(hos2.getId(),doc1.getId());
+        safetyNet.associateDoctorToHospital(hos2.getId(),doc2.getId());
+        safetyNet.associateDoctorToHospital(hos2.getId(),doc3.getId());
 
 
+        safetyNet.addAppointment(ap1);
+        safetyNet.addAppointment(ap2);
+        safetyNet.addAppointment(ap3);
+        safetyNet.addAppointment(ap4);
 
         this.start();
     }
@@ -408,7 +439,7 @@ public class SafetyNetHospital_CLI {
             this.terminal.printf( "\n\n --------------- No available Items ------------- \n\n\n");
             BACK v = textIO.newEnumInputReader(BACK.class)
                     .read("Select an option!");
-            return -1;
+            return null;
         }
 
         this.terminal.printf("\nChoose an element\n");
@@ -431,6 +462,8 @@ public class SafetyNetHospital_CLI {
 
         if(list.size() == 0)
             this.terminal.printf("No specialties available in this hospital\n\n");
+
+        this.terminal.printf("Hospital number of appointments:" + safetyNet.getHospitalNumberOfAppointments(hos.getId()) + "\n");
 
     }
 
@@ -544,7 +577,7 @@ public class SafetyNetHospital_CLI {
                 "Doctor Details" + doc + "\n");
 
         List<Hospital> list = new ArrayList<Hospital>(safetyNet.getDoctorHospitals(doc.getId()));
-        this.terminal.printf("Hospitals where" + doc.getName() + " works: \n");
+        this.terminal.printf("Hospitals where " + doc.getName() + " works: \n");
         for (int j = 0; j < list.size(); j++){
             this.terminal.printf(j + " - " + list.get(j).getName());
         }
@@ -558,7 +591,7 @@ public class SafetyNetHospital_CLI {
         separator();
         this.terminal.printf("--------------------------Appointments Management--------------------------\n");
 
-        APPOINTMENTS_MENU val = textIO.newEnumInputReader(APPOINTMENTS_MENU .class)
+        APPOINTMENTS_MENU val = textIO.newEnumInputReader(APPOINTMENTS_MENU.class)
                 .read("Select an option!");
 
         switch (val){
@@ -593,15 +626,16 @@ public class SafetyNetHospital_CLI {
 
 
                 safetyNet.addAppointment(new Appointment(new ModelUtils.Date(year,month,day,hour,min),hosId,docId,patId));
-
+                appointments();
                 break;
             case REMOVE:
                 ArrayList<Object> appointments = new ArrayList<Object>(safetyNet.getAppointments());
                 this.terminal.printf("--------------- Select an Appointment----------------------");
                 Object appointment = getSetSelectedElement(appointments);
                 safetyNet.removeAppointment((Appointment) appointment);
+                appointments();
                 break;
-            case SEE_ALL:
+            case SEE_ALL:// Todo: search by property
                 List<Appointment> list = new ArrayList<Appointment>(safetyNet.getAppointments());
                 this.terminal.printf("--------------- See Appointments----------------------");
 
@@ -610,14 +644,61 @@ public class SafetyNetHospital_CLI {
                     displayAppointment(i, list.get(j));
                     i++;
                 }
+
+                backToAppointmentMenu();
+
                 break;
             case GET_FIRST_AVAILABLE_DATE_FOR_AN_APPOINTMENT:
+                VDMSet docIds = new VDMSet();
+
                 SPECIALTY specialty = textIO.newEnumInputReader(SPECIALTY.class)
                         .read("Select a Specialty!");
 
-                ArrayList<Object> hospitals = new ArrayList<Object>(safetyNet.getAppointments());
-                this.terminal.printf("--------------- Select an Hospital----------------------");
-                //Object hospital = getSetSelectedElement(appointments);
+                QUESTION selectHospital= textIO.newEnumInputReader(QUESTION.class)
+                        .read("Do you want to choose the hospital?");
+
+                ArrayList<Object> hospitals = new ArrayList<Object>(safetyNet.getHospitalsBySpecialty(getSpecialty(specialty)));
+
+                Hospital h = null;
+                if(selectHospital == QUESTION.YES)
+                    h = (Hospital) getSetSelectedElement(hospitals);
+
+                QUESTION selectDoctor= textIO.newEnumInputReader(QUESTION.class)
+                        .read("Do you want to choose the doctor?");
+
+                if(h == null) {
+                    ArrayList<Doctor> specialtyDoctors= new ArrayList<Doctor>(safetyNet.getDoctorsBySpecialty(getSpecialty(specialty)));
+                    for(int j = 0; j < specialtyDoctors.size(); j++){
+                            docIds.add(specialtyDoctors.get(j).getId());
+                    }
+                }else {
+                    ArrayList<Number> hospitalDocs= new ArrayList<Number>(h.getDoctorsIds());
+
+                    for(int j = 0; j < hospitalDocs.size(); j++){
+                        if(getSpecialty(safetyNet.getDoctorById(hospitalDocs.get(j)).getSpecialty()) == specialty)
+                            docIds.add(hospitalDocs.get(j));
+                    }
+                }
+
+                this.terminal.printf( "\n\n docIds:" + docIds + "\n");
+                if(selectDoctor == QUESTION.YES){
+                    Doctor d = (Doctor) getSetSelectedElement(new ArrayList<Object>(docIds));
+                    if(d != null) {
+                        this.terminal.printf( "\n\nSize : " + docIds.size());
+                        docIds.clear();
+                        docIds.add(d.getId());
+                        this.terminal.printf( "\n\nSize : " + docIds.size());
+                    }
+                }
+                this.terminal.printf( "\n\n docIds:" + docIds + "\n");
+
+                ModelUtils.Date_DoctorId closestDate = safetyNet.getClosestAvailableDate(docIds);
+
+                this.terminal.printf( "\n\n The closest date available is: " + closestDate.date + " with the doctor: \n");
+                displayDoctor(0,safetyNet.getDoctorById(closestDate.doctorId));
+
+
+                backToAppointmentMenu();
 
                 break;
             case BACK:
@@ -630,13 +711,27 @@ public class SafetyNetHospital_CLI {
         }
     }
 
+
+    private void backToAppointmentMenu(){
+        this.terminal.printf("\n\n");
+
+        BACK v = textIO.newEnumInputReader(BACK.class)
+                .read("Select an option!");
+
+        switch (v) {
+            case BACK:
+                appointments();
+                break;
+        }
+    }
+
     public void displayAppointment(int i, Appointment appointment){
-        this.terminal.printf( i + "- \n " +
+        this.terminal.printf( "\n" + i + "- \n " +
                              "Appointment Details:" + "\n" +
-                              "Hospital: " + safetyNet.getHospitalsById(appointment.getHospitalId()).getName()+
-                              "Doctor: " + safetyNet.getDoctorById(appointment.getDoctorId()).getName() +
-                              "Patient: " + safetyNet.getPatientById(appointment.getPatientId()).getName() +
-                              "Date: " + appointment.getDate());
+                              "Hospital: " + safetyNet.getHospitalsById(appointment.getHospitalId()).getName() +  "\n" +
+                              "Doctor: " + safetyNet.getDoctorById(appointment.getDoctorId()).getName() +  "\n" +
+                              "Patient: " + safetyNet.getPatientById(appointment.getPatientId()).getName() +  "\n" +
+                              "Date: " + appointment.getDate() + "\n");
     }
 
     public void patients(){
@@ -703,6 +798,7 @@ public class SafetyNetHospital_CLI {
     public void displayPatient(int i, Patient pat){
         this.terminal.printf( i + "- \n " +
                 "Patient Details" + pat + "\n");
+        //Todo patient appointments
 
     }
 

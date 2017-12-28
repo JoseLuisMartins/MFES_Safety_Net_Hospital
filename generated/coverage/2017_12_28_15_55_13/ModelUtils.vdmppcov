@@ -1,0 +1,57 @@
+class ModelUtils
+values
+	public HOUR_MIN = 60; -- minutes in an hour
+	public DAY_HOURS = 24; -- hour in a day
+	public MONTH_DAYS = 30; -- days in a month
+	public YEAR_MONTHS = 12; -- months in a year
+types
+	public String = seq of char;
+	public Location :: city: String
+										 address: String
+										 postalCode: String;
+	public Date :: year : nat1
+								 month: nat1
+								 day : nat1
+								 hour : nat
+								 min : nat
+	inv d == d.year > 2017 and d.month <= YEAR_MONTHS and d.day <= MONTH_DAYS and d.hour < DAY_HOURS and d.min < HOUR_MIN;
+	public Date_DoctorId :: date : Date
+							 						doctorId: nat;
+							 
+	public Agreement = <ADSE> | <MEDICARE> | <MEDIS> | <MULTICARE>;
+	public Specialty = <ORTOPEDIA> | <CARDIOLOGIA> | <OFTALMOLOGIA> | 
+										 <DERMATOLOGIA> | <GINECOLOGIA> | <NEUROLOGIA> | 
+										 <PEDIATRIA> | <REUMATOLOGIA> | <UROLOGIA> |
+										 <PNEUMOLOGIA>;
+
+functions
+	
+	--checks if two dates are equal
+	static public isDateLower: Date * Date -> bool
+	isDateLower(d1,d2) == (
+		dateToNat(d1) < dateToNat(d2)
+	);
+	
+	--get max date
+	static public getMaxDate: () -> Date
+	getMaxDate() == (
+		mk_ModelUtils`Date(99999,12,30,23,59)
+	);
+	
+	--get min date
+	static public getMinDate: () -> Date
+	getMinDate() == (
+		mk_ModelUtils`Date(2018,01,01,08,00)
+	);
+	
+	--checks if two dates are equal
+	static public dateToNat: Date -> nat
+	dateToNat(d) == (
+		d.year * 100000000 + 
+		d.month * 1000000 + 
+		d.day * 10000 + 
+		d.hour * 100 + 
+		d.min 
+	);
+
+end ModelUtils

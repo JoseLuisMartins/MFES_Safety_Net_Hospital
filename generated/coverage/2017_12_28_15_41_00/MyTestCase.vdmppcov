@@ -1,0 +1,27 @@
+class MyTestCase
+
+operations
+
+
+	protected assertTrue: bool ==> ()
+	assertTrue(arg) == 
+		return 
+	pre arg;
+  
+	protected assertFalse: bool ==> ()
+	assertFalse(arg) == 
+		return 
+	pre not arg;
+	
+	protected assertEqual: ? * ? ==> ()
+	assertEqual(expected, actual) == 
+		if expected <> actual then (
+  			IO`print("Actual value (");
+  			IO`print(actual); 
+  			IO`print(") different from expected (");
+  			IO`print(expected);
+  			IO`println(")\n")
+		)
+	post expected = actual;
+
+end MyTestCase
