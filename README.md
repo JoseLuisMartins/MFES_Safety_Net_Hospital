@@ -1,6 +1,5 @@
-# MFES_Safety_Net_Hospital
 
-## Safety Net Hospital
+# Safety Net Hospital
 In this project you have to model all the information needed to manage a Safety Net Hospital. Safety
 net hospitals provide care for populations which are of low-income, traditionally exploited, receiving
 public assistance, and uninsured. Safety net hospitals are not defined by their ownership terms; rather
@@ -9,3 +8,8 @@ due to various circumstances. With this system, it should be possible to know th
 hospital, the doctors that work in more than one hospital, the hospital with higher number of
 appointments, among others.
 See https://en.wikipedia.org/wiki/Safety_net_hospital
+
+### Developers :
+
+* [José Martins](https://github.com/JoseLuisMartins)
+* [Marcelo Ferreira](https://github.com/mferreira96)
