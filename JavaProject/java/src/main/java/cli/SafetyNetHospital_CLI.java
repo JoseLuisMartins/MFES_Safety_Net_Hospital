@@ -10,6 +10,8 @@ import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 import org.overture.codegen.runtime.VDMSet;
+
+import javax.print.Doc;
 import java.util.*;
 
 
@@ -348,7 +350,14 @@ public class SafetyNetHospital_CLI {
         int i=0;
         for (Map.Entry<Number,Object> entry : map.entrySet())
         {
-            displayHospital(i,(Hospital)entry.getValue());
+            if(entry.getValue() instanceof Hospital)
+                displayHospital(i,(Hospital)entry.getValue());
+            else if (entry.getValue() instanceof Doctor)
+                displayDoctor(i,(Doctor)entry.getValue());
+            else if (entry.getValue() instanceof Patient)
+                displayPatient(i,(Patient) entry.getValue());
+            else if (entry.getValue() instanceof Appointment)
+                displayAppointment(i,(Appointment) entry.getValue());
             values.add(i);
             i++;
         }
@@ -369,6 +378,40 @@ public class SafetyNetHospital_CLI {
         return (Number) map.keySet().toArray()[rmId];
     }
 
+    public Object getSetSelectedElement(ArrayList<Object> set){
+
+        List<Integer> values= new ArrayList<Integer>();
+
+        int i=0;
+        for (int j = 0; j < set.size(); j++)
+        {
+            Object val = set.get(j);
+
+            if(val instanceof Hospital)
+                displayHospital(i,(Hospital) val);
+            else if (val instanceof Doctor)
+                displayDoctor(i,(Doctor) val);
+            else if (val instanceof Patient)
+                displayPatient(i,(Patient) val);
+            else if (val instanceof Appointment)
+                displayAppointment(i,(Appointment) val);
+            values.add(i);
+            i++;
+        }
+
+        if(values.size() == 0) {
+            this.terminal.printf( "\n\n --------------- No available Items ------------- \n\n\n");
+            BACK v = textIO.newEnumInputReader(BACK.class)
+                    .read("Select an option!");
+            return -1;
+        }
+
+        int rmId = textIO.newIntInputReader()
+                .withInlinePossibleValues(values)
+                .read("Key");
+
+        return set.get(rmId);
+    }
     public void displayHospital(int i, Hospital hos){
         this.terminal.printf( i + "- \n " +
                             "Hospital Details" + hos + "\n");
@@ -508,8 +551,43 @@ public class SafetyNetHospital_CLI {
 
         switch (val){
             case ADD:
+                Number hosId = getMapSelectedElement(safetyNet.getHospitals());
+                Number docId = getMapSelectedElement(safetyNet.getDoctors());
+                Number patId = getMapSelectedElement(safetyNet.getPatients());
+
+                if(hosId.intValue() == -1 || docId.intValue() == -1 || patId.intValue() == -1){
+                    appointments();
+                }
+
+                int year = textIO.newIntInputReader()
+                        .withMinVal(2017)
+                        .read("Year");
+
+                int month = textIO.newIntInputReader()
+                        .withMaxVal(12)
+                        .read("Month");
+
+                int day = textIO.newIntInputReader()
+                        .withMaxVal(31)
+                        .read("Day");
+
+                int hour = textIO.newIntInputReader()
+                        .withMaxVal(24)
+                        .read("Hour");
+
+                int min = textIO.newIntInputReader()
+                        .withMinVal(60)
+                        .read("Minutes");
+
+
+                safetyNet.addAppointment(new Appointment(new ModelUtils.Date(year,month,day,hour,min),hosId,docId,patId));
+
                 break;
             case REMOVE:
+                ArrayList<Object> appointments = new ArrayList<Object>(safetyNet.getAppointments());
+                this.terminal.printf("--------------- Select an Appointment----------------------");
+                Object appointment = getSetSelectedElement(appointments);
+                safetyNet.removeAppointment((Appointment) appointment);
                 break;
             case SEE_ALL:
                 List<Appointment> list = new ArrayList<Appointment>(safetyNet.getAppointments());
@@ -522,6 +600,10 @@ public class SafetyNetHospital_CLI {
                 }
                 break;
             case GET_FIRST_AVAILABLE_DATE_FOR_AN_APPOINTMENT:
+                ArrayList<Object> hospitals = new ArrayList<Object>(safetyNet.getAppointments());
+                this.terminal.printf("--------------- Select an Hospital----------------------");
+                //Object hospital = getSetSelectedElement(appointments);
+
                 break;
             case BACK:
                 start();
