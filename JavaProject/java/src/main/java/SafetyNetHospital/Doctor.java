@@ -56,7 +56,11 @@ public class Doctor extends Person {
   public String toString() {
 
     return "Doctor{"
-        + "specialty := "
+        + "name := "
+        + this.getName()
+        + ", age:= "
+        + this.getAge()
+        + ", specialty := "
         + Utils.toString(specialty)
         + ", currId := "
         + Utils.toString(currId)

@@ -1,0 +1,60 @@
+\begin{vdmpp}[breaklines=true]
+class MyTestCase
+
+operations
+
+
+(*@
+\label{assertTrue:6}
+@*)
+ protected assertTrue: bool ==> ()
+ assertTrue(arg) == 
+  return 
+ pre arg;
+  
+(*@
+\label{assertFalse:11}
+@*)
+ protected assertFalse: bool ==> ()
+ assertFalse(arg) == 
+  return 
+ pre not arg;
+ 
+(*@
+\label{assertEqual:16}
+@*)
+ protected assertEqual: ? * ? ==> ()
+ assertEqual(expected, actual) == 
+  if expected <> actual then (*@\vdmnotcovered{(}@*)
+     (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{"Actual value ("}@*));
+     (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{actual}@*)); 
+     IO`print((*@\vdmnotcovered{") different from expected ("}@*));
+     IO`print((*@\vdmnotcovered{expected}@*));
+     (*@\vdmnotcovered{IO`println}@*)((*@\vdmnotcovered{")\textbackslash n"}@*))
+  )
+ post expected = actual;
+
+(*@
+\label{assertNotEqual:27}
+@*)
+end MyTestCase
+\end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[assertEqual:16]{assertEqual} & 16&38.8\% & 0 \\
+\hline
+\hyperref[assertFalse:11]{assertFalse} & 11&100.0\% & 3 \\
+\hline
+\hyperref[assertNotEqual:27]{assertNotEqual} & 27&0.0\% & 0 \\
+\hline
+\hyperref[assertTrue:6]{assertTrue} & 6&100.0\% & 22 \\
+\hline
+\hline
+MyTestCase.vdmpp & & 52.1\% & 25 \\
+\hline
+\end{longtable}
+

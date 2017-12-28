@@ -1,0 +1,84 @@
+\begin{vdmpp}[breaklines=true]
+class Doctor is subclass of Person
+instance variables
+ private specialty: ModelUtils`Specialty;
+ private static currId : nat := 0;
+ private id : nat := currId;
+ 
+ inv age > 18;
+operations
+ --contructor
+(*@
+\label{Doctor:10}
+@*)
+  public Doctor : ModelUtils`String * nat * ModelUtils`Specialty ==> Doctor
+  Doctor(n, a, s) == (
+   atomic (
+    name := n;
+    age := a;
+    specialty := s;
+    currId := currId + 1;
+   );
+   return self;
+  );
+  
+  --get doctor id
+(*@
+\label{getId:22}
+@*)
+  public pure getId: () ==> nat
+  getId() == (
+   return id
+  );
+  
+  
+  --get doctor specialties
+(*@
+\label{getSpecialty:29}
+@*)
+  public pure getSpecialty: () ==> ModelUtils`Specialty
+  getSpecialty() == (
+   return specialty
+  );
+  
+  -- getName
+(*@
+\label{getName:35}
+@*)
+  public getName: () ==> ModelUtils`String
+  getName() == (
+    return retName();  
+  );
+
+  -- getAge 
+(*@
+\label{getAge:41}
+@*)
+  public getAge: () ==> nat
+  getAge() == (
+    return retAge();  
+  );
+
+end Doctor
+\end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[Doctor:10]{Doctor} & 10&100.0\% & 34 \\
+\hline
+\hyperref[getAge:41]{getAge} & 41&100.0\% & 4 \\
+\hline
+\hyperref[getId:22]{getId} & 22&100.0\% & 247 \\
+\hline
+\hyperref[getName:35]{getName} & 35&100.0\% & 2 \\
+\hline
+\hyperref[getSpecialty:29]{getSpecialty} & 29&100.0\% & 30 \\
+\hline
+\hline
+Doctor.vdmpp & & 100.0\% & 317 \\
+\hline
+\end{longtable}
+

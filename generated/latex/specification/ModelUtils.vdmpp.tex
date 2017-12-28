@@ -1,0 +1,90 @@
+\begin{vdmpp}[breaklines=true]
+class ModelUtils
+values
+ public HOUR_MIN = 60; -- minutes in an hour
+ public DAY_HOURS = 24; -- hour in a day
+ public MONTH_DAYS = 30; -- days in a month
+ public YEAR_MONTHS = 12; -- months in a year
+types
+ public String = seq of char;
+ public Location :: city: String
+           address: String
+           postalCode: String;
+ public Date :: year : nat1
+         month: nat1
+         day : nat1
+         hour : nat
+         min : nat
+ inv d == d.year > 2017 and d.month <= YEAR_MONTHS and d.day <= MONTH_DAYS and d.hour < DAY_HOURS and d.min < HOUR_MIN;
+ public Date_DoctorId :: date : Date
+              doctorId: nat;
+        
+ public Agreement = <ADSE> | <MEDICARE> | <MEDIS> | <MULTICARE>;
+ public Specialty = <ORTOPEDIA> | <CARDIOLOGIA> | <OFTALMOLOGIA> | 
+           <DERMATOLOGIA> | <GINECOLOGIA> | <NEUROLOGIA> | 
+           <PEDIATRIA> | <REUMATOLOGIA> | <UROLOGIA> |
+           <PNEUMOLOGIA>;
+
+functions
+ 
+ --checks if two dates are equal
+(*@
+\label{isDateLower:30}
+@*)
+ static public isDateLower: Date * Date -> bool
+ isDateLower(d1,d2) == (
+  dateToNat(d1) < dateToNat(d2)
+ );
+ 
+ --get max date
+(*@
+\label{getMaxDate:36}
+@*)
+ static public getMaxDate: () -> Date
+ getMaxDate() == (
+  mk_ModelUtils`Date(99999,12,30,23,59)
+ );
+ 
+ --get min date
+(*@
+\label{getMinDate:42}
+@*)
+ static public getMinDate: () -> Date
+ getMinDate() == (
+  mk_ModelUtils`Date(2018,01,01,08,00)
+ );
+ 
+ --checks if two dates are equal
+(*@
+\label{dateToNat:48}
+@*)
+ static public dateToNat: Date -> nat
+ dateToNat(d) == (
+  d.year * 100000000 + 
+  d.month * 1000000 + 
+  d.day * 10000 + 
+  d.hour * 100 + 
+  d.min 
+ );
+
+end ModelUtils
+\end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[dateToNat:48]{dateToNat} & 48&100.0\% & 152 \\
+\hline
+\hyperref[getMaxDate:36]{getMaxDate} & 36&100.0\% & 1 \\
+\hline
+\hyperref[getMinDate:42]{getMinDate} & 42&100.0\% & 1 \\
+\hline
+\hyperref[isDateLower:30]{isDateLower} & 30&100.0\% & 8 \\
+\hline
+\hline
+ModelUtils.vdmpp & & 100.0\% & 162 \\
+\hline
+\end{longtable}
+

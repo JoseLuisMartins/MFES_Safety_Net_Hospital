@@ -1,0 +1,96 @@
+\begin{vdmpp}[breaklines=true]
+class Patient is subclass of Person
+instance variables
+ private clinicalObservations: seq of ModelUtils`String := [];
+ private static currId : nat := 0;
+ private id : nat := currId;
+ 
+operations
+(*@
+\label{Patient:8}
+@*)
+ public Patient : ModelUtils`String * nat * ModelUtils`String ==> Patient
+ Patient(n, a, d) == (
+  atomic (
+   name := n;
+   age:= a;
+   clinicalObservations:= clinicalObservations ^ [d];
+   currId := currId + 1;
+  );
+  return self;
+ );
+  
+ --get patient id
+(*@
+\label{getId:20}
+@*)
+ public pure getId: () ==> nat
+ getId() == (
+  return id
+ );
+ 
+ -- getName
+(*@
+\label{getName:26}
+@*)
+  public getName: () ==> ModelUtils`String
+  getName() == (
+    return retName();  
+  );
+
+  -- getAge 
+(*@
+\label{getAge:32}
+@*)
+  public getAge: () ==> nat
+  getAge() == (
+    return retAge();  
+  );
+  
+ --get clinical observations
+(*@
+\label{getClinicalObservations:38}
+@*)
+ public pure getClinicalObservations: () ==> seq of ModelUtils`String
+ getClinicalObservations() == (
+  return clinicalObservations
+ );
+ 
+ 
+ --add clinical observation
+(*@
+\label{addObservation:45}
+@*)
+ public addObservation: ModelUtils`String ==> ()
+ addObservation(d) == (
+  clinicalObservations := clinicalObservations ^ [d];
+ )
+ post len clinicalObservations = len clinicalObservations~ + 1 and
+    exists i in set inds clinicalObservations & clinicalObservations(i) = d;
+ 
+ 
+end Patient
+\end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[Patient:8]{Patient} & 8&100.0\% & 14 \\
+\hline
+\hyperref[addObservation:45]{addObservation} & 45&100.0\% & 2 \\
+\hline
+\hyperref[getAge:32]{getAge} & 32&100.0\% & 4 \\
+\hline
+\hyperref[getClinicalObservations:38]{getClinicalObservations} & 38&100.0\% & 4 \\
+\hline
+\hyperref[getId:20]{getId} & 20&100.0\% & 102 \\
+\hline
+\hyperref[getName:26]{getName} & 26&100.0\% & 4 \\
+\hline
+\hline
+Patient.vdmpp & & 100.0\% & 130 \\
+\hline
+\end{longtable}
+

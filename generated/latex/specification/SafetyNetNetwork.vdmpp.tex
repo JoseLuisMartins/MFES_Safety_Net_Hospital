@@ -1,0 +1,559 @@
+\begin{vdmpp}[breaklines=true]
+class SafetyNetNetwork 
+instance variables
+  private hospitals: inmap nat to Hospital := { |-> };
+  private doctors: inmap nat to Doctor := { |-> };
+  private patients: inmap nat to Patient := { |-> };
+  private appointments: set of Appointment := {};
+  private static networkInstance: SafetyNetNetwork := new SafetyNetNetwork();
+  
+  inv not exists h1, h2 in set rng hospitals &
+  h1 <> h2 and h1.getName() = h2.getName();
+
+operations
+
+  --constructor
+  private SafetyNetNetwork: () ==> SafetyNetNetwork
+  SafetyNetNetwork() == return self
+  post hospitals = { |-> } and  doctors = { |-> };
+
+  --get network instance
+  public pure static getInstance: () ==> SafetyNetNetwork
+  getInstance() == return networkInstance
+  post isofclass(SafetyNetNetwork,RESULT);
+
+  
+  --clear network instance
+  public static clearInstance: () ==> ()
+  clearInstance() == (
+   networkInstance := new SafetyNetNetwork(); 
+  );
+  
+  --associate doctor to hospital
+  public associateDoctorToHospital : nat * nat ==> ()
+   associateDoctorToHospital(hospitalId, doctorId) == (
+    hospitals(hospitalId).addDoctor(doctorId)
+  )
+  pre hospitalId in set dom hospitals and doctorId in set dom doctors and doctorId not in set hospitals(hospitalId).getDoctorsIds()
+   post hospitalId in set dom hospitals and doctorId in set dom doctors and doctorId in set hospitals(hospitalId).getDoctorsIds();
+    
+  
+  --disassociate doctor from hospital
+  public disassociateDoctorFromHospital : nat * nat ==> ()
+   disassociateDoctorFromHospital(hospitalId, doctorId) == (
+    hospitals(hospitalId).removeDoctor(doctorId)
+  )
+  pre hospitalId in set dom hospitals and doctorId in set dom doctors and doctorId in set hospitals(hospitalId).getDoctorsIds()
+  post hospitalId in set dom hospitals and doctorId in set dom doctors and doctorId not in set hospitals(hospitalId).getDoctorsIds();
+    
+  -----------------------------------------------------------
+  ------------------Hospital---------------------------------
+  -----------------------------------------------------------
+   -- get hospitals
+  public pure getHospitals : () ==> inmap nat to Hospital
+  getHospitals() == (
+   return hospitals;
+  );
+    
+  
+   --add hospital
+  public addHospital: Hospital ==> ()
+  addHospital(hospital) == (
+   hospitals := hospitals ++  { hospital.getId() |-> hospital};
+  )
+  pre {hospital.getId() } <: hospitals = { |-> } 
+  post {hospital.getId() } <: hospitals = { hospital.getId() |-> hospital } ;
+  
+  --remove an hospital
+  public removeHospital: Hospital ==> ()
+  removeHospital(hospital) == (   
+   hospitals := {hospital.getId()} <-: hospitals;
+   --cancel appointments in that hospital
+   for all a in set appointments do 
+    if(a.getHospitalId() = hospital.getId()) then
+     removeAppointment(a);
+  )
+   pre {hospital.getId()} <: hospitals = { hospital.getId() |-> hospital } 
+  post {hospital.getId()} <: hospitals = { |-> } and 
+     forall a in set appointments & a.getHospitalId() <> hospital.getId();
+  
+  -- add agreement to hospital
+  public addAgreementToHospital: nat * ModelUtils`Agreement ==> ()
+  addAgreementToHospital(hospitalId, agreement) == (
+   hospitals(hospitalId).addAgreement(agreement);
+  )
+  pre {hospitalId} <: hospitals = { hospitalId |-> hospitals(hospitalId) };
+  
+
+  -- remove agreement from hospital
+  public removeAgreementFromHospital: nat * ModelUtils`Agreement ==> ()
+  removeAgreementFromHospital(hospitalId, agreement) == (
+   hospitals(hospitalId).removeAgreement(agreement);
+  )
+  pre {hospitalId} <: hospitals = { hospitalId |-> hospitals(hospitalId) };
+  
+  -------search hospitals------------------------------------
+ 
+  ----------get hospitals by id
+  public pure getHospitalsById: nat ==> Hospital
+   getHospitalsById(hospitalId) == (
+    return hospitals(hospitalId);
+   )
+  pre hospitalId in set dom hospitals
+  post RESULT.getId() = hospitalId;
+   
+  ----------get hospitals by city
+(*@
+\label{SafetyNetNetwork:105}
+@*)
+  public pure getHospitalsByCity: ModelUtils`String ==> set of Hospital
+   getHospitalsByCity(city) == (
+    dcl res : set of Hospital := {};
+    for all h in set rng hospitals do
+      if(h.getLocation().city = city) then
+(*@
+\label{getInstance:110}
+@*)
+       res := res union {h};
+    return res
+   );
+  
+  ----------get hospitals by name
+  public pure getHospitalsByName: ModelUtils`String ==> set of Hospital
+(*@
+\label{clearInstance:116}
+@*)
+   getHospitalsByName(name) == (
+    dcl res : set of Hospital := {};
+    for all h in set rng hospitals do
+      if(h.getName() = name) then
+       res := res union {h};
+    return res
+(*@
+\label{associateDoctorToHospital:122}
+@*)
+   );
+  
+  ----------get hospitals by agreement
+  public pure getHospitalsByAgreement: ModelUtils`Agreement ==> set of Hospital
+   getHospitalsByAgreement(agreement) == (
+    dcl res : set of Hospital := {};
+    for all h in set rng hospitals do
+      if(agreement in set h.getAgreements()) then
+       res := res union {h};
+(*@
+\label{disassociateDoctorFromHospital:131}
+@*)
+    return res
+   );
+   
+  -------------------End hospital search--------------------------------
+    
+  -- get hospitals specialties
+  public pure getHospitalSpecialties: nat ==> set of ModelUtils`Specialty
+   getHospitalSpecialties(hospitalId) == (
+    dcl res : set of ModelUtils`Specialty := {};
+     for all doctorId in set hospitals(hospitalId).getDoctorsIds() do
+       res := res union {doctors(doctorId).getSpecialty()};
+(*@
+\label{getHospitals:142}
+@*)
+    return res
+   );
+   
+    
+  ---------------------------------------------------------------
+  -----------------------end hospital ---------------------------
+  ---------------------------------------------------------------
+(*@
+\label{addHospital:149}
+@*)
+  
+  
+  ---------------------------------------------------------
+  -----------------------Doctors --------------------------
+  ---------------------------------------------------------
+  -- get doctors
+  public pure getDoctors : () ==> inmap nat to Doctor
+  getDoctors() == (
+(*@
+\label{removeHospital:157}
+@*)
+   return doctors;
+  );
+    
+  --add doctor
+  public addDoctor: Doctor ==> ()
+  addDoctor(doctor) == (
+   doctors := doctors ++  { doctor.getId() |-> doctor};
+  )
+  pre {doctor.getId() } <: doctors = { |-> }  
+  post {doctor.getId() } <: doctors = { doctor.getId() |-> doctor };
+  
+  --remove doctor from the network and from all the hospitals where he works
+  public removeDoctor: Doctor ==> ()
+(*@
+\label{addAgreementToHospital:170}
+@*)
+  removeDoctor(doctor) == (
+   --remove doctor from network
+   doctors := {doctor.getId()} <-: doctors;
+   --remove doctor from hospitals where he works
+   for all h in set rng hospitals do 
+    if(doctor.getId() in set h.getDoctorsIds()) then
+     h.removeDoctor(doctor.getId());
+   --cancel doctor appointments
+(*@
+\label{removeAgreementFromHospital:178}
+@*)
+   for all a in set appointments do 
+    if(a.getDoctorId() = doctor.getId()) then
+     removeAppointment(a);
+  )
+   pre {doctor.getId()} <: doctors = { doctor.getId() |-> doctor } 
+  post {doctor.getId()} <: doctors = { |-> } and 
+     forall h in set rng hospitals & doctor.getId() not in set h.getDoctorsIds() and 
+     forall a in set appointments & a.getDoctorId() <> doctor.getId();
+  
+(*@
+\label{getHospitalsById:187}
+@*)
+  
+  --search doctors--------------------------------
+  ----------get doctor by specialty
+  public pure getDoctorsBySpecialty: ModelUtils`Specialty ==> set of Doctor
+   getDoctorsBySpecialty(s) == (
+    dcl res : set of Doctor := {};
+    for all d in set rng doctors do
+      if(d.getSpecialty() = s) then
+(*@
+\label{getHospitalsByCity:195}
+@*)
+       res := res union {d};
+    return res
+   );
+  
+  ----------get doctor by id
+  public pure getDoctorById: nat ==> Doctor
+   getDoctorById(doctorId) == (
+    return doctors(doctorId);
+   )
+  pre doctorId in set dom doctors
+(*@
+\label{getHospitalsByName:205}
+@*)
+  post RESULT.getId() = doctorId;
+   
+  ----------get hospitals where a doctor works
+  public pure getDoctorHospitals: nat ==> set of Hospital
+   getDoctorHospitals(doctorId) == (
+    dcl res : set of Hospital := {};
+    for all h in set rng hospitals do
+     if(doctorId in set h.getDoctorsIds()) then
+      res := res union {h};
+    return res
+(*@
+\label{getHospitalsByAgreement:215}
+@*)
+   );
+   
+  ---------------------------------------------------------
+  -----------------------End Doctors ----------------------
+  ---------------------------------------------------------
+  
+  
+  -----------------------------------------------------------
+  ------------------Patients---------------------------------
+  -----------------------------------------------------------
+  
+  --add patient
+(*@
+\label{getHospitalSpecialties:227}
+@*)
+  public addPatient: Patient ==> ()
+  addPatient(patient) == (
+   patients := patients ++  { patient.getId() |-> patient};
+  )
+  pre {patient.getId() } <: patients = { |-> }  
+  post {patient.getId() } <: patients = { patient.getId() |-> patient };
+  
+  --remove patient
+  public removePatient: Patient ==> ()
+  removePatient(patient) == (
+   --remove patient appointments
+   for all a in set appointments do 
+    if(a.getPatientId() = patient.getId()) then
+     removeAppointment(a);
+   --remove patient from network
+   patients := {patient.getId()} <-: patients;
+  )
+   pre {patient.getId()} <: patients = { patient.getId() |-> patient } 
+(*@
+\label{getDoctors:245}
+@*)
+  post {patient.getId()} <: patients = { |-> } and forall a in set appointments & a.getPatientId() <> patient.getId();
+   
+  --add clinical observation
+  public addClinicalObservation: nat * ModelUtils`String ==> ()
+  addClinicalObservation(patientId, obs) == (
+   patients(patientId).addObservation(obs);
+(*@
+\label{addDoctor:251}
+@*)
+  )
+   pre {patientId} <: patients = { patientId |-> patients(patientId) } ;
+   
+   -- get patients
+  public pure getPatients : () ==> inmap nat to Patient
+  getPatients() == (
+   return patients;
+  );
+(*@
+\label{removeDoctor:259}
+@*)
+  
+  
+  ---------------------------------------------------------
+  ------------------End Patients-----------------------------
+  -----------------------------------------------------------
+
+  ---------------------------------------------------------
+  ----------------------Appointments-----------------------
+  ---------------------------------------------------------
+  
+  -- get appointments
+  public pure getAppointments : () ==> set of Appointment
+  getAppointments() == (
+   return appointments;
+  );
+  
+  --get hospital appointments
+  public pure getHospitalAppointments: nat ==> set of Appointment
+  getHospitalAppointments(hospitalId) == (
+   dcl res: set of Appointment := {};
+   for all a in set appointments do 
+(*@
+\label{getDoctorsBySpecialty:280}
+@*)
+    if(a.getHospitalId() = hospitalId) then
+      res := res union {a}; 
+  
+   return res
+  )
+  pre {hospitalId} <: hospitals = { hospitalId |-> hospitals(hospitalId) }
+  post forall a in set RESULT & isofclass(Appointment,a) and a.getHospitalId() = hospitalId;
+
+  -- total number of appointments in a hospital
+  public pure getHospitalNumberOfAppointments: nat ==> nat
+(*@
+\label{getDoctorById:290}
+@*)
+   getHospitalNumberOfAppointments(hospitalId) == (
+    return card getHospitalAppointments(hospitalId);
+  )
+  pre hospitalId in set dom hospitals;
+   
+  
+  
+  --get doctor appointments
+(*@
+\label{getDoctorHospitals:298}
+@*)
+  public pure getDoctorAppointments: nat ==> set of Appointment
+  getDoctorAppointments(doctorId) == (
+   dcl res: set of Appointment := {};
+   for all a in set appointments do 
+    if(a.getDoctorId() = doctorId) then
+      res := res union {a}; 
+   return res
+  )
+  pre {doctorId} <: doctors = { doctorId |-> doctors(doctorId) }
+  post forall a in set RESULT & isofclass(Appointment,a) and a.getDoctorId() = doctorId;
+  
+  --get patient appointments
+  public pure getPatientAppointments: nat ==> set of Appointment
+  getPatientAppointments(patientId) == (
+   dcl res: set of Appointment := {};
+   for all a in set appointments do 
+    if(a.getPatientId() = patientId) then
+      res := res union {a}; 
+   return res
+(*@
+\label{addPatient:317}
+@*)
+  )
+  pre {patientId} <: patients = { patientId |-> patients(patientId) }
+  post forall a in set RESULT & isofclass(Appointment,a) and a.getPatientId() = patientId;
+  
+  --get specialty appointments
+  public pure getSpecialtyAppointments: ModelUtils`Specialty ==> set of Appointment
+  getSpecialtyAppointments(specialty) == (
+   dcl res: set of Appointment := {};
+(*@
+\label{removePatient:325}
+@*)
+   for all a in set appointments do 
+    if(doctors(a.getDoctorId()).getSpecialty() = specialty) then
+      res := res union {a}; 
+   return res
+  )
+  post forall a in set RESULT & isofclass(Appointment,a) and doctors(a.getDoctorId()).getSpecialty() = specialty;
+  
+  
+  --add an Appointment
+  public addAppointment: Appointment ==> ()
+  addAppointment(a) == (
+   appointments := appointments union {a}; 
+  )
+(*@
+\label{addClinicalObservation:338}
+@*)
+  pre forall ap in set getDoctorAppointments(a.getDoctorId()) union getPatientAppointments(a.getPatientId()) & Appointment`appointmentDatesDontOverlap(ap.getDate(), a.getDate())
+  post a in set appointments;
+  
+  --remove an Appointment
+  public removeAppointment: Appointment ==> ()
+  removeAppointment(a) == (
+   appointments := appointments \ {a}; 
+(*@
+\label{getPatients:345}
+@*)
+  )
+  pre a in set appointments
+  post a not in set appointments;
+  
+  
+  
+  -- get closest appointment date available given a set of appointments
+  -- example: pass the appointments related to a specialty and it will return the closest appointment date available for that specialty as well as the doctor
+  public getHospitalClosestAvailableDate: set of Appointment ==> ModelUtils`Date_DoctorId   
+   getHospitalClosestAvailableDate(appointmentSet) == (
+   dcl minDate: ModelUtils`Date := ModelUtils`getMaxDate(); 
+   dcl doctorId: nat;
+   dcl availableDoctors: set of nat := {};
+   dcl occupiedDates: set of ModelUtils`Date := {};
+   
+(*@
+\label{getAppointments:360}
+@*)
+   for all ap in set appointmentSet do 
+   (
+    availableDoctors := availableDoctors union {ap.getDoctorId()};
+    occupiedDates := occupiedDates union {ap.getDate()};
+   );
+   
+(*@
+\label{getHospitalAppointments:366}
+@*)
+   -- have to check if the first date is available
+   occupiedDates := occupiedDates union {ModelUtils`getMinDate()};
+   
+   for all date in set occupiedDates do
+   (
+    dcl auxDate : ModelUtils`Date := Appointment`getNextAppointmentDate(date);
+    if(ModelUtils`isDateLower(auxDate, minDate)) then
+     for all docId in set availableDoctors do    
+       if(forall docAp in set getDoctorAppointments(docId) &  Appointment`appointmentDatesDontOverlap(docAp.getDate(),auxDate)) then -- if the next appointment is on a closer date than the actual minimum and one of the doctor has the date slot available, update the minimum
+       (
+        doctorId := docId;
+        minDate := auxDate;
+       )
+(*@
+\label{getHospitalNumberOfAppointments:379}
+@*)
+   );
+   
+   return mk_ModelUtils`Date_DoctorId(minDate, doctorId);
+  )
+  pre forall ap in set appointmentSet & ap in set appointments
+  post RESULT.doctorId in set dom doctors;
+  
+   ---------------------------------------------------------
+  ----------------------End Appointments-------------------
+(*@
+\label{getDoctorAppointments:388}
+@*)
+  ---------------------------------------------------------
+  
+
+end SafetyNetNetwork
+\end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[SafetyNetNetwork:105]{SafetyNetNetwork} & 105&100.0\% & 26 \\
+\hline
+\hyperref[addAgreementToHospital:170]{addAgreementToHospital} & 170&100.0\% & 1 \\
+\hline
+\hyperref[addAppointment:424]{addAppointment} & 424&100.0\% & 19 \\
+\hline
+\hyperref[addClinicalObservation:338]{addClinicalObservation} & 338&100.0\% & 2 \\
+\hline
+\hyperref[addDoctor:251]{addDoctor} & 251&100.0\% & 35 \\
+\hline
+\hyperref[addHospital:149]{addHospital} & 149&100.0\% & 41 \\
+\hline
+\hyperref[addPatient:317]{addPatient} & 317&100.0\% & 15 \\
+\hline
+\hyperref[associateDoctorToHospital:122]{associateDoctorToHospital} & 122&100.0\% & 27 \\
+\hline
+\hyperref[clearInstance:116]{clearInstance} & 116&100.0\% & 25 \\
+\hline
+\hyperref[disassociateDoctorFromHospital:131]{disassociateDoctorFromHospital} & 131&100.0\% & 1 \\
+\hline
+\hyperref[getAppointments:360]{getAppointments} & 360&100.0\% & 10 \\
+\hline
+\hyperref[getDoctorAppointments:388]{getDoctorAppointments} & 388&100.0\% & 35 \\
+\hline
+\hyperref[getDoctorById:290]{getDoctorById} & 290&100.0\% & 3 \\
+\hline
+\hyperref[getDoctorHospitals:298]{getDoctorHospitals} & 298&100.0\% & 3 \\
+\hline
+\hyperref[getDoctors:245]{getDoctors} & 245&100.0\% & 59 \\
+\hline
+\hyperref[getDoctorsBySpecialty:280]{getDoctorsBySpecialty} & 280&100.0\% & 3 \\
+\hline
+\hyperref[getHospitalAppointments:366]{getHospitalAppointments} & 366&100.0\% & 5 \\
+\hline
+\hyperref[getHospitalClosestAvailableDate:443]{getHospitalClosestAvailableDate} & 443&100.0\% & 2 \\
+\hline
+\hyperref[getHospitalNumberOfAppointments:379]{getHospitalNumberOfAppointments} & 379&100.0\% & 8 \\
+\hline
+\hyperref[getHospitalSpecialties:227]{getHospitalSpecialties} & 227&100.0\% & 2 \\
+\hline
+\hyperref[getHospitals:142]{getHospitals} & 142&100.0\% & 49 \\
+\hline
+\hyperref[getHospitalsByAgreement:215]{getHospitalsByAgreement} & 215&100.0\% & 12 \\
+\hline
+\hyperref[getHospitalsByCity:195]{getHospitalsByCity} & 195&100.0\% & 2 \\
+\hline
+\hyperref[getHospitalsById:187]{getHospitalsById} & 187&100.0\% & 3 \\
+\hline
+\hyperref[getHospitalsByName:205]{getHospitalsByName} & 205&100.0\% & 3 \\
+\hline
+\hyperref[getInstance:110]{getInstance} & 110&100.0\% & 240 \\
+\hline
+\hyperref[getPatientAppointments:400]{getPatientAppointments} & 400&100.0\% & 18 \\
+\hline
+\hyperref[getPatients:345]{getPatients} & 345&100.0\% & 17 \\
+\hline
+\hyperref[getSpecialtyAppointments:412]{getSpecialtyAppointments} & 412&100.0\% & 3 \\
+\hline
+\hyperref[removeAgreementFromHospital:178]{removeAgreementFromHospital} & 178&100.0\% & 1 \\
+\hline
+\hyperref[removeAppointment:432]{removeAppointment} & 432&100.0\% & 8 \\
+\hline
+\hyperref[removeDoctor:259]{removeDoctor} & 259&100.0\% & 2 \\
+\hline
+\hyperref[removeHospital:157]{removeHospital} & 157&100.0\% & 2 \\
+\hline
+\hyperref[removePatient:325]{removePatient} & 325&100.0\% & 2 \\
+\hline
+\hline
+SafetyNetNetwork.vdmpp & & 100.0\% & 684 \\
+\hline
+\end{longtable}
+

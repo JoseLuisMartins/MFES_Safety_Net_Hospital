@@ -1,10 +1,7 @@
 package cli;
 
 
-import SafetyNetHospital.Doctor;
-import SafetyNetHospital.Hospital;
-import SafetyNetHospital.ModelUtils;
-import SafetyNetHospital.SafetyNetNetwork;
+import SafetyNetHospital.*;
 import SafetyNetHospital.quotes.*;
 import cli.menus.*;
 import cli.vdm_enum.AGREEMENT;
@@ -12,12 +9,12 @@ import cli.vdm_enum.SPECIALTY;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
+import org.overture.codegen.runtime.VDMMap;
 import org.overture.codegen.runtime.VDMSet;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
 
 
 public class SafetyNetHospital_CLI {
@@ -34,6 +31,25 @@ public class SafetyNetHospital_CLI {
         this.safetyNet = SafetyNetNetwork.getInstance();
         this.textIO = TextIoFactory.getTextIO();
         this.terminal = textIO.getTextTerminal();
+
+        VDMSet agreement = new VDMSet();
+        agreement.add(getAgreement(AGREEMENT.ADSE));
+        agreement.add(getAgreement(AGREEMENT.MEDIS));
+        safetyNet.addHospital(new Hospital("Sao Joao",new ModelUtils.Location("Porto","rua x n y","4520-885"), agreement));
+        VDMSet agreement1 = new VDMSet();
+        agreement1.add(getAgreement(AGREEMENT.MULTICARE));
+        agreement1.add(getAgreement(AGREEMENT.MEDICARE));
+        safetyNet.addHospital(new Hospital("Santa Maria",new ModelUtils.Location("Lisboa","Rua x blablabla","4880-724"),agreement1));
+
+
+        safetyNet.addDoctor(new Doctor("Jose",20,getSpecialty(SPECIALTY.ORTOPEDIA)));
+        safetyNet.addDoctor(new Doctor("Marcelo",19,getSpecialty(SPECIALTY.CARDIOLOGIA)));
+
+        safetyNet.addPatient(new Patient("Maria",14,"gripe"));
+        safetyNet.addPatient(new Patient("Joana",20,"tosse"));
+        safetyNet.addPatient(new Patient("Felizberta",22,"asma"));
+
+
 
         this.start();
     }
@@ -82,7 +98,7 @@ public class SafetyNetHospital_CLI {
     }
 
     public void start(){
-        cls();
+        separator();
         this.terminal.printf("-----------------------------------------------------------------------\n" +
                              "----------------------Safety Net Hospital---------------------\n" +
                              "-----------------------------------------------------------------------\n"
@@ -112,17 +128,46 @@ public class SafetyNetHospital_CLI {
     }
 
     public void hospitals(){
-        cls();
+        separator();
         this.terminal.printf("--------------------------Hospitals Management--------------------------\n");
 
         HOSPITAL_MENU val = textIO.newEnumInputReader(HOSPITAL_MENU.class)
                 .read("Select an option!");
+        int i = 0;
 
         switch (val){
 
             case ASSOCIATE_DOCTOR:
+
+                Number hosId = getMapSelectedElement(safetyNet.getHospitals());
+                separator();
+                Number docId = getMapSelectedElement( safetyNet.getDoctors());
+
+                if(hosId.intValue() == -1 || docId.intValue() == -1)
+                    hospitals();
+
+                safetyNet.associateDoctorToHospital(hosId,docId);
+                hospitals();
                 break;
             case DISASSOCIATE_DOCTOR:
+
+                Number hospId = getMapSelectedElement(safetyNet.getHospitals());
+                separator();
+                Hospital h = safetyNet.getHospitalsById(hospId);
+                List<Integer> list = new ArrayList<Integer>(h.getDoctorsIds());
+                HashMap<Number,Object> hospitalDocs =new HashMap();
+
+                for (int j = 0; j < list.size(); j++) {
+                   hospitalDocs.put(list.get(j),safetyNet.getDoctorById(list.get(j)));
+                }
+
+                Number doctId = getMapSelectedElement(hospitalDocs);
+
+                if(hospId.intValue() == -1 || doctId.intValue() == -1)
+                    hospitals();
+
+                safetyNet.disassociateDoctorFromHospital(hospId,doctId);
+                hospitals();
                 break;
             case ADD:
                 String name = textIO.newStringInputReader()
@@ -155,32 +200,28 @@ public class SafetyNetHospital_CLI {
 
                 break;
             case REMOVE:
-                HashMap<Number,Hospital> m = new HashMap<Number,Hospital>(safetyNet.getHospitals());
-                List<Integer> rmValues= new ArrayList<Integer>();
-                for (Map.Entry<Number,Hospital> entry : m.entrySet())
-                {
-                    this.terminal.printf("--------------------------Hospitals--------------------------\n");
-                    this.terminal.printf("key:" + entry.getKey() + " -- Data: " +  entry.getValue() + "\n");
-                    rmValues.add(entry.getKey().intValue());
+                HashMap<Number,Object> m = safetyNet.getHospitals();
+                Number rmId = getMapSelectedElement(m);
+                if(rmId.intValue() == -1)
+                    hospitals();
+                else {
+                    safetyNet.removeHospital((Hospital) m.get(rmId));
+                    hospitals();
                 }
-
-                int rmId = textIO.newIntInputReader()
-                        .withInlinePossibleValues(rmValues)
-                        .read("Age");
-
-                safetyNet.removeHospital(m.get(rmId));
-                hospitals();
                 break;
-            case SEARCH:
-
+            case SEARCH: //TODO: search by property
+                this.terminal.printf("--------------------------Hospitals--------------------------\n");
+                i=0;
                 for (Map.Entry<Number,Hospital> entry : new HashMap<Number,Hospital>(safetyNet.getHospitals()).entrySet())
                 {
-                    this.terminal.printf("--------------------------Hospitals--------------------------\n");
-                    this.terminal.printf("key:" + entry.getKey() + " -- Data: " +  entry.getValue() + "\n");
+                    this.terminal.printf(i +  "- \n" +  entry.getValue() + "\n");
+                    i++;
                 }
 
                 BACK v = textIO.newEnumInputReader(BACK.class)
                         .read("Select an option!");
+
+                this.terminal.printf("\n\n");
 
                 switch (v) {
                     case BACK:
@@ -199,13 +240,38 @@ public class SafetyNetHospital_CLI {
         }
     }
 
-    public void manageDoctorToHospital(){
+    public Number getMapSelectedElement(HashMap<Number,Object> map){
 
+        List<Integer> values= new ArrayList<Integer>();
+
+        int i=0;
+        for (Map.Entry<Number,Object> entry : map.entrySet())
+        {
+            this.terminal.printf( i + "- \n " +  entry.getValue() + "\n");
+
+            values.add(i);
+            i++;
+        }
+
+        if(values.size() == 0) {
+            this.terminal.printf( "\n\n --------------- No available Items ------------- \n\n\n");
+            BACK v = textIO.newEnumInputReader(BACK.class)
+                    .read("Select an option!");
+            return -1;
+        }
+
+        int rmId = textIO.newIntInputReader()
+                .withInlinePossibleValues(values)
+                .read("Key");
+
+
+
+        return (Number) map.keySet().toArray()[rmId];
     }
 
 
     public void doctors(){
-        cls();
+        separator();
         this.terminal.printf("--------------------------Doctors Management--------------------------\n");
 
         DOCTOR_MENU val = textIO.newEnumInputReader(DOCTOR_MENU.class)
@@ -230,6 +296,14 @@ public class SafetyNetHospital_CLI {
                 doctors();
                 break;
             case REMOVE:
+                HashMap<Number,Object> m = safetyNet.getDoctors();
+                Number rmId = getMapSelectedElement(m);
+                if(rmId.intValue() == -1)
+                    doctors();
+                else {
+                    safetyNet.removeDoctor((Doctor) m.get(rmId));
+                    doctors();
+                }
 
                 break;
             case SEARCH:
@@ -246,7 +320,7 @@ public class SafetyNetHospital_CLI {
     }
 
     public void searchDoctor(){
-        cls();
+        separator();
         this.terminal.printf("--------------------------Search Doctors--------------------------\n");
 
         SEARCH_OPTIONS_MENU val = textIO.newEnumInputReader(SEARCH_OPTIONS_MENU.class)
@@ -279,7 +353,7 @@ public class SafetyNetHospital_CLI {
 
 
     public void appointments(){
-        cls();
+        separator();
         this.terminal.printf("--------------------------Appointments Management--------------------------\n");
 
         APPOINTMENTS_MENU val = textIO.newEnumInputReader(APPOINTMENTS_MENU .class)
@@ -306,7 +380,7 @@ public class SafetyNetHospital_CLI {
 
 
     public void patients(){
-        cls();
+        separator();
         this.terminal.printf("--------------------------Patients Management--------------------------\n");
 
         PATIENTS_MENU val = textIO.newEnumInputReader(PATIENTS_MENU.class)
@@ -314,8 +388,30 @@ public class SafetyNetHospital_CLI {
 
         switch (val){
             case ADD:
+                String user = textIO.newStringInputReader()
+                        .read("Name");
+
+                int age = textIO.newIntInputReader()
+                        .withMinVal(18)
+                        .read("Age");
+
+
+                String observation = textIO.newStringInputReader()
+                        .read("Observation");
+
+                safetyNet.addPatient(new Patient(user,age,observation));
+
+                patients();
                 break;
             case REMOVE:
+                HashMap<Number,Object> m = safetyNet.getPatients();
+                Number rmId = getMapSelectedElement(m);
+                if(rmId.intValue() == -1)
+                    patients();
+                else {
+                    safetyNet.removePatient((Patient) m.get(rmId));
+                    patients();
+                }
                 break;
             case SEARCH:
                 start();
@@ -328,8 +424,11 @@ public class SafetyNetHospital_CLI {
         }
     }
 
-    public void cls(){
-        this.terminal.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    public void separator(){
+        this.terminal.printf("------------------------------------------------------------------------------\n" +
+                             "------------------------------------------------------------------------------\n" +
+                             "------------------------------------------------------------------------------\n");
     }
+
 
 }

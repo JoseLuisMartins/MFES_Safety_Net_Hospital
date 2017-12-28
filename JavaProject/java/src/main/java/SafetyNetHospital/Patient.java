@@ -61,7 +61,11 @@ public class Patient extends Person {
   public String toString() {
 
     return "Patient{"
-        + "clinicalObservations := "
+        + "name := "
+        + this.getName()
+        + ", age:= "
+        + this.getAge()
+        + ", clinicalObservations := "
         + Utils.toString(clinicalObservations)
         + ", currId := "
         + Utils.toString(currId)
