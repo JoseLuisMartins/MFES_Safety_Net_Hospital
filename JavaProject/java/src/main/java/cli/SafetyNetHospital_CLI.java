@@ -164,9 +164,10 @@ public class SafetyNetHospital_CLI {
         switch (val){
 
             case ASSOCIATE_DOCTOR:
-
+                this.terminal.printf("\nSelect an Hospital\n");
                 Number hosId = getMapSelectedElement(safetyNet.getHospitals());
                 separator();
+                this.terminal.printf("\nSelect a Doctor\n");
                 Number docId = getMapSelectedElement( safetyNet.getDoctors());
 
                 if(hosId.intValue() == -1 || docId.intValue() == -1)
@@ -176,9 +177,10 @@ public class SafetyNetHospital_CLI {
                 hospitals();
                 break;
             case DISASSOCIATE_DOCTOR:
-
+                this.terminal.printf("\nSelect an Hospital\n");
                 Number hospId = getMapSelectedElement(safetyNet.getHospitals());
                 separator();
+                this.terminal.printf("\nSelect a Doctor\n");
                 Hospital h = safetyNet.getHospitalsById(hospId);
                 List<Integer> list = new ArrayList<Integer>(h.getDoctorsIds());
                 HashMap<Number,Object> hospitalDocs =new HashMap();
@@ -324,8 +326,10 @@ public class SafetyNetHospital_CLI {
                 backToHospitalSearchMenu();
                 break;
             case BACK:
+                hospitals();
                 break;
             case EXIT:
+                System.exit(0);
                 break;
         }
     }
@@ -369,6 +373,7 @@ public class SafetyNetHospital_CLI {
             return -1;
         }
 
+        this.terminal.printf("\nChoose an element\n");
         int rmId = textIO.newIntInputReader()
                 .withInlinePossibleValues(values)
                 .read("Key");
@@ -406,9 +411,11 @@ public class SafetyNetHospital_CLI {
             return -1;
         }
 
+        this.terminal.printf("\nChoose an element\n");
         int rmId = textIO.newIntInputReader()
                 .withInlinePossibleValues(values)
                 .read("Key");
+
 
         return set.get(rmId);
     }
@@ -417,10 +424,13 @@ public class SafetyNetHospital_CLI {
                             "Hospital Details" + hos + "\n");
 
         List<Object> list = new ArrayList<Object>(safetyNet.getHospitalSpecialties(hos.getId()));
-        this.terminal.printf("Hospital Specialties");
+        this.terminal.printf("Hospital Specialties:\n");
         for (int j = 0; j < list.size(); j++){
-            this.terminal.printf(j + " - " + getSpecialty(list.get(j)));
+            this.terminal.printf("   " + getSpecialty(list.get(j)));
         }
+
+        if(list.size() == 0)
+            this.terminal.printf("No specialties available in this hospital\n\n");
 
     }
 
@@ -534,10 +544,12 @@ public class SafetyNetHospital_CLI {
                 "Doctor Details" + doc + "\n");
 
         List<Hospital> list = new ArrayList<Hospital>(safetyNet.getDoctorHospitals(doc.getId()));
-        this.terminal.printf("Hospitals where" + doc.getName() + " works");
+        this.terminal.printf("Hospitals where" + doc.getName() + " works: \n");
         for (int j = 0; j < list.size(); j++){
             this.terminal.printf(j + " - " + list.get(j).getName());
         }
+        if(list.size() == 0)
+            this.terminal.printf("Currently not working in any hospital\n");
 
     }
 
@@ -600,6 +612,9 @@ public class SafetyNetHospital_CLI {
                 }
                 break;
             case GET_FIRST_AVAILABLE_DATE_FOR_AN_APPOINTMENT:
+                SPECIALTY specialty = textIO.newEnumInputReader(SPECIALTY.class)
+                        .read("Select a Specialty!");
+
                 ArrayList<Object> hospitals = new ArrayList<Object>(safetyNet.getAppointments());
                 this.terminal.printf("--------------- Select an Hospital----------------------");
                 //Object hospital = getSetSelectedElement(appointments);
