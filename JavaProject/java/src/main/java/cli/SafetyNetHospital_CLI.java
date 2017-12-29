@@ -844,6 +844,18 @@ public class SafetyNetHospital_CLI {
                     patients();
                 }
                 break;
+            case ADD_CLINICAL_OBSERVATION_TO_PATIENT:
+                Number patId = getMapSelectedElement(safetyNet.getPatients());
+
+                if(patId.intValue() == -1)
+                    patients();
+
+                String obs = textIO.newStringInputReader()
+                        .read("New observation");
+
+                safetyNet.getPatientById(patId).addObservation(obs);
+                patients();
+                break;
             case SEE_ALL:
                 int i=0;
                 for (Map.Entry<Number,Patient> entry : new HashMap<Number,Patient>(safetyNet.getPatients()).entrySet())
