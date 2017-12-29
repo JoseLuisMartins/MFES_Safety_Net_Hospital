@@ -75,7 +75,7 @@ operations
 	addDoctor(doctorId) == (
 		doctorsIds := doctorsIds union {doctorId}
 	)
-	pre doctorId not in set doctorsIds
+	pre doctorId not in set doctorsIds and doctorId in set dom SafetyNetNetwork`getInstance().getDoctors()
 	post doctorId in set doctorsIds; 
 
 	
