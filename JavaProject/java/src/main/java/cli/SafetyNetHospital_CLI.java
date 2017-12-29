@@ -11,7 +11,6 @@ import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 import org.overture.codegen.runtime.VDMSet;
 
-import javax.print.Doc;
 import java.util.*;
 
 
@@ -31,7 +30,7 @@ public class SafetyNetHospital_CLI {
         this.terminal = textIO.getTextTerminal();
 
 
-        //---------------------------------------------INITIAL DATABASE------------------------------------------------
+        //---------------------------------------------INITIAL DATABASE-------------------------------------------------
         VDMSet agreement1 = new VDMSet();
         agreement1.add(getAgreement(AGREEMENT.ADSE));
         agreement1.add(getAgreement(AGREEMENT.MEDIS));
@@ -49,7 +48,7 @@ public class SafetyNetHospital_CLI {
         Doctor doc3 = new Doctor("Joana",37,getSpecialty(SPECIALTY.DERMATOLOGIA));
 
         Patient pat1 = new Patient("Maria",14,"Gripe");
-        Patient pat2 = new Patient("Joana",20,"Tosse");
+        Patient pat2 = new Patient("Margarida",20,"Tosse");
         Patient pat3 = new Patient("Felizberta",22,"Asma");
 
         Appointment ap1 = new Appointment(new ModelUtils.Date(2018,01,01,8,30),hos2.getId(),doc1.getId(),pat1.getId());
@@ -79,6 +78,7 @@ public class SafetyNetHospital_CLI {
         safetyNet.addAppointment(ap2);
         safetyNet.addAppointment(ap3);
         safetyNet.addAppointment(ap4);
+        //---------------------------------------------END DATABASE-----------------------------------------------------
 
         this.start();
     }
@@ -636,18 +636,8 @@ public class SafetyNetHospital_CLI {
                 safetyNet.removeAppointment((Appointment) appointment);
                 appointments();
                 break;
-            case SEE_ALL:// Todo: search by property
-                List<Appointment> list = new ArrayList<Appointment>(safetyNet.getAppointments());
-                this.terminal.printf("--------------- See Appointments----------------------");
-
-                int i=0;
-                for (int j = 0; j < list.size(); j++){
-                    displayAppointment(i, list.get(j));
-                    i++;
-                }
-
-                backToAppointmentMenu();
-
+            case SEARCH:
+                searchAppointments();
                 break;
             case GET_FIRST_AVAILABLE_DATE_FOR_AN_APPOINTMENT:
                 VDMSet docIds = new VDMSet();
@@ -701,7 +691,16 @@ public class SafetyNetHospital_CLI {
                 displayDoctor(0,safetyNet.getDoctorById(closestDate.doctorId));
 
 
-                backToAppointmentMenu();
+                this.terminal.printf("\n\n");
+
+                BACK v = textIO.newEnumInputReader(BACK.class)
+                        .read("Select an option!");
+
+                switch (v) {
+                    case BACK:
+                        appointments();
+                        break;
+                }
 
                 break;
             case BACK:
@@ -714,8 +713,83 @@ public class SafetyNetHospital_CLI {
         }
     }
 
+    public void searchAppointments(){
+        separator();
+        this.terminal.printf("\n--------------------------Search Appointments--------------------------\n");
+        SEARCH_APPOINTMENTS_OPTIONS_MENU searchOption = textIO.newEnumInputReader(SEARCH_APPOINTMENTS_OPTIONS_MENU.class)
+                .read("Select an option!");
 
-    private void backToAppointmentMenu(){
+        List<Appointment> list;
+        int i=0;
+        switch (searchOption) {
+            case SEE_ALL:
+                list = new ArrayList<Appointment>(safetyNet.getAppointments());
+                this.terminal.printf("\n---------------Appointments----------------------\n");
+
+                i=0;
+                for (int j = 0; j < list.size(); j++){
+                    displayAppointment(i, list.get(j));
+                    i++;
+                }
+
+                backToAppointmentSearchMenu();
+                break;
+            case SEARCH_BY_HOSPITAL:
+                this.terminal.printf("---------------Select the hospital----------------------");
+                Number hosId = getMapSelectedElement(safetyNet.getHospitals());
+                separator();
+                list = new ArrayList<Appointment>(safetyNet.getHospitalAppointments(hosId));
+                this.terminal.printf("---------------Appointments----------------------");
+
+                i=0;
+                for (int j = 0; j < list.size(); j++){
+                    displayAppointment(i, list.get(j));
+                    i++;
+                }
+
+                backToAppointmentSearchMenu();
+                break;
+            case SEARCH_BY_DOCTOR:
+                this.terminal.printf("---------------Select the doctor----------------------");
+                Number docId = getMapSelectedElement(safetyNet.getDoctors());
+                separator();
+                list = new ArrayList<Appointment>(safetyNet.getDoctorAppointments(docId));
+                this.terminal.printf("---------------Appointments----------------------");
+
+                i=0;
+                for (int j = 0; j < list.size(); j++){
+                    displayAppointment(i, list.get(j));
+                    i++;
+                }
+
+                backToAppointmentSearchMenu();
+                break;
+            case SEARCH_BY_PATIENT:
+                this.terminal.printf("---------------Select the patient----------------------");
+                Number patId = getMapSelectedElement(safetyNet.getPatients());
+                separator();
+                list = new ArrayList<Appointment>(safetyNet.getPatientAppointments(patId));
+                this.terminal.printf("---------------Appointments----------------------");
+
+                i=0;
+                for (int j = 0; j < list.size(); j++){
+                    displayAppointment(i, list.get(j));
+                    i++;
+                }
+                backToAppointmentSearchMenu();
+                break;
+            case BACK:
+                appointments();
+                break;
+            case EXIT:
+                System.exit(0);
+                break;
+        }
+
+    }
+
+
+    private void backToAppointmentSearchMenu(){
         this.terminal.printf("\n\n");
 
         BACK v = textIO.newEnumInputReader(BACK.class)
@@ -723,7 +797,7 @@ public class SafetyNetHospital_CLI {
 
         switch (v) {
             case BACK:
-                appointments();
+                searchAppointments();
                 break;
         }
     }

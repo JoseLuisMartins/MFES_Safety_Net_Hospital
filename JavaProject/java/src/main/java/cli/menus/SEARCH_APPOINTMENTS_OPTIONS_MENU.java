@@ -1,0 +1,11 @@
+package cli.menus;
+
+
+public enum SEARCH_APPOINTMENTS_OPTIONS_MENU {
+    SEE_ALL,
+    SEARCH_BY_HOSPITAL,
+    SEARCH_BY_DOCTOR,
+    SEARCH_BY_PATIENT,
+    BACK,
+    EXIT
+}
