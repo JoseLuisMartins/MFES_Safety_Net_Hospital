@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java" line="265" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java" line="266" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f61a8f0-a29f-4fc0-8ee1-e44e89a2d851" name="Default" comment="" />
@@ -28,12 +28,32 @@
       <file leaf-file-name="SafetyNetHospital_CLI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="212" column="51" lean-forward="false" selection-start-line="212" selection-start-column="51" selection-end-line="212" selection-end-column="51" />
+            <state relative-caret-position="648">
+              <caret line="294" column="28" lean-forward="false" selection-start-line="294" selection-start-column="28" selection-end-line="294" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#22894#22902#0" expanded="true" />
+                <element signature="e#23836#23844#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="START_MENU.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/START_MENU.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HOSPITAL_MENU.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/HOSPITAL_MENU.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,31 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SPECIALTY.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cli/vdm_enum/SPECIALTY.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="16" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="15" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SEARCH_HOSPITALS_OPTIONS_MENU.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/SEARCH_HOSPITALS_OPTIONS_MENU.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
               <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Doctor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/SafetyNetHospital/Doctor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="58" column="8" lean-forward="false" selection-start-line="58" selection-start-column="8" selection-end-line="62" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -174,7 +174,6 @@
         <option value="$PROJECT_DIR$/src/main/java/cli/vdm_enum/SPECIALTY.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/menus/SEARCH_OPTIONS_MENU.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/vdm_enum/AGREEMENT.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cli/menus/HOSPITAL_MENU.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/menus/DOCTOR_MENU.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/menus/BACK.java" />
         <option value="$PROJECT_DIR$/src/main/java/SafetyNetHospital/Patient.java" />
@@ -185,6 +184,8 @@
         <option value="$PROJECT_DIR$/src/main/java/cli/menus/QUESTION.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/menus/SEARCH_APPOINTMENTS_OPTIONS_MENU.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/menus/PATIENTS_MENU.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cli/menus/START_MENU.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cli/menus/HOSPITAL_MENU.java" />
         <option value="$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java" />
       </list>
     </option>
@@ -901,12 +902,12 @@
       <workItem from="1514415983257" duration="4703000" />
       <workItem from="1514455320589" duration="19511000" />
       <workItem from="1514505987334" duration="456000" />
-      <workItem from="1514541120138" duration="4687000" />
+      <workItem from="1514541120138" duration="7331000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50104000" />
+    <option name="totallyTimeSpent" value="52748000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="111" width="2048" height="1069" extended-state="6" />
@@ -927,7 +928,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18131869" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21728271" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1053,7 +1054,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#22894#22902#0" expanded="true" />
+            <element signature="e#23836#23844#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1120,7 +1121,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#22894#22902#0" expanded="true" />
+            <element signature="e#23836#23844#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1187,7 +1188,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#22894#22902#0" expanded="true" />
+            <element signature="e#23836#23844#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1288,22 +1289,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/START_MENU.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/HOSPITAL_MENU.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="9" lean-forward="false" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/DOCTOR_MENU.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1340,7 +1325,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
           <caret line="58" column="8" lean-forward="false" selection-start-line="58" selection-start-column="8" selection-end-line="62" selection-end-column="27" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1400,13 +1387,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/START_MENU.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cli/menus/HOSPITAL_MENU.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cli/SafetyNetHospital_CLI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="212" column="51" lean-forward="false" selection-start-line="212" selection-start-column="51" selection-end-line="212" selection-end-column="51" />
+        <state relative-caret-position="648">
+          <caret line="294" column="28" lean-forward="false" selection-start-line="294" selection-start-column="28" selection-end-line="294" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#22894#22902#0" expanded="true" />
+            <element signature="e#23836#23844#0" expanded="true" />
           </folding>
         </state>
       </provider>

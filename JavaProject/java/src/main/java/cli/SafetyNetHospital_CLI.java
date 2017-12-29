@@ -189,13 +189,15 @@ public class SafetyNetHospital_CLI {
 
         HOSPITAL_MENU val = textIO.newEnumInputReader(HOSPITAL_MENU.class)
                 .read("Select an option!");
+
         int i = 0;
+        Number hosId;
 
         switch (val){
 
             case ASSOCIATE_DOCTOR:
                 this.terminal.printf("\nSelect an Hospital\n");
-                Number hosId = getMapSelectedElement(safetyNet.getHospitals());
+                hosId = getMapSelectedElement(safetyNet.getHospitals());
                 separator();
                 this.terminal.printf("\nSelect a Doctor\n");
                 Number docId = getMapSelectedElement( safetyNet.getDoctors());
@@ -208,10 +210,10 @@ public class SafetyNetHospital_CLI {
                 break;
             case DISASSOCIATE_DOCTOR:
                 this.terminal.printf("\nSelect an Hospital\n");
-                Number hospId = getMapSelectedElement(safetyNet.getHospitals());
+                hosId = getMapSelectedElement(safetyNet.getHospitals());
                 separator();
                 this.terminal.printf("\nSelect a Doctor\n");
-                Hospital h = safetyNet.getHospitalsById(hospId);
+                Hospital h = safetyNet.getHospitalsById(hosId);
                 List<Integer> list = new ArrayList<Integer>(h.getDoctorsIds());
                 HashMap<Number,Object> hospitalDocs =new HashMap();
 
@@ -221,10 +223,10 @@ public class SafetyNetHospital_CLI {
 
                 Number doctId = getMapSelectedElement(hospitalDocs);
 
-                if(hospId.intValue() == -1 || doctId.intValue() == -1)
+                if(hosId.intValue() == -1 || doctId.intValue() == -1)
                     hospitals();
 
-                safetyNet.disassociateDoctorFromHospital(hospId,doctId);
+                safetyNet.disassociateDoctorFromHospital(hosId,doctId);
                 hospitals();
                 break;
             case ADD:
@@ -241,17 +243,16 @@ public class SafetyNetHospital_CLI {
                         .read("Postal-Code");
 
                 VDMSet agreements = new VDMSet();
-                boolean parsingAgreements = true;
                 do {
 
                 AGREEMENT agreement = textIO.newEnumInputReader(AGREEMENT.class)
                         .read("Select an option!");
 
                 if (agreement == AGREEMENT.NONE)
-                    parsingAgreements=false;
+                    break;
                 else
                     agreements.add(getAgreement(agreement));
-                }while(parsingAgreements);
+                }while(true);
 
                 safetyNet.addHospital(new Hospital(name,new ModelUtils.Location(city,address,postalCode),agreements));
                 hospitals();
@@ -269,6 +270,29 @@ public class SafetyNetHospital_CLI {
                 break;
             case SEARCH:
                 searchHospital();
+                break;
+            case ADD_AGREEMENT:
+                this.terminal.printf("\nSelect an Hospital\n");
+                hosId = getMapSelectedElement(safetyNet.getHospitals());
+
+                this.terminal.printf("\nSelect an Agreement\n");
+                AGREEMENT agreement = textIO.newEnumInputReader(AGREEMENT.class)
+                        .read("Select an option!");
+
+
+                safetyNet.getHospitalsById(hosId).addAgreement(getAgreement(agreement));
+                hospitals();
+                break;
+            case REMOVE_AGREEMENT:
+                this.terminal.printf("\nSelect an Hospital\n");
+                hosId = getMapSelectedElement(safetyNet.getHospitals());
+
+                this.terminal.printf("\nSelect an Agreement\n");
+                AGREEMENT agree= textIO.newEnumInputReader(AGREEMENT.class)
+                        .read("Select an option!");
+
+                safetyNet.getHospitalsById(hosId).removeAgreement(getAgreement(agree));
+                hospitals();
                 break;
             case BACK:
                 start();
