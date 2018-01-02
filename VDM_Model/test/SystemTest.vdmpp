@@ -141,7 +141,7 @@ main() == (
 			
 );
 
-
+-- tests if a doctor is correctly added to the network
 private testAddDoctor: () ==> ()
 	testAddDoctor () == (
 	
@@ -168,6 +168,7 @@ private testAddDoctor: () ==> ()
 				
 );
 
+-- tests if the doctors are correctly obtained through the function getAllDoctors
 private testGetAllDoctors: () ==> ()
 	testGetAllDoctors () == (
 		
@@ -187,6 +188,7 @@ private testGetAllDoctors: () ==> ()
 				
 );
 
+-- verifies if a doctor is correctly removed from the network and associations with hospitals
 private testRemoveDoctor: () ==> ()
 	testRemoveDoctor () == (
 		
@@ -220,6 +222,7 @@ private testRemoveDoctor: () ==> ()
 				
 );
 
+-- verifies if a hospital is correctly added to the network 
 private testAddHospital: () ==> ()
 	testAddHospital () == (
 		
@@ -237,6 +240,7 @@ private testAddHospital: () ==> ()
 				
 );
 
+-- verifies if the hospital is correctly removed from the network and there is not any association with a doctor
 private testRemoveHospital: () ==> ()
 	testRemoveHospital () == (
 		
@@ -256,7 +260,7 @@ private testRemoveHospital: () ==> ()
 				
 );
 
-
+-- verifies if a doctor is correctly associated with a hospital
 private testAssociateDoctorToAnHospital: () ==> ()
 	testAssociateDoctorToAnHospital () == (
 	
@@ -287,6 +291,7 @@ private testAssociateDoctorToAnHospital: () ==> ()
 				
 );
 
+-- verifies if the search of a hospital by specialty work as expected 
 private testGetHospitalBySpecialtie: () ==> ()
 	testGetHospitalBySpecialtie () == (
 	
@@ -322,7 +327,7 @@ private testGetHospitalBySpecialtie: () ==> ()
 	
 	);
 
-
+-- tests if a doctor is correctly disassociated from a hospital
 private testDisassociateDoctorToAnHospital: () ==> ()
 	testDisassociateDoctorToAnHospital () == (
 	
@@ -356,6 +361,7 @@ private testDisassociateDoctorToAnHospital: () ==> ()
 				
 );
 
+-- verifies if the search of a hospital by location work as expected
 private testGetHospitalsByLocation: () ==> ()
 	testGetHospitalsByLocation () == (
 			
@@ -375,6 +381,7 @@ private testGetHospitalsByLocation: () ==> ()
 		safetyNet.clearInstance();
 );
 
+-- verifies if the search of a hospital by agreement work as expected
 private testGetHospitalsByAgreement: () ==> ()
 	testGetHospitalsByAgreement () == (
 			
@@ -396,6 +403,7 @@ private testGetHospitalsByAgreement: () ==> ()
 		safetyNet.clearInstance();
 );
 
+-- verifies if the search of a hospital by id work as expected
 private testGetHospitalsById: () ==> ()
 	testGetHospitalsById () == (
 			
@@ -416,6 +424,7 @@ private testGetHospitalsById: () ==> ()
 		safetyNet.clearInstance();
 );
 
+-- verifies if the hospitals are obtained correctly through getHospitals
 private testGetAllHospitals: () ==> ()
 	testGetAllHospitals () == (
 		
@@ -434,6 +443,7 @@ private testGetAllHospitals: () ==> ()
 		safetyNet.clearInstance();
 );
 
+-- verifies if the search of a hospital by name work as expected
 private testGetHospitalsByName: () ==> ()
 	testGetHospitalsByName () == (
 		
@@ -454,6 +464,7 @@ private testGetHospitalsByName: () ==> ()
 		safetyNet.clearInstance();
 );
 
+-- tests if the hospitals where a doctor works are obtained as expected
 private testGetDoctorHospitals: () ==> ()
 	testGetDoctorHospitals () == (
 	
@@ -485,6 +496,8 @@ private testGetDoctorHospitals: () ==> ()
 				
 );
 
+
+-- verifies if the search of a doctor by specialty work as expected
 private testGetDoctorBySpecialtie: () ==> ()
 	testGetDoctorBySpecialtie () == (
 	
@@ -506,6 +519,7 @@ private testGetDoctorBySpecialtie: () ==> ()
 				
 );
 
+-- verifies if the specialties of a hospital are obtained correctly
 private testGetHospitalSpecialties: () ==> ()
 	testGetHospitalSpecialties () == (
 	
@@ -536,6 +550,7 @@ private testGetHospitalSpecialties: () ==> ()
 				
 );
 
+-- verifies if the search of a doctor by id work as expected
 private testGetDoctorById: () ==> ()
 	testGetDoctorById () == (
 			
@@ -556,6 +571,7 @@ private testGetDoctorById: () ==> ()
 		safetyNet.clearInstance();
 );
 
+-- verifies if a patient is correctly added to the network
 private testAddPatient: () ==> ()
 	testAddPatient () == (
 	
@@ -579,6 +595,7 @@ private testAddPatient: () ==> ()
 				
 );
 
+-- verifies if a patient is correctly removed from the network
 private testRemovePatient: () ==> ()
 	testRemovePatient () == (
 	
@@ -598,6 +615,7 @@ private testRemovePatient: () ==> ()
 				
 );
 
+-- verifies if a patient is correctly obtained by his id
 private testGetPatientById: () ==> ()
 	testGetPatientById () == (
 			
@@ -615,6 +633,7 @@ private testGetPatientById: () ==> ()
 		safetyNet.clearInstance();
 );
 
+-- verifies if an appointment is correctly added, fulfilling all the requirements to create one
 private testAddAppointment: () ==> ()
 	testAddAppointment () == (
 	
@@ -721,7 +740,7 @@ private testAddAppointment: () ==> ()
 );
 
 
- 
+-- verifies if an appointment is correctly removed 
 private testRemoveAppointment: () ==> ()
 	testRemoveAppointment () == (
 	
@@ -842,6 +861,7 @@ private testRemoveAppointment: () ==> ()
 				
 );
 
+-- verifies if an agreement is correctly added to a hospital
 private testAddAgreement: () ==> ()
 	testAddAgreement () == (
 		
@@ -863,6 +883,7 @@ private testAddAgreement: () ==> ()
 				
 );
 
+-- tests if an agreement is correctly removed from a hospital
 private testRemoveAgreement: () ==> ()
 	testRemoveAgreement () == (
 		
@@ -882,7 +903,7 @@ private testRemoveAgreement: () ==> ()
 				
 );
 
-
+-- checks if an observation is added to the patient observations correctly
 private testAddObservation: () ==> ()
 	testAddObservation () == (
 		
@@ -907,7 +928,7 @@ private testAddObservation: () ==> ()
 				
 );
 
-
+-- verifies if the searchof appointments by specialty, work as expected
 private testGetSpecialtyAppointments: () ==> ()
 	testGetSpecialtyAppointments () == (
 	
@@ -962,6 +983,7 @@ private testGetSpecialtyAppointments: () ==> ()
 				
 );
 
+-- verifies if is obtained the closest date avaivable
 private testGetHospitalClosestAvailableDate: () ==> ()
 	testGetHospitalClosestAvailableDate () == (
 	
@@ -1024,7 +1046,7 @@ private testGetHospitalClosestAvailableDate: () ==> ()
 		safetyNet.clearInstance();	
 );
 
-
+-- verifies if the next appointment is obtained correctly. It is considered that all appointments have the duration of 30 min
 private testGetNextAppointmentDate: () ==> ()
 	testGetNextAppointmentDate () == (
 	
@@ -1044,6 +1066,7 @@ private testGetNextAppointmentDate: () ==> ()
 	Tests containing invalid inputs (should be tested one at a time)
 */
 
+-- 
 public testFailForgotToAddDoctor: () ==> ()
 	testFailForgotToAddDoctor () == (
 	
@@ -1113,6 +1136,7 @@ public testFailForgotToAddDoctor: () ==> ()
 			
 			safetyNet := SafetyNetNetwork`getInstance();
 			
+			-- you can not search for a doctor with an id that does not exist
 			doc2 := safetyNet.getDoctorById(doc1.getId());
 			
 			safetyNet.clearInstance();
