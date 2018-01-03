@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_uJZh8PAHEeeuBpgvFADufg" name="MFES_Safety_Net_Hospital">
+  <packagedElement xmi:type="uml:Package" xmi:id="_uJZh8fAHEeeuBpgvFADufg" name="Basic VDM Types">
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh8vAHEeeuBpgvFADufg" name="&lt;append>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh8_AHEeeuBpgvFADufg" name="&lt;start>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh9PAHEeeuBpgvFADufg" name="char"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh9fAHEeeuBpgvFADufg" name="nat1"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh9vAHEeeuBpgvFADufg" name="nat"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh9_AHEeeuBpgvFADufg" name="&lt;ADSE>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh-PAHEeeuBpgvFADufg" name="&lt;MEDICARE>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh-fAHEeeuBpgvFADufg" name="&lt;MEDIS>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh-vAHEeeuBpgvFADufg" name="&lt;MULTICARE>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh-_AHEeeuBpgvFADufg" name="&lt;CARDIOLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh_PAHEeeuBpgvFADufg" name="&lt;DERMATOLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh_fAHEeeuBpgvFADufg" name="&lt;GINECOLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh_vAHEeeuBpgvFADufg" name="&lt;NEUROLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZh__AHEeeuBpgvFADufg" name="&lt;OFTALMOLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZiAPAHEeeuBpgvFADufg" name="&lt;ORTOPEDIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZiAfAHEeeuBpgvFADufg" name="&lt;PEDIATRIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZiAvAHEeeuBpgvFADufg" name="&lt;PNEUMOLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZiA_AHEeeuBpgvFADufg" name="&lt;REUMATOLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZiBPAHEeeuBpgvFADufg" name="&lt;UROLOGIA>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZiBfAHEeeuBpgvFADufg" name="bool"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZiBvAHEeeuBpgvFADufg" name="Any"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uJZiB_AHEeeuBpgvFADufg" name="Void"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZiCPAHEeeuBpgvFADufg" name="IO" visibility="public">
+    <ownedOperation xmi:id="_uJZiCfAHEeeuBpgvFADufg" name="writeval" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_uJZiCvAHEeeuBpgvFADufg" type="_uJZiBfAHEeeuBpgvFADufg" direction="return"/>
+      <ownedParameter xmi:id="_uJZiC_AHEeeuBpgvFADufg" name="val" type="_uJZiNvAHEeeuBpgvFADufg"/>
+      <ownedTemplateSignature xmi:id="_uJZiDPAHEeeuBpgvFADufg" parameter="_uJZiDfAHEeeuBpgvFADufg">
+        <ownedParameter xmi:id="_uJZiDfAHEeeuBpgvFADufg" default="_uJZiDvAHEeeuBpgvFADufg">
+          <ownedDefault xmi:type="uml:LiteralString" xmi:id="_uJZiDvAHEeeuBpgvFADufg" name="p"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiD_AHEeeuBpgvFADufg" name="fwriteval" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_uJZiEPAHEeeuBpgvFADufg" type="_uJZiBfAHEeeuBpgvFADufg" direction="return"/>
+      <ownedParameter xmi:id="_uJZiEfAHEeeuBpgvFADufg" name="filename" type="_uJZj9fAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiEvAHEeeuBpgvFADufg" name="val" type="_uJZiNvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiE_AHEeeuBpgvFADufg" name="fdir" type="_uJZiMfAHEeeuBpgvFADufg"/>
+      <ownedTemplateSignature xmi:id="_uJZiFPAHEeeuBpgvFADufg" parameter="_uJZiFfAHEeeuBpgvFADufg">
+        <ownedParameter xmi:id="_uJZiFfAHEeeuBpgvFADufg" default="_uJZiFvAHEeeuBpgvFADufg">
+          <ownedDefault xmi:type="uml:LiteralString" xmi:id="_uJZiFvAHEeeuBpgvFADufg" name="p"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiF_AHEeeuBpgvFADufg" name="freadval" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_uJZiGPAHEeeuBpgvFADufg" type="_uJZj-PAHEeeuBpgvFADufg" direction="return"/>
+      <ownedParameter xmi:id="_uJZiGfAHEeeuBpgvFADufg" name="filename" type="_uJZj9fAHEeeuBpgvFADufg"/>
+      <ownedTemplateSignature xmi:id="_uJZiGvAHEeeuBpgvFADufg" parameter="_uJZiG_AHEeeuBpgvFADufg">
+        <ownedParameter xmi:id="_uJZiG_AHEeeuBpgvFADufg" default="_uJZiHPAHEeeuBpgvFADufg">
+          <ownedDefault xmi:type="uml:LiteralString" xmi:id="_uJZiHPAHEeeuBpgvFADufg" name="p"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiHfAHEeeuBpgvFADufg" name="echo" visibility="public">
+      <ownedParameter xmi:id="_uJZiHvAHEeeuBpgvFADufg" name="text" type="_uJZj9fAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiH_AHEeeuBpgvFADufg" type="_uJZiBfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiIPAHEeeuBpgvFADufg" name="fecho" visibility="public">
+      <ownedParameter xmi:id="_uJZiIfAHEeeuBpgvFADufg" name="filename" type="_uJZj9fAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiIvAHEeeuBpgvFADufg" name="text" type="_uJZj9fAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiI_AHEeeuBpgvFADufg" name="fdir" type="_uJZj__AHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiJPAHEeeuBpgvFADufg" type="_uJZiBfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiJfAHEeeuBpgvFADufg" name="ferror" visibility="public">
+      <ownedParameter xmi:id="_uJZiJvAHEeeuBpgvFADufg" type="_uJZj9fAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiJ_AHEeeuBpgvFADufg" name="print" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_uJZiKPAHEeeuBpgvFADufg" name="arg" type="_uJZiBvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiKfAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiKvAHEeeuBpgvFADufg" name="println" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_uJZiK_AHEeeuBpgvFADufg" name="arg" type="_uJZiBvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiLPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiLfAHEeeuBpgvFADufg" name="printf" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_uJZiLvAHEeeuBpgvFADufg" name="format" type="_uJZj9fAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiL_AHEeeuBpgvFADufg" name="args" type="_uJZkAvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiMPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_uJZiMfAHEeeuBpgvFADufg" name="filedirective">
+      <generalization xmi:id="_uJZiMvAHEeeuBpgvFADufg" general="_uJZiM_AHEeeuBpgvFADufg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_uJZiM_AHEeeuBpgvFADufg" name="filedirective_appendstart__1004785595">
+      <ownedLiteral xmi:id="_uJZiNPAHEeeuBpgvFADufg" name="&lt;append>"/>
+      <ownedLiteral xmi:id="_uJZiNfAHEeeuBpgvFADufg" name="&lt;start>"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_uJZiNvAHEeeuBpgvFADufg" name="p"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZiN_AHEeeuBpgvFADufg" name="Appointment" visibility="public">
+    <ownedAttribute xmi:id="_uJZiOPAHEeeuBpgvFADufg" name="APPOINTMENT_TIME_MIN" visibility="public" isStatic="true" type="_uJZh9fAHEeeuBpgvFADufg" isReadOnly="true">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiOfAHEeeuBpgvFADufg" value="30"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZiOvAHEeeuBpgvFADufg" name="date" visibility="private" type="_uJZitfAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiO_AHEeeuBpgvFADufg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZiPPAHEeeuBpgvFADufg" name="hospitalId" visibility="private" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiPfAHEeeuBpgvFADufg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZiPvAHEeeuBpgvFADufg" name="doctorId" visibility="private" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiP_AHEeeuBpgvFADufg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZiQPAHEeeuBpgvFADufg" name="patientId" visibility="private" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiQfAHEeeuBpgvFADufg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_uJZiQvAHEeeuBpgvFADufg" name="Appointment" visibility="public">
+      <ownedParameter xmi:id="_uJZiQ_AHEeeuBpgvFADufg" name="d" type="_uJZitfAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiRPAHEeeuBpgvFADufg" name="hos" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiRfAHEeeuBpgvFADufg" name="doc" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiRvAHEeeuBpgvFADufg" name="pat" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiR_AHEeeuBpgvFADufg" type="_uJZiN_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiSPAHEeeuBpgvFADufg" name="getDate" visibility="public">
+      <ownedParameter xmi:id="_uJZiSfAHEeeuBpgvFADufg" type="_uJZitfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiSvAHEeeuBpgvFADufg" name="getHospitalId" visibility="public">
+      <ownedParameter xmi:id="_uJZiS_AHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiTPAHEeeuBpgvFADufg" name="getDoctorId" visibility="public">
+      <ownedParameter xmi:id="_uJZiTfAHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiTvAHEeeuBpgvFADufg" name="getPatientId" visibility="public">
+      <ownedParameter xmi:id="_uJZiT_AHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiUPAHEeeuBpgvFADufg" name="appointmentDatesDontOverlap" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_uJZiUfAHEeeuBpgvFADufg" type="_uJZiBfAHEeeuBpgvFADufg" direction="return"/>
+      <ownedParameter xmi:id="_uJZiUvAHEeeuBpgvFADufg" name="d1" type="_uJZitfAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiU_AHEeeuBpgvFADufg" name="d2" type="_uJZitfAHEeeuBpgvFADufg"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiVPAHEeeuBpgvFADufg" name="getNextAppointmentDate" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_uJZiVfAHEeeuBpgvFADufg" type="_uJZitfAHEeeuBpgvFADufg" direction="return"/>
+      <ownedParameter xmi:id="_uJZiVvAHEeeuBpgvFADufg" name="d" type="_uJZitfAHEeeuBpgvFADufg"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZiV_AHEeeuBpgvFADufg" name="Doctor" visibility="public">
+    <generalization xmi:id="_uJZiWPAHEeeuBpgvFADufg" general="_uJZi7vAHEeeuBpgvFADufg"/>
+    <ownedAttribute xmi:id="_uJZiWfAHEeeuBpgvFADufg" name="specialty" visibility="private" type="_uJZix_AHEeeuBpgvFADufg" association="_uJZkJvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZiWvAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZiW_AHEeeuBpgvFADufg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiXPAHEeeuBpgvFADufg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZiXfAHEeeuBpgvFADufg" name="currId" visibility="private" isStatic="true" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiXvAHEeeuBpgvFADufg" value="0"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZiX_AHEeeuBpgvFADufg" name="id" visibility="private" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiYPAHEeeuBpgvFADufg" value="currId"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_uJZiYfAHEeeuBpgvFADufg" name="Doctor" visibility="public">
+      <ownedParameter xmi:id="_uJZiYvAHEeeuBpgvFADufg" name="n" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiY_AHEeeuBpgvFADufg" name="a" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiZPAHEeeuBpgvFADufg" name="s" type="_uJZix_AHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZiZfAHEeeuBpgvFADufg" type="_uJZiV_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiZvAHEeeuBpgvFADufg" name="getId" visibility="public">
+      <ownedParameter xmi:id="_uJZiZ_AHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiaPAHEeeuBpgvFADufg" name="getSpecialty" visibility="public">
+      <ownedParameter xmi:id="_uJZiafAHEeeuBpgvFADufg" type="_uJZix_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiavAHEeeuBpgvFADufg" name="getName" visibility="public">
+      <ownedParameter xmi:id="_uJZia_AHEeeuBpgvFADufg" type="_uJZirvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZibPAHEeeuBpgvFADufg" name="getAge" visibility="public">
+      <ownedParameter xmi:id="_uJZibfAHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZibvAHEeeuBpgvFADufg" name="Hospital" visibility="public">
+    <ownedAttribute xmi:id="_uJZib_AHEeeuBpgvFADufg" name="name" visibility="private" type="_uJZirvAHEeeuBpgvFADufg" association="_uJZkKvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZicPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZicfAHEeeuBpgvFADufg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZicvAHEeeuBpgvFADufg" value="[]"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZic_AHEeeuBpgvFADufg" name="location" visibility="private" type="_uJZisPAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZidPAHEeeuBpgvFADufg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZidfAHEeeuBpgvFADufg" name="agreements" visibility="private" type="_uJZiwPAHEeeuBpgvFADufg" association="_uJZkLvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZidvAHEeeuBpgvFADufg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZid_AHEeeuBpgvFADufg" value="*"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiePAHEeeuBpgvFADufg" value="{}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZiefAHEeeuBpgvFADufg" name="doctorsIds" visibility="private" type="_uJZkCPAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZievAHEeeuBpgvFADufg" value="{}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZie_AHEeeuBpgvFADufg" name="currId" visibility="private" isStatic="true" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZifPAHEeeuBpgvFADufg" value="0"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZiffAHEeeuBpgvFADufg" name="id" visibility="private" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZifvAHEeeuBpgvFADufg" value="currId"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_uJZif_AHEeeuBpgvFADufg" name="Hospital" visibility="public">
+      <ownedParameter xmi:id="_uJZigPAHEeeuBpgvFADufg" name="n" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZigfAHEeeuBpgvFADufg" name="l" type="_uJZisPAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZigvAHEeeuBpgvFADufg" name="a" type="_uJZkBfAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZig_AHEeeuBpgvFADufg" type="_uJZibvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZihPAHEeeuBpgvFADufg" name="getName" visibility="public">
+      <ownedParameter xmi:id="_uJZihfAHEeeuBpgvFADufg" type="_uJZirvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZihvAHEeeuBpgvFADufg" name="getId" visibility="public">
+      <ownedParameter xmi:id="_uJZih_AHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiiPAHEeeuBpgvFADufg" name="getDoctorsIds" visibility="public">
+      <ownedParameter xmi:id="_uJZiifAHEeeuBpgvFADufg" type="_uJZkCPAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiivAHEeeuBpgvFADufg" name="getLocation" visibility="public">
+      <ownedParameter xmi:id="_uJZii_AHEeeuBpgvFADufg" type="_uJZisPAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZijPAHEeeuBpgvFADufg" name="getAgreements" visibility="public">
+      <ownedParameter xmi:id="_uJZijfAHEeeuBpgvFADufg" type="_uJZkBfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZijvAHEeeuBpgvFADufg" name="addAgreement" visibility="public">
+      <ownedParameter xmi:id="_uJZij_AHEeeuBpgvFADufg" name="a" type="_uJZiwPAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZikPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZikfAHEeeuBpgvFADufg" name="removeAgreement" visibility="public">
+      <ownedParameter xmi:id="_uJZikvAHEeeuBpgvFADufg" name="a" type="_uJZiwPAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZik_AHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZilPAHEeeuBpgvFADufg" name="addDoctor" visibility="public">
+      <ownedParameter xmi:id="_uJZilfAHEeeuBpgvFADufg" name="doctorId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZilvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZil_AHEeeuBpgvFADufg" name="removeDoctor" visibility="public">
+      <ownedParameter xmi:id="_uJZimPAHEeeuBpgvFADufg" name="doctorId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZimfAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZimvAHEeeuBpgvFADufg" name="ModelUtils" visibility="public">
+    <ownedAttribute xmi:id="_uJZim_AHEeeuBpgvFADufg" name="HOUR_MIN" visibility="public" isStatic="true" type="_uJZh9fAHEeeuBpgvFADufg" isReadOnly="true">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZinPAHEeeuBpgvFADufg" value="60"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZinfAHEeeuBpgvFADufg" name="DAY_HOURS" visibility="public" isStatic="true" type="_uJZh9fAHEeeuBpgvFADufg" isReadOnly="true">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZinvAHEeeuBpgvFADufg" value="24"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZin_AHEeeuBpgvFADufg" name="MONTH_DAYS" visibility="public" isStatic="true" type="_uJZh9fAHEeeuBpgvFADufg" isReadOnly="true">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZioPAHEeeuBpgvFADufg" value="30"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZiofAHEeeuBpgvFADufg" name="YEAR_MONTHS" visibility="public" isStatic="true" type="_uJZh9fAHEeeuBpgvFADufg" isReadOnly="true">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZiovAHEeeuBpgvFADufg" value="12"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_uJZio_AHEeeuBpgvFADufg" name="isDateLower" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_uJZipPAHEeeuBpgvFADufg" type="_uJZiBfAHEeeuBpgvFADufg" direction="return"/>
+      <ownedParameter xmi:id="_uJZipfAHEeeuBpgvFADufg" name="d1" type="_uJZitfAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZipvAHEeeuBpgvFADufg" name="d2" type="_uJZitfAHEeeuBpgvFADufg"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZip_AHEeeuBpgvFADufg" name="getMaxDate" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_uJZiqPAHEeeuBpgvFADufg" type="_uJZitfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiqfAHEeeuBpgvFADufg" name="getMinDate" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_uJZiqvAHEeeuBpgvFADufg" type="_uJZitfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZiq_AHEeeuBpgvFADufg" name="dateToNat" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_uJZirPAHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+      <ownedParameter xmi:id="_uJZirfAHEeeuBpgvFADufg" name="d" type="_uJZitfAHEeeuBpgvFADufg"/>
+    </ownedOperation>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_uJZirvAHEeeuBpgvFADufg" name="String">
+      <generalization xmi:id="_uJZir_AHEeeuBpgvFADufg" general="_uJZj9fAHEeeuBpgvFADufg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_uJZisPAHEeeuBpgvFADufg" name="Location">
+      <ownedAttribute xmi:id="_uJZisfAHEeeuBpgvFADufg" name="city" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedAttribute xmi:id="_uJZisvAHEeeuBpgvFADufg" name="address" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedAttribute xmi:id="_uJZis_AHEeeuBpgvFADufg" name="postalCode" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <nestedClassifier xmi:type="uml:Stereotype" xmi:id="_uJZitPAHEeeuBpgvFADufg" name="record"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_uJZitfAHEeeuBpgvFADufg" name="Date">
+      <ownedAttribute xmi:id="_uJZitvAHEeeuBpgvFADufg" name="year" type="_uJZh9fAHEeeuBpgvFADufg"/>
+      <ownedAttribute xmi:id="_uJZit_AHEeeuBpgvFADufg" name="month" type="_uJZh9fAHEeeuBpgvFADufg"/>
+      <ownedAttribute xmi:id="_uJZiuPAHEeeuBpgvFADufg" name="day" type="_uJZh9fAHEeeuBpgvFADufg"/>
+      <ownedAttribute xmi:id="_uJZiufAHEeeuBpgvFADufg" name="hour" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedAttribute xmi:id="_uJZiuvAHEeeuBpgvFADufg" name="min" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <nestedClassifier xmi:type="uml:Stereotype" xmi:id="_uJZiu_AHEeeuBpgvFADufg" name="record"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_uJZivPAHEeeuBpgvFADufg" name="Date_DoctorId">
+      <ownedAttribute xmi:id="_uJZivfAHEeeuBpgvFADufg" name="date" type="_uJZitfAHEeeuBpgvFADufg"/>
+      <ownedAttribute xmi:id="_uJZivvAHEeeuBpgvFADufg" name="doctorId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <nestedClassifier xmi:type="uml:Stereotype" xmi:id="_uJZiv_AHEeeuBpgvFADufg" name="record"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_uJZiwPAHEeeuBpgvFADufg" name="Agreement">
+      <generalization xmi:id="_uJZiwfAHEeeuBpgvFADufg" general="_uJZiwvAHEeeuBpgvFADufg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_uJZiwvAHEeeuBpgvFADufg" name="Agreement_ADSEMEDICAREMEDISMULTICARE_479241914">
+      <ownedLiteral xmi:id="_uJZiw_AHEeeuBpgvFADufg" name="&lt;ADSE>"/>
+      <ownedLiteral xmi:id="_uJZixPAHEeeuBpgvFADufg" name="&lt;MEDICARE>"/>
+      <ownedLiteral xmi:id="_uJZixfAHEeeuBpgvFADufg" name="&lt;MEDIS>"/>
+      <ownedLiteral xmi:id="_uJZixvAHEeeuBpgvFADufg" name="&lt;MULTICARE>"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_uJZix_AHEeeuBpgvFADufg" name="Specialty">
+      <generalization xmi:id="_uJZiyPAHEeeuBpgvFADufg" general="_uJZiyfAHEeeuBpgvFADufg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_uJZiyfAHEeeuBpgvFADufg" name="Specialty_CARDIOLOGIADERMATOLOGIAGINECOLOGIANEUROLOGIAOFTALMOLOGIAORTOPEDIAPEDIATRIAPNEUMOLOGIAREUMATOLOGIAUROLOGIA__219013076">
+      <ownedLiteral xmi:id="_uJZiyvAHEeeuBpgvFADufg" name="&lt;CARDIOLOGIA>"/>
+      <ownedLiteral xmi:id="_uJZiy_AHEeeuBpgvFADufg" name="&lt;DERMATOLOGIA>"/>
+      <ownedLiteral xmi:id="_uJZizPAHEeeuBpgvFADufg" name="&lt;GINECOLOGIA>"/>
+      <ownedLiteral xmi:id="_uJZizfAHEeeuBpgvFADufg" name="&lt;NEUROLOGIA>"/>
+      <ownedLiteral xmi:id="_uJZizvAHEeeuBpgvFADufg" name="&lt;OFTALMOLOGIA>"/>
+      <ownedLiteral xmi:id="_uJZiz_AHEeeuBpgvFADufg" name="&lt;ORTOPEDIA>"/>
+      <ownedLiteral xmi:id="_uJZi0PAHEeeuBpgvFADufg" name="&lt;PEDIATRIA>"/>
+      <ownedLiteral xmi:id="_uJZi0fAHEeeuBpgvFADufg" name="&lt;PNEUMOLOGIA>"/>
+      <ownedLiteral xmi:id="_uJZi0vAHEeeuBpgvFADufg" name="&lt;REUMATOLOGIA>"/>
+      <ownedLiteral xmi:id="_uJZi0_AHEeeuBpgvFADufg" name="&lt;UROLOGIA>"/>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZi1PAHEeeuBpgvFADufg" name="Patient" visibility="public">
+    <generalization xmi:id="_uJZi1fAHEeeuBpgvFADufg" general="_uJZi7vAHEeeuBpgvFADufg"/>
+    <ownedAttribute xmi:id="_uJZi1vAHEeeuBpgvFADufg" name="clinicalObservations" visibility="private" type="_uJZirvAHEeeuBpgvFADufg" isOrdered="true" isUnique="false" association="_uJZkMvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZi1_AHEeeuBpgvFADufg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZi2PAHEeeuBpgvFADufg" value="*"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZi2fAHEeeuBpgvFADufg" value="[]"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZi2vAHEeeuBpgvFADufg" name="currId" visibility="private" isStatic="true" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZi2_AHEeeuBpgvFADufg" value="0"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZi3PAHEeeuBpgvFADufg" name="id" visibility="private" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZi3fAHEeeuBpgvFADufg" value="currId"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_uJZi3vAHEeeuBpgvFADufg" name="Patient" visibility="public">
+      <ownedParameter xmi:id="_uJZi3_AHEeeuBpgvFADufg" name="n" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZi4PAHEeeuBpgvFADufg" name="a" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZi4fAHEeeuBpgvFADufg" name="d" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZi4vAHEeeuBpgvFADufg" type="_uJZi1PAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZi4_AHEeeuBpgvFADufg" name="getId" visibility="public">
+      <ownedParameter xmi:id="_uJZi5PAHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZi5fAHEeeuBpgvFADufg" name="getName" visibility="public">
+      <ownedParameter xmi:id="_uJZi5vAHEeeuBpgvFADufg" type="_uJZirvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZi5_AHEeeuBpgvFADufg" name="getAge" visibility="public">
+      <ownedParameter xmi:id="_uJZi6PAHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZi6fAHEeeuBpgvFADufg" name="getClinicalObservations" visibility="public">
+      <ownedParameter xmi:id="_uJZi6vAHEeeuBpgvFADufg" type="_uJZkC_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZi6_AHEeeuBpgvFADufg" name="addObservation" visibility="public">
+      <ownedParameter xmi:id="_uJZi7PAHEeeuBpgvFADufg" name="d" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZi7fAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZi7vAHEeeuBpgvFADufg" name="Person" visibility="public">
+    <ownedAttribute xmi:id="_uJZi7_AHEeeuBpgvFADufg" name="name" visibility="protected" type="_uJZirvAHEeeuBpgvFADufg" association="_uJZkNvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZi8PAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZi8fAHEeeuBpgvFADufg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZi8vAHEeeuBpgvFADufg" value="[]"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZi8_AHEeeuBpgvFADufg" name="age" visibility="protected" type="_uJZh9vAHEeeuBpgvFADufg">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZi9PAHEeeuBpgvFADufg" value="(undefined)"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_uJZi9fAHEeeuBpgvFADufg" name="retName" visibility="protected">
+      <ownedParameter xmi:id="_uJZi9vAHEeeuBpgvFADufg" type="_uJZirvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZi9_AHEeeuBpgvFADufg" name="retAge" visibility="protected">
+      <ownedParameter xmi:id="_uJZi-PAHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZi-fAHEeeuBpgvFADufg" name="SafetyNetNetwork" visibility="public">
+    <ownedAttribute xmi:id="_uJZi-vAHEeeuBpgvFADufg" name="hospitals" visibility="private" type="_uJZibvAHEeeuBpgvFADufg" association="_uJZkOvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZi-_AHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZi_PAHEeeuBpgvFADufg" value="1"/>
+      <qualifier xmi:id="_uJZi_fAHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZi_vAHEeeuBpgvFADufg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZi__AHEeeuBpgvFADufg" value="1"/>
+      </qualifier>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZjAPAHEeeuBpgvFADufg" value="{|->}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZjAfAHEeeuBpgvFADufg" name="doctors" visibility="private" type="_uJZiV_AHEeeuBpgvFADufg" association="_uJZkPvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZjAvAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZjA_AHEeeuBpgvFADufg" value="1"/>
+      <qualifier xmi:id="_uJZjBPAHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZjBfAHEeeuBpgvFADufg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZjBvAHEeeuBpgvFADufg" value="1"/>
+      </qualifier>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZjB_AHEeeuBpgvFADufg" value="{|->}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZjCPAHEeeuBpgvFADufg" name="patients" visibility="private" type="_uJZi1PAHEeeuBpgvFADufg" association="_uJZkQvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZjCfAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZjCvAHEeeuBpgvFADufg" value="1"/>
+      <qualifier xmi:id="_uJZjC_AHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZjDPAHEeeuBpgvFADufg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZjDfAHEeeuBpgvFADufg" value="1"/>
+      </qualifier>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZjDvAHEeeuBpgvFADufg" value="{|->}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZjD_AHEeeuBpgvFADufg" name="appointments" visibility="private" type="_uJZiN_AHEeeuBpgvFADufg" association="_uJZkRvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZjEPAHEeeuBpgvFADufg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZjEfAHEeeuBpgvFADufg" value="*"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZjEvAHEeeuBpgvFADufg" value="{}"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_uJZjE_AHEeeuBpgvFADufg" name="networkInstance" visibility="private" isStatic="true" type="_uJZi-fAHEeeuBpgvFADufg" association="_uJZkSvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZjFPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZjFfAHEeeuBpgvFADufg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZjFvAHEeeuBpgvFADufg" value="new SafetyNetNetwork()"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_uJZjF_AHEeeuBpgvFADufg" name="SafetyNetNetwork" visibility="private">
+      <ownedParameter xmi:id="_uJZjGPAHEeeuBpgvFADufg" type="_uJZi-fAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjGfAHEeeuBpgvFADufg" name="getInstance" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_uJZjGvAHEeeuBpgvFADufg" type="_uJZi-fAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjG_AHEeeuBpgvFADufg" name="clearInstance" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_uJZjHPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjHfAHEeeuBpgvFADufg" name="associateDoctorToHospital" visibility="public">
+      <ownedParameter xmi:id="_uJZjHvAHEeeuBpgvFADufg" name="hospitalId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjH_AHEeeuBpgvFADufg" name="doctorId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjIPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjIfAHEeeuBpgvFADufg" name="disassociateDoctorFromHospital" visibility="public">
+      <ownedParameter xmi:id="_uJZjIvAHEeeuBpgvFADufg" name="hospitalId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjI_AHEeeuBpgvFADufg" name="doctorId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjJPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjJfAHEeeuBpgvFADufg" name="getHospitals" visibility="public">
+      <ownedParameter xmi:id="_uJZjJvAHEeeuBpgvFADufg" type="_uJZkDvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjJ_AHEeeuBpgvFADufg" name="addHospital" visibility="public">
+      <ownedParameter xmi:id="_uJZjKPAHEeeuBpgvFADufg" name="hospital" type="_uJZibvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjKfAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjKvAHEeeuBpgvFADufg" name="removeHospital" visibility="public">
+      <ownedParameter xmi:id="_uJZjK_AHEeeuBpgvFADufg" name="hospital" type="_uJZibvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjLPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjLfAHEeeuBpgvFADufg" name="addAgreementToHospital" visibility="public">
+      <ownedParameter xmi:id="_uJZjLvAHEeeuBpgvFADufg" name="hospitalId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjL_AHEeeuBpgvFADufg" name="agreement" type="_uJZiwPAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjMPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjMfAHEeeuBpgvFADufg" name="removeAgreementFromHospital" visibility="public">
+      <ownedParameter xmi:id="_uJZjMvAHEeeuBpgvFADufg" name="hospitalId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjM_AHEeeuBpgvFADufg" name="agreement" type="_uJZiwPAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjNPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjNfAHEeeuBpgvFADufg" name="getHospitalsById" visibility="public">
+      <ownedParameter xmi:id="_uJZjNvAHEeeuBpgvFADufg" name="hospitalId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjN_AHEeeuBpgvFADufg" type="_uJZibvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjOPAHEeeuBpgvFADufg" name="getHospitalsByCity" visibility="public">
+      <ownedParameter xmi:id="_uJZjOfAHEeeuBpgvFADufg" name="city" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjOvAHEeeuBpgvFADufg" type="_uJZkHfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjO_AHEeeuBpgvFADufg" name="getHospitalsByName" visibility="public">
+      <ownedParameter xmi:id="_uJZjPPAHEeeuBpgvFADufg" name="name" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjPfAHEeeuBpgvFADufg" type="_uJZkHfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjPvAHEeeuBpgvFADufg" name="getHospitalsByAgreement" visibility="public">
+      <ownedParameter xmi:id="_uJZjP_AHEeeuBpgvFADufg" name="agreement" type="_uJZiwPAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjQPAHEeeuBpgvFADufg" type="_uJZkHfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjQfAHEeeuBpgvFADufg" name="getHospitalsBySpecialty" visibility="public">
+      <ownedParameter xmi:id="_uJZjQvAHEeeuBpgvFADufg" name="specialty" type="_uJZix_AHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjQ_AHEeeuBpgvFADufg" type="_uJZkHfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjRPAHEeeuBpgvFADufg" name="getHospitalSpecialties" visibility="public">
+      <ownedParameter xmi:id="_uJZjRfAHEeeuBpgvFADufg" name="hospitalId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjRvAHEeeuBpgvFADufg" type="_uJZkIPAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjR_AHEeeuBpgvFADufg" name="getDoctors" visibility="public">
+      <ownedParameter xmi:id="_uJZjSPAHEeeuBpgvFADufg" type="_uJZkEvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjSfAHEeeuBpgvFADufg" name="addDoctor" visibility="public">
+      <ownedParameter xmi:id="_uJZjSvAHEeeuBpgvFADufg" name="doctor" type="_uJZiV_AHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjS_AHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjTPAHEeeuBpgvFADufg" name="removeDoctor" visibility="public">
+      <ownedParameter xmi:id="_uJZjTfAHEeeuBpgvFADufg" name="doctor" type="_uJZiV_AHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjTvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjT_AHEeeuBpgvFADufg" name="getDoctorsBySpecialty" visibility="public">
+      <ownedParameter xmi:id="_uJZjUPAHEeeuBpgvFADufg" name="s" type="_uJZix_AHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjUfAHEeeuBpgvFADufg" type="_uJZkI_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjUvAHEeeuBpgvFADufg" name="getDoctorById" visibility="public">
+      <ownedParameter xmi:id="_uJZjU_AHEeeuBpgvFADufg" name="doctorId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjVPAHEeeuBpgvFADufg" type="_uJZiV_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjVfAHEeeuBpgvFADufg" name="getDoctorHospitals" visibility="public">
+      <ownedParameter xmi:id="_uJZjVvAHEeeuBpgvFADufg" name="doctorId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjV_AHEeeuBpgvFADufg" type="_uJZkHfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjWPAHEeeuBpgvFADufg" name="addPatient" visibility="public">
+      <ownedParameter xmi:id="_uJZjWfAHEeeuBpgvFADufg" name="patient" type="_uJZi1PAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjWvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjW_AHEeeuBpgvFADufg" name="removePatient" visibility="public">
+      <ownedParameter xmi:id="_uJZjXPAHEeeuBpgvFADufg" name="patient" type="_uJZi1PAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjXfAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjXvAHEeeuBpgvFADufg" name="addClinicalObservation" visibility="public">
+      <ownedParameter xmi:id="_uJZjX_AHEeeuBpgvFADufg" name="patientId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjYPAHEeeuBpgvFADufg" name="obs" type="_uJZirvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjYfAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjYvAHEeeuBpgvFADufg" name="getPatients" visibility="public">
+      <ownedParameter xmi:id="_uJZjY_AHEeeuBpgvFADufg" type="_uJZkFvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjZPAHEeeuBpgvFADufg" name="getPatientById" visibility="public">
+      <ownedParameter xmi:id="_uJZjZfAHEeeuBpgvFADufg" name="patientId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjZvAHEeeuBpgvFADufg" type="_uJZi1PAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjZ_AHEeeuBpgvFADufg" name="getAppointments" visibility="public">
+      <ownedParameter xmi:id="_uJZjaPAHEeeuBpgvFADufg" type="_uJZkGvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjafAHEeeuBpgvFADufg" name="getHospitalAppointments" visibility="public">
+      <ownedParameter xmi:id="_uJZjavAHEeeuBpgvFADufg" name="hospitalId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZja_AHEeeuBpgvFADufg" type="_uJZkGvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjbPAHEeeuBpgvFADufg" name="getHospitalNumberOfAppointments" visibility="public">
+      <ownedParameter xmi:id="_uJZjbfAHEeeuBpgvFADufg" name="hospitalId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjbvAHEeeuBpgvFADufg" type="_uJZh9vAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjb_AHEeeuBpgvFADufg" name="getDoctorAppointments" visibility="public">
+      <ownedParameter xmi:id="_uJZjcPAHEeeuBpgvFADufg" name="doctorId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjcfAHEeeuBpgvFADufg" type="_uJZkGvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjcvAHEeeuBpgvFADufg" name="getPatientAppointments" visibility="public">
+      <ownedParameter xmi:id="_uJZjc_AHEeeuBpgvFADufg" name="patientId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjdPAHEeeuBpgvFADufg" type="_uJZkGvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjdfAHEeeuBpgvFADufg" name="getSpecialtyAppointments" visibility="public">
+      <ownedParameter xmi:id="_uJZjdvAHEeeuBpgvFADufg" name="specialty" type="_uJZix_AHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjd_AHEeeuBpgvFADufg" type="_uJZkGvAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjePAHEeeuBpgvFADufg" name="addAppointment" visibility="public">
+      <ownedParameter xmi:id="_uJZjefAHEeeuBpgvFADufg" name="a" type="_uJZiN_AHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjevAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZje_AHEeeuBpgvFADufg" name="removeAppointment" visibility="public">
+      <ownedParameter xmi:id="_uJZjfPAHEeeuBpgvFADufg" name="a" type="_uJZiN_AHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjffAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjfvAHEeeuBpgvFADufg" name="getClosestAvailableDate" visibility="public">
+      <ownedParameter xmi:id="_uJZjf_AHEeeuBpgvFADufg" name="availableDoctors" type="_uJZkCPAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjgPAHEeeuBpgvFADufg" type="_uJZivPAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjgfAHEeeuBpgvFADufg" name="getDoctorFirstAvailableDate" visibility="public">
+      <ownedParameter xmi:id="_uJZjgvAHEeeuBpgvFADufg" name="docId" type="_uJZh9vAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjg_AHEeeuBpgvFADufg" type="_uJZitfAHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZjhPAHEeeuBpgvFADufg" name="MyTestCase" visibility="public">
+    <ownedOperation xmi:id="_uJZjhfAHEeeuBpgvFADufg" name="assertTrue" visibility="protected">
+      <ownedParameter xmi:id="_uJZjhvAHEeeuBpgvFADufg" name="arg" type="_uJZiBfAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjh_AHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjiPAHEeeuBpgvFADufg" name="assertFalse" visibility="protected">
+      <ownedParameter xmi:id="_uJZjifAHEeeuBpgvFADufg" name="arg" type="_uJZiBfAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjivAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZji_AHEeeuBpgvFADufg" name="assertEqual" visibility="protected">
+      <ownedParameter xmi:id="_uJZjjPAHEeeuBpgvFADufg" name="expected" type="_uJZiBvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjjfAHEeeuBpgvFADufg" name="actual" type="_uJZiBvAHEeeuBpgvFADufg"/>
+      <ownedParameter xmi:id="_uJZjjvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uJZjj_AHEeeuBpgvFADufg" name="SystemTest" visibility="public">
+    <generalization xmi:id="_uJZjkPAHEeeuBpgvFADufg" general="_uJZjhPAHEeeuBpgvFADufg"/>
+    <ownedAttribute xmi:id="_uJZjkfAHEeeuBpgvFADufg" name="safetyNet" visibility="private" type="_uJZi-fAHEeeuBpgvFADufg" association="_uJZkTvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZjkvAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZjk_AHEeeuBpgvFADufg" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_uJZjlPAHEeeuBpgvFADufg" value="SafetyNetNetwork`getInstance()"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_uJZjlfAHEeeuBpgvFADufg" name="main" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_uJZjlvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjl_AHEeeuBpgvFADufg" name="testAddDoctor" visibility="private">
+      <ownedParameter xmi:id="_uJZjmPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjmfAHEeeuBpgvFADufg" name="testGetAllDoctors" visibility="private">
+      <ownedParameter xmi:id="_uJZjmvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjm_AHEeeuBpgvFADufg" name="testRemoveDoctor" visibility="private">
+      <ownedParameter xmi:id="_uJZjnPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjnfAHEeeuBpgvFADufg" name="testAddHospital" visibility="private">
+      <ownedParameter xmi:id="_uJZjnvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjn_AHEeeuBpgvFADufg" name="testRemoveHospital" visibility="private">
+      <ownedParameter xmi:id="_uJZjoPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjofAHEeeuBpgvFADufg" name="testAssociateDoctorToAnHospital" visibility="private">
+      <ownedParameter xmi:id="_uJZjovAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjo_AHEeeuBpgvFADufg" name="testGetHospitalBySpecialtie" visibility="private">
+      <ownedParameter xmi:id="_uJZjpPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjpfAHEeeuBpgvFADufg" name="testDisassociateDoctorToAnHospital" visibility="private">
+      <ownedParameter xmi:id="_uJZjpvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjp_AHEeeuBpgvFADufg" name="testGetHospitalsByLocation" visibility="private">
+      <ownedParameter xmi:id="_uJZjqPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjqfAHEeeuBpgvFADufg" name="testGetHospitalsByAgreement" visibility="private">
+      <ownedParameter xmi:id="_uJZjqvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjq_AHEeeuBpgvFADufg" name="testGetHospitalsById" visibility="private">
+      <ownedParameter xmi:id="_uJZjrPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjrfAHEeeuBpgvFADufg" name="testGetAllHospitals" visibility="private">
+      <ownedParameter xmi:id="_uJZjrvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjr_AHEeeuBpgvFADufg" name="testGetHospitalsByName" visibility="private">
+      <ownedParameter xmi:id="_uJZjsPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjsfAHEeeuBpgvFADufg" name="testGetDoctorHospitals" visibility="private">
+      <ownedParameter xmi:id="_uJZjsvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjs_AHEeeuBpgvFADufg" name="testGetDoctorBySpecialtie" visibility="private">
+      <ownedParameter xmi:id="_uJZjtPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjtfAHEeeuBpgvFADufg" name="testGetHospitalSpecialties" visibility="private">
+      <ownedParameter xmi:id="_uJZjtvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjt_AHEeeuBpgvFADufg" name="testGetDoctorById" visibility="private">
+      <ownedParameter xmi:id="_uJZjuPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjufAHEeeuBpgvFADufg" name="testAddPatient" visibility="private">
+      <ownedParameter xmi:id="_uJZjuvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZju_AHEeeuBpgvFADufg" name="testRemovePatient" visibility="private">
+      <ownedParameter xmi:id="_uJZjvPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjvfAHEeeuBpgvFADufg" name="testGetPatientById" visibility="private">
+      <ownedParameter xmi:id="_uJZjvvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjv_AHEeeuBpgvFADufg" name="testAddAppointment" visibility="private">
+      <ownedParameter xmi:id="_uJZjwPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjwfAHEeeuBpgvFADufg" name="testRemoveAppointment" visibility="private">
+      <ownedParameter xmi:id="_uJZjwvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjw_AHEeeuBpgvFADufg" name="testAddAgreement" visibility="private">
+      <ownedParameter xmi:id="_uJZjxPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjxfAHEeeuBpgvFADufg" name="testRemoveAgreement" visibility="private">
+      <ownedParameter xmi:id="_uJZjxvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjx_AHEeeuBpgvFADufg" name="testAddObservation" visibility="private">
+      <ownedParameter xmi:id="_uJZjyPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjyfAHEeeuBpgvFADufg" name="testGetSpecialtyAppointments" visibility="private">
+      <ownedParameter xmi:id="_uJZjyvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjy_AHEeeuBpgvFADufg" name="testGetHospitalClosestAvailableDate" visibility="private">
+      <ownedParameter xmi:id="_uJZjzPAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjzfAHEeeuBpgvFADufg" name="testGetNextAppointmentDate" visibility="private">
+      <ownedParameter xmi:id="_uJZjzvAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZjz_AHEeeuBpgvFADufg" name="testFailForgotToAddDoctor" visibility="public">
+      <ownedParameter xmi:id="_uJZj0PAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZj0fAHEeeuBpgvFADufg" name="testFailForgotToAddHospital" visibility="public">
+      <ownedParameter xmi:id="_uJZj0vAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZj0_AHEeeuBpgvFADufg" name="testFailCanNotRemoveAnAgreement" visibility="public">
+      <ownedParameter xmi:id="_uJZj1PAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZj1fAHEeeuBpgvFADufg" name="testFailSearchForADoctor" visibility="public">
+      <ownedParameter xmi:id="_uJZj1vAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZj1_AHEeeuBpgvFADufg" name="testFailDisassociatingADoctorFromAnHospital" visibility="public">
+      <ownedParameter xmi:id="_uJZj2PAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_uJZj2fAHEeeuBpgvFADufg" name="testFailCreatingAnAppointment" visibility="public">
+      <ownedParameter xmi:id="_uJZj2vAHEeeuBpgvFADufg" type="_uJZiB_AHEeeuBpgvFADufg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_uJZj2_AHEeeuBpgvFADufg" name="Composite VDM Types">
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZj3PAHEeeuBpgvFADufg" name="Seq&lt;T>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_uJZj3fAHEeeuBpgvFADufg" name="T" parameter="_uJZj3vAHEeeuBpgvFADufg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_uJZj3vAHEeeuBpgvFADufg" parameteredElement="_uJZj3_AHEeeuBpgvFADufg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_uJZj3_AHEeeuBpgvFADufg" name="T" templateParameter="_uJZj3vAHEeeuBpgvFADufg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZj4PAHEeeuBpgvFADufg" name="Product&lt;A,B>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_uJZj4fAHEeeuBpgvFADufg" name="A,B" parameter="_uJZj4vAHEeeuBpgvFADufg _uJZj5PAHEeeuBpgvFADufg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_uJZj4vAHEeeuBpgvFADufg" parameteredElement="_uJZj4_AHEeeuBpgvFADufg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_uJZj4_AHEeeuBpgvFADufg" name="A" templateParameter="_uJZj4vAHEeeuBpgvFADufg"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_uJZj5PAHEeeuBpgvFADufg" parameteredElement="_uJZj5fAHEeeuBpgvFADufg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_uJZj5fAHEeeuBpgvFADufg" name="B" templateParameter="_uJZj5PAHEeeuBpgvFADufg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZj5vAHEeeuBpgvFADufg" name="Optional&lt;T>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_uJZj5_AHEeeuBpgvFADufg" name="T" parameter="_uJZj6PAHEeeuBpgvFADufg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_uJZj6PAHEeeuBpgvFADufg" parameteredElement="_uJZj6fAHEeeuBpgvFADufg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_uJZj6fAHEeeuBpgvFADufg" name="T" templateParameter="_uJZj6PAHEeeuBpgvFADufg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZj6vAHEeeuBpgvFADufg" name="Set&lt;T>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_uJZj6_AHEeeuBpgvFADufg" name="T" parameter="_uJZj7PAHEeeuBpgvFADufg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_uJZj7PAHEeeuBpgvFADufg" parameteredElement="_uJZj7fAHEeeuBpgvFADufg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_uJZj7fAHEeeuBpgvFADufg" name="T" templateParameter="_uJZj7PAHEeeuBpgvFADufg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZj7vAHEeeuBpgvFADufg" name="InMap&lt;D,R>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_uJZj7_AHEeeuBpgvFADufg" name="D,R" parameter="_uJZj8PAHEeeuBpgvFADufg _uJZj8vAHEeeuBpgvFADufg">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_uJZj8PAHEeeuBpgvFADufg" parameteredElement="_uJZj8fAHEeeuBpgvFADufg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_uJZj8fAHEeeuBpgvFADufg" name="D" templateParameter="_uJZj8PAHEeeuBpgvFADufg"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_uJZj8vAHEeeuBpgvFADufg" parameteredElement="_uJZj8_AHEeeuBpgvFADufg">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_uJZj8_AHEeeuBpgvFADufg" name="R" templateParameter="_uJZj8vAHEeeuBpgvFADufg"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_uJZj9PAHEeeuBpgvFADufg" name="Binding classes">
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZj9fAHEeeuBpgvFADufg" name="Seq&lt;char>">
+      <templateBinding xmi:id="_uJZj9vAHEeeuBpgvFADufg" signature="_uJZj3fAHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZj9_AHEeeuBpgvFADufg" actual="_uJZh9PAHEeeuBpgvFADufg" formal="_uJZj3vAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZj-PAHEeeuBpgvFADufg" name="Product&lt;bool,Optional&lt;p>>">
+      <templateBinding xmi:id="_uJZj-fAHEeeuBpgvFADufg" signature="_uJZj4fAHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZj-vAHEeeuBpgvFADufg" actual="_uJZiBfAHEeeuBpgvFADufg" formal="_uJZj4vAHEeeuBpgvFADufg"/>
+        <parameterSubstitution xmi:id="_uJZj-_AHEeeuBpgvFADufg" actual="_uJZj_PAHEeeuBpgvFADufg" formal="_uJZj5PAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZj_PAHEeeuBpgvFADufg" name="Optional&lt;p>">
+      <templateBinding xmi:id="_uJZj_fAHEeeuBpgvFADufg" signature="_uJZj5_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZj_vAHEeeuBpgvFADufg" actual="_uJZiNvAHEeeuBpgvFADufg" formal="_uJZj6PAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZj__AHEeeuBpgvFADufg" name="Optional&lt;IO::filedirective>">
+      <templateBinding xmi:id="_uJZkAPAHEeeuBpgvFADufg" signature="_uJZj5_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkAfAHEeeuBpgvFADufg" actual="_uJZiMfAHEeeuBpgvFADufg" formal="_uJZj6PAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkAvAHEeeuBpgvFADufg" name="Seq&lt;Any>">
+      <templateBinding xmi:id="_uJZkA_AHEeeuBpgvFADufg" signature="_uJZj3fAHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkBPAHEeeuBpgvFADufg" actual="_uJZiBvAHEeeuBpgvFADufg" formal="_uJZj3vAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkBfAHEeeuBpgvFADufg" name="Set&lt;ModelUtils::Agreement>">
+      <templateBinding xmi:id="_uJZkBvAHEeeuBpgvFADufg" signature="_uJZj6_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkB_AHEeeuBpgvFADufg" actual="_uJZiwPAHEeeuBpgvFADufg" formal="_uJZj7PAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkCPAHEeeuBpgvFADufg" name="Set&lt;nat>">
+      <templateBinding xmi:id="_uJZkCfAHEeeuBpgvFADufg" signature="_uJZj6_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkCvAHEeeuBpgvFADufg" actual="_uJZh9vAHEeeuBpgvFADufg" formal="_uJZj7PAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkC_AHEeeuBpgvFADufg" name="Seq&lt;ModelUtils::String>">
+      <templateBinding xmi:id="_uJZkDPAHEeeuBpgvFADufg" signature="_uJZj3fAHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkDfAHEeeuBpgvFADufg" actual="_uJZirvAHEeeuBpgvFADufg" formal="_uJZj3vAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkDvAHEeeuBpgvFADufg" name="InMap&lt;nat,Hospital>">
+      <templateBinding xmi:id="_uJZkD_AHEeeuBpgvFADufg" signature="_uJZj7_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkEPAHEeeuBpgvFADufg" actual="_uJZh9vAHEeeuBpgvFADufg" formal="_uJZj8PAHEeeuBpgvFADufg"/>
+        <parameterSubstitution xmi:id="_uJZkEfAHEeeuBpgvFADufg" actual="_uJZibvAHEeeuBpgvFADufg" formal="_uJZj8vAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkEvAHEeeuBpgvFADufg" name="InMap&lt;nat,Doctor>">
+      <templateBinding xmi:id="_uJZkE_AHEeeuBpgvFADufg" signature="_uJZj7_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkFPAHEeeuBpgvFADufg" actual="_uJZh9vAHEeeuBpgvFADufg" formal="_uJZj8PAHEeeuBpgvFADufg"/>
+        <parameterSubstitution xmi:id="_uJZkFfAHEeeuBpgvFADufg" actual="_uJZiV_AHEeeuBpgvFADufg" formal="_uJZj8vAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkFvAHEeeuBpgvFADufg" name="InMap&lt;nat,Patient>">
+      <templateBinding xmi:id="_uJZkF_AHEeeuBpgvFADufg" signature="_uJZj7_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkGPAHEeeuBpgvFADufg" actual="_uJZh9vAHEeeuBpgvFADufg" formal="_uJZj8PAHEeeuBpgvFADufg"/>
+        <parameterSubstitution xmi:id="_uJZkGfAHEeeuBpgvFADufg" actual="_uJZi1PAHEeeuBpgvFADufg" formal="_uJZj8vAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkGvAHEeeuBpgvFADufg" name="Set&lt;Appointment>">
+      <templateBinding xmi:id="_uJZkG_AHEeeuBpgvFADufg" signature="_uJZj6_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkHPAHEeeuBpgvFADufg" actual="_uJZiN_AHEeeuBpgvFADufg" formal="_uJZj7PAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkHfAHEeeuBpgvFADufg" name="Set&lt;Hospital>">
+      <templateBinding xmi:id="_uJZkHvAHEeeuBpgvFADufg" signature="_uJZj6_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkH_AHEeeuBpgvFADufg" actual="_uJZibvAHEeeuBpgvFADufg" formal="_uJZj7PAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkIPAHEeeuBpgvFADufg" name="Set&lt;ModelUtils::Specialty>">
+      <templateBinding xmi:id="_uJZkIfAHEeeuBpgvFADufg" signature="_uJZj6_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkIvAHEeeuBpgvFADufg" actual="_uJZix_AHEeeuBpgvFADufg" formal="_uJZj7PAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uJZkI_AHEeeuBpgvFADufg" name="Set&lt;Doctor>">
+      <templateBinding xmi:id="_uJZkJPAHEeeuBpgvFADufg" signature="_uJZj6_AHEeeuBpgvFADufg">
+        <parameterSubstitution xmi:id="_uJZkJfAHEeeuBpgvFADufg" actual="_uJZiV_AHEeeuBpgvFADufg" formal="_uJZj7PAHEeeuBpgvFADufg"/>
+      </templateBinding>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkJvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZiWfAHEeeuBpgvFADufg _uJZkJ_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkJ_AHEeeuBpgvFADufg" name="" type="_uJZiV_AHEeeuBpgvFADufg" association="_uJZkJvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkKPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkKfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkKvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZib_AHEeeuBpgvFADufg _uJZkK_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkK_AHEeeuBpgvFADufg" name="" type="_uJZibvAHEeeuBpgvFADufg" association="_uJZkKvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkLPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkLfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkLvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZidfAHEeeuBpgvFADufg _uJZkL_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkL_AHEeeuBpgvFADufg" name="" type="_uJZibvAHEeeuBpgvFADufg" association="_uJZkLvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkMPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkMfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkMvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZi1vAHEeeuBpgvFADufg _uJZkM_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkM_AHEeeuBpgvFADufg" name="" type="_uJZi1PAHEeeuBpgvFADufg" association="_uJZkMvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkNPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkNfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkNvAHEeeuBpgvFADufg" visibility="protected" memberEnd="_uJZi7_AHEeeuBpgvFADufg _uJZkN_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkN_AHEeeuBpgvFADufg" name="" type="_uJZi7vAHEeeuBpgvFADufg" association="_uJZkNvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkOPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkOfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkOvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZi-vAHEeeuBpgvFADufg _uJZkO_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkO_AHEeeuBpgvFADufg" name="" type="_uJZi-fAHEeeuBpgvFADufg" association="_uJZkOvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkPPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkPfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkPvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZjAfAHEeeuBpgvFADufg _uJZkP_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkP_AHEeeuBpgvFADufg" name="" type="_uJZi-fAHEeeuBpgvFADufg" association="_uJZkPvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkQPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkQfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkQvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZjCPAHEeeuBpgvFADufg _uJZkQ_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkQ_AHEeeuBpgvFADufg" name="" type="_uJZi-fAHEeeuBpgvFADufg" association="_uJZkQvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkRPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkRfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkRvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZjD_AHEeeuBpgvFADufg _uJZkR_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkR_AHEeeuBpgvFADufg" name="" type="_uJZi-fAHEeeuBpgvFADufg" association="_uJZkRvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkSPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkSfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkSvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZjE_AHEeeuBpgvFADufg _uJZkS_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkS_AHEeeuBpgvFADufg" name="" type="_uJZi-fAHEeeuBpgvFADufg" association="_uJZkSvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkTPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkTfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_uJZkTvAHEeeuBpgvFADufg" visibility="private" memberEnd="_uJZjkfAHEeeuBpgvFADufg _uJZkT_AHEeeuBpgvFADufg">
+    <ownedEnd xmi:id="_uJZkT_AHEeeuBpgvFADufg" name="" type="_uJZjj_AHEeeuBpgvFADufg" association="_uJZkTvAHEeeuBpgvFADufg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uJZkUPAHEeeuBpgvFADufg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uJZkUfAHEeeuBpgvFADufg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>
